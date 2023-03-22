@@ -1,24 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import SignIn from './pages/SignIn';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SignUp from './pages/SignUp';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const users = [
+  {
+    id: 1,
+    firstName: 'Yonatan',
+    lastName: 'Lahav',
+    email: 'a@a.a',
+    country: 'Israel',
+    city: 'Tel aviv',
+    rooms: '3',
+    bathrooms: '2'
+  }
+];
 
 function App() {
+  const [data, setData] = useState(users);
+
+  console.log(data); // this will log the retrieved data to the console
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SignIn />} />
+        <Route path="signup" element={<SignUp data={data} setData={setData} />} />
+      </Routes>
+    </BrowserRouter >
   );
 }
 

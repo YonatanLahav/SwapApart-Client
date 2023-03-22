@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Yonatan",
+      "lastName": "Lahav",
+      "email": "email@gmail.com",
+      "apartment": {
+        "country": "Israel",
+        "city": "Tel-Aviv",
+        "rooms": "3",
+        "bathrooms": "2"
+      }
+    }
+  ]
+}
