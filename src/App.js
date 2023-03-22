@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignUp from './pages/SignUp';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Home } from '@mui/icons-material';
 
 const users = [
   {
@@ -25,8 +26,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SignIn />} />
+        <Route path="/" element={<SignIn data={data} setData={setData} />} />
         <Route path="signup" element={<SignUp data={data} setData={setData} />} />
+        <Route path="home" element={<Home data={data} setData={setData} />} />
+
       </Routes>
     </BrowserRouter >
   );
