@@ -3,8 +3,7 @@ import SignIn from './pages/SignIn';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignUp from './pages/SignUp';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Home } from '@mui/icons-material';
+import Home from './pages/Home';
 
 const users = [
   {
