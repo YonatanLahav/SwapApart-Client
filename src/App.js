@@ -14,7 +14,8 @@ const users = [
     country: 'Israel',
     city: 'Tel aviv',
     rooms: '3',
-    bathrooms: '2'
+    bathrooms: '2',
+    apartmentImgs: []
   }
 ];
 

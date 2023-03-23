@@ -9,12 +9,30 @@ import { MultipleStop } from '@mui/icons-material';
 
 
 export default function ApartmentDetails({ formData, setFormData }) {
+
+    const [apartmentImgs, setApartmentImgs] = React.useState([]);
+
     const handleInputChange = (event) => {
         setFormData({
             ...formData,
             [event.target.name]: event.target.value,
         });
+
     };
+
+    const handleFileSelect = (event) => {
+        const files = event.target.files;
+        const newApartmentImgs = [...apartmentImgs];
+        for (let i = 0; i < files.length; i++) {
+            newApartmentImgs.push(files[i]);
+        }
+        setApartmentImgs(newApartmentImgs);
+        setFormData({
+            ...formData,
+            apartmentImgs: [...newApartmentImgs],
+        });
+    };
+
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -72,7 +90,10 @@ export default function ApartmentDetails({ formData, setFormData }) {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <input id='fileUpload' type='file' multiple />
+                    <input id='apartmentImgs' type='file' multiple onChange={handleFileSelect} />
+                    {apartmentImgs.map((img) => (
+                        <img src={URL.createObjectURL(img)} alt="Apartment" key={img.name} />
+                    ))}
                 </Grid>
             </Grid>
         </React.Fragment>

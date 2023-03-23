@@ -34,7 +34,8 @@ export default function SignUpForm({ data, setData }) {
         country: '',
         city: '',
         rooms: '',
-        bathrooms: ''
+        bathrooms: '',
+        apartmentImgs: []
     });
 
 
@@ -69,8 +70,8 @@ export default function SignUpForm({ data, setData }) {
                 country: formData.country,
                 city: formData.city,
                 rooms: formData.rooms,
-                bathrooms: formData.bathrooms
-
+                bathrooms: formData.bathrooms,
+                apartmentImgs: formData.apartmentImgs
             };
 
             // update the data object with the new user
