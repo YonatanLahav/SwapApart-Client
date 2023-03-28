@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
+import { useNavigate } from 'react-router-dom';
 
 
 const tiers = [
@@ -81,7 +82,15 @@ const footers = [
         description: ['Privacy policy', 'Terms of use'],
     },
 ];
-function Home() {
+
+function Home({ data, setData, setUser }) {
+    const navigate = useNavigate();
+
+    const handleSignOut = (event) => {
+        setUser(null);
+        navigate("/");
+    };
+
     return (
         <React.Fragment>
             <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
@@ -96,7 +105,7 @@ function Home() {
                     <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
                         SwapApart!
                     </Typography>
-                    <Button href="#" variant="outlined" sx={{ my: 1, mx: 1.5 }}>
+                    <Button onClick={handleSignOut} variant="outlined" sx={{ my: 1, mx: 1.5 }}>
                         Sign Out
                     </Button>
                 </Toolbar>

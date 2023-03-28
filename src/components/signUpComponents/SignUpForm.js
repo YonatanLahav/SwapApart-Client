@@ -17,16 +17,16 @@ import ApartmentDetails from './ApartmentDetails';
 import SummaryForm from './SummaryForm';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const steps = ['Personal Information', 'Apartment Details', 'Summary'];
-
-
-
 const theme = createTheme();
 
-export default function SignUpForm({ data, setData }) {
+export default function SignUpForm({ data, setData, setUser }) {
+
     const navigate = useNavigate();
     const [activeStep, setActiveStep] = React.useState(0);
+    const [newUser, setNewUser] = useState(null);
     const [formData, setFormData] = useState({
         id: '',
         firstName: '',
@@ -40,6 +40,14 @@ export default function SignUpForm({ data, setData }) {
         apartmentImgs: []
     });
 
+    useEffect(() => {
+        if (newUser) {
+            // find the newly created user and set it to the parent component state
+            const user = data.find((u) => u.id === newUser.id);
+            setUser(user);
+            navigate('/home');
+        }
+    }, [newUser]);
 
     function getStepContent(step) {
         switch (step) {
@@ -64,11 +72,12 @@ export default function SignUpForm({ data, setData }) {
     const handleSubmit = () => {
         if (activeStep === steps.length - 1) {
             // create a new user object with the form data
-            const newUser = {
+            const user = {
                 id: data.length + 1, // generate a new ID based on the number of existing users
                 firstName: formData.firstName,
                 lastName: formData.lastName,
                 email: formData.email,
+                password: formData.password,
                 country: formData.country,
                 city: formData.city,
                 rooms: formData.rooms,
@@ -76,17 +85,13 @@ export default function SignUpForm({ data, setData }) {
                 apartmentImgs: formData.apartmentImgs
             };
             // update the data object with the new user
-            setData([...data, newUser]);
-
-            // log the updated data object to the console
-            console.log(data);
-            navigate('/home');
+            setData([...data, user]);
+            // set the newly created user to the state variable
+            setNewUser(user);
         } else {
             handleNext();
         }
     };
-
-
 
     return (
         <ThemeProvider theme={theme}>
@@ -102,7 +107,7 @@ export default function SignUpForm({ data, setData }) {
             >
                 <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap>
-                        SwapApart
+                        SwapApart!
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -118,38 +123,25 @@ export default function SignUpForm({ data, setData }) {
                             </Step>
                         ))}
                     </Stepper>
-                    {activeStep === steps.length ? (
-                        <React.Fragment>
-                            <Typography variant="h5" gutterBottom>
-                                Thank you for your order.
-                            </Typography>
-                            <Typography variant="subtitle1">
-                                Your order number is #2001539. We have emailed your order
-                                confirmation, and will send you an update when your order has
-                                shipped.
-                            </Typography>
-                        </React.Fragment>
-                    ) : (
-                        <React.Fragment>
-                            {getStepContent(activeStep)}
-                            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                {activeStep !== 0 && (
-                                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                                        Back
-                                    </Button>
-                                )}
-
-                                <Button
-                                    variant="contained"
-                                    onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
-                                    sx={{ mt: 3, ml: 1 }}
-                                >
-                                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                    <React.Fragment>
+                        {getStepContent(activeStep)}
+                        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            {activeStep !== 0 && (
+                                <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                                    Back
                                 </Button>
-                            </Box>
-                        </React.Fragment>
-                    )}
+                            )}
+                            <Button
+                                variant="contained"
+                                onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
+                                sx={{ mt: 3, ml: 1 }}
+                            >
+                                {activeStep === steps.length - 1 ? 'Done' : 'Next'}
+                            </Button>
+                        </Box>
+                    </React.Fragment>
                 </Paper>
+                <Link onClick={() => navigate("/signin")} underline='hover' >Have an account? Sign Ip</Link>
             </Container>
         </ThemeProvider>
     );

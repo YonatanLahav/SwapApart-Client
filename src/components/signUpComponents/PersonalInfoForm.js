@@ -6,12 +6,14 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 export default function PersonalInfoForm({ formData, setFormData }) {
+
     const handleInputChange = (event) => {
         setFormData({
             ...formData,
             [event.target.name]: event.target.value,
         });
     };
+
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>

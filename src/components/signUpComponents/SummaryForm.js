@@ -4,7 +4,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
-import { fontStyle } from '@mui/system';
 
 export default function SummaryForm({ formData, setFormData }) {
     return (
@@ -27,6 +26,9 @@ export default function SummaryForm({ formData, setFormData }) {
                         <ListItem sx={{ py: 0, px: 0 }}>
                             <ListItemText primary={'Email'} secondary={formData.email} />
                         </ListItem>
+                        <ListItem sx={{ py: 0, px: 0 }}>
+                            <ListItemText primary={'Password'} secondary={formData.password} />
+                        </ListItem>
                     </List>
                 </Grid>
                 <Grid item xs={6}>
@@ -41,10 +43,10 @@ export default function SummaryForm({ formData, setFormData }) {
                             <ListItemText primary={'City'} secondary={formData.city} />
                         </ListItem>
                         <ListItem sx={{ py: 0, px: 0 }}>
-                            <ListItemText
-                                primary={'Apartment Photos'}
-                                secondary={formData.apartmentImgs.map((img) => img.name).join(', ')}
-                            />
+                            <ListItemText primary={'Rooms'} secondary={formData.rooms} />
+                        </ListItem>
+                        <ListItem sx={{ py: 0, px: 0 }}>
+                            <ListItemText primary={'Bathrooms'} secondary={formData.bathrooms} />
                         </ListItem>
                     </List>
                 </Grid >

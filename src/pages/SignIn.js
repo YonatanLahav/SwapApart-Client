@@ -13,23 +13,31 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn({ data, setUser }) {
 
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-        navigate('/home');
+        const form = new FormData(event.currentTarget);
+        const email = form.get('email');
+        const password = form.get('password');
+        console.log(email, password)
+        const user = data.find((user) => user.email === email && user.password === password);
+        if (user) {
+            setUser(user);
+            navigate('/home');
+        } else {
+            setError('Invalid email or password');
+        }
     };
 
+    const handleSignUp = (event) => { navigate('/signup') };
 
     return (
         <ThemeProvider theme={theme}>
@@ -65,6 +73,13 @@ export default function SignIn() {
                         <Typography component="h1" variant="h5">
                             Sign in
                         </Typography>
+
+                        {error && (
+                            <Typography color="error" sx={{ mt: 2, mb: 2 }}>
+                                {error}
+                            </Typography>
+                        )}
+
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"
@@ -98,16 +113,9 @@ export default function SignIn() {
                             >
                                 Sign In
                             </Button>
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                        Forgot password?
-                                    </Link>
-                                </Grid>
+                            <Grid container >
                                 <Grid item>
-                                    <Link href="signup" variant="body2">
-                                        {"Don't have an account? Sign Up"}
-                                    </Link>
+                                    <Link underline='hover' onClick={handleSignUp}>Don't have an account? Sign Up</Link>
                                 </Grid>
                             </Grid>
                         </Box>
