@@ -40,6 +40,12 @@ export default function SummaryForm({ formData, setFormData }) {
                         <ListItem sx={{ py: 0, px: 0 }}>
                             <ListItemText primary={'City'} secondary={formData.city} />
                         </ListItem>
+                        <ListItem sx={{ py: 0, px: 0 }}>
+                            <ListItemText
+                                primary={'Apartment Photos'}
+                                secondary={formData.apartmentImgs.map((img) => img.name).join(', ')}
+                            />
+                        </ListItem>
                     </List>
                 </Grid >
             </Grid >

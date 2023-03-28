@@ -16,6 +16,7 @@ import PersonalInfoForm from './PersonalInfoForm';
 import ApartmentDetails from './ApartmentDetails';
 import SummaryForm from './SummaryForm';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const steps = ['Personal Information', 'Apartment Details', 'Summary'];
 
@@ -24,6 +25,7 @@ const steps = ['Personal Information', 'Apartment Details', 'Summary'];
 const theme = createTheme();
 
 export default function SignUpForm({ data, setData }) {
+    const navigate = useNavigate();
     const [activeStep, setActiveStep] = React.useState(0);
     const [formData, setFormData] = useState({
         id: '',
@@ -73,12 +75,12 @@ export default function SignUpForm({ data, setData }) {
                 bathrooms: formData.bathrooms,
                 apartmentImgs: formData.apartmentImgs
             };
-
             // update the data object with the new user
             setData([...data, newUser]);
 
             // log the updated data object to the console
             console.log(data);
+            navigate('/home');
         } else {
             handleNext();
         }

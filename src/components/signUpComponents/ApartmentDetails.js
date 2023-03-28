@@ -91,9 +91,9 @@ export default function ApartmentDetails({ formData, setFormData }) {
                 </Grid>
                 <Grid item xs={12}>
                     <input id='apartmentImgs' type='file' multiple onChange={handleFileSelect} />
-                    {apartmentImgs.map((img) => (
+                    {/* {apartmentImgs.map((img) => (
                         <img src={URL.createObjectURL(img)} alt="Apartment" key={img.name} />
-                    ))}
+                    ))} */}
                 </Grid>
             </Grid>
         </React.Fragment>
