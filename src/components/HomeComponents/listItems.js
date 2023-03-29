@@ -5,6 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import HomeIcon from '@mui/icons-material/Home';
 import AddIcon from '@mui/icons-material/Add';
+import ForumIcon from '@mui/icons-material/Forum';
 import SettingsIcon from '@mui/icons-material/Settings';
 import InfoIcon from '@mui/icons-material/Info';
 
@@ -21,6 +22,12 @@ export const mainListItems = (
                 <AddIcon />
             </ListItemIcon>
             <ListItemText primary="New Vacation" />
+        </ListItemButton>
+        <ListItemButton >
+            <ListItemIcon>
+                <ForumIcon />
+            </ListItemIcon>
+            <ListItemText primary="Chats" />
         </ListItemButton>
     </React.Fragment>
 );
