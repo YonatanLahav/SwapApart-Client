@@ -45,7 +45,7 @@ function HomePage({ setActivePage }) {
                             spacing={2}
                             justifyContent="center"
                         >
-                            <Button variant="contained">New search</Button>
+                            <Button variant="contained" onClick={(event)=> setActivePage(1)}>New search</Button>
                         </Stack>
                     </Container>
                 </Box>
