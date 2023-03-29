@@ -81,7 +81,7 @@ function Home({ data, setData, setUser }) {
     function getPageContent(step) {
         switch (step) {
             case 0:
-                return <HomePage />;
+                return <HomePage setActivePage={setActivePage} />;
             case 1:
                 return <NewSearchPage />;
             case 2:

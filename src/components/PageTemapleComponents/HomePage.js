@@ -13,7 +13,7 @@ import Container from '@mui/material/Container';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-function HomePage() {
+function HomePage({ setActivePage }) {
     return (
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <CssBaseline />
