@@ -3,7 +3,7 @@ import SignIn from './pages/SignIn';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignUp from './pages/SignUp';
 import { useState } from 'react';
-import Home from './pages/Home';
+import Home from './pages/PageTemplate';
 import PrivateRoute from './components/PrivateRoute';
 
 const users = [
