@@ -13,9 +13,15 @@ import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from '../components/HomeComponents/MenuItems';
 import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle'
-import Relevant_apart from '../components/HomeComponents/Relevant_apart.js'
+import HomePage from '../components/PageTemapleComponents/HomePage'
+import ChatPage from '../components/PageTemapleComponents/ChatPage'
+import NewSearchPage from '../components/PageTemapleComponents/NewSearchPage';
+import MenuList from '../components/PageTemapleComponents/MenuList';
+import SettingsPage from '../components/PageTemapleComponents/SettingsPage';
+import ContactUsPage from '../components/PageTemapleComponents/ContactUsPage';
+
+
 
 const drawerWidth = 240;
 
@@ -66,10 +72,29 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function Home({ data, setData, setUser }) {
+    const [activePage, setActivePage] = React.useState(0);
     const [open, setOpen] = React.useState(false);
     const toggleDrawer = () => {
         setOpen(!open);
     };
+
+    function getPageContent(step) {
+        switch (step) {
+            case 0:
+                return <HomePage />;
+            case 1:
+                return <NewSearchPage />;
+            case 2:
+                return <ChatPage />;
+            case 3:
+                return <SettingsPage />;
+            case 4:
+                return <ContactUsPage />;
+            default:
+                throw new Error('Unknown step');
+        }
+    }
+
     return (
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
@@ -125,9 +150,7 @@ function Home({ data, setData, setUser }) {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        {mainListItems}
-                        <Divider sx={{ my: 1 }} />
-                        {secondaryListItems}
+                        <MenuList setActivePage={setActivePage} />
                     </List>
                 </Drawer>
                 <Box
@@ -143,7 +166,7 @@ function Home({ data, setData, setUser }) {
                     }}
                 >
                     <Toolbar />
-                    <Relevant_apart />
+                    {getPageContent(activePage)}
                 </Box>
             </Box>
 
