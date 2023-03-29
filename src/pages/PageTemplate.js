@@ -20,7 +20,8 @@ import NewSearchPage from '../components/PageTemapleComponents/NewSearchPage';
 import MenuList from '../components/PageTemapleComponents/MenuList';
 import SettingsPage from '../components/PageTemapleComponents/SettingsPage';
 import ContactUsPage from '../components/PageTemapleComponents/ContactUsPage';
-
+import Button from '@mui/material/Button';
+import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
 
 
 const drawerWidth = 240;
@@ -128,11 +129,14 @@ function Home({ data, setData, setUser }) {
                         >
                             SwapApart!
                         </Typography>
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
+
+                        <Button
+                            color='inherit'
+                            variant="outlined"
+                            startIcon={<MeetingRoomOutlinedIcon />}
+                            onClick={(event) => { setUser(null) }}>
+                            Sign Out
+                        </Button>
                     </Toolbar>
                 </AppBar>
                 <Drawer variant="permanent" open={open}>

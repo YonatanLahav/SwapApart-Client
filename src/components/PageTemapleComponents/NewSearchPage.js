@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import { maxHeight } from '@mui/system';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import Paper from '@mui/material/Paper';
 
 import dayjs from 'dayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -37,38 +38,15 @@ function NewSearch() {
 
 
     return (
-        <div>
-            <Autocomplete
-                id="country-select-demo"
-                sx={{ width: 300 }}
-                options={countries}
-                autoHighlight
-                getOptionLabel={(option) => option.name}
-                renderOption={(props, option) => (
-                    <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                        <img
-                            loading="lazy"
-                            width="20"
-                            src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                            srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                            alt=""
-                        />
-                        {option.name} ({option.code}) {option.dial_code}
-                    </Box>
-                )}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        label="Choose a country"
-                        inputProps={{
-                            ...params.inputProps,
-                            autoComplete: 'new-password', // disable autocomplete and autofill
-                        }}
-                    />
-                )}
-                onChange={(event, option) => setCountry(option.name)} />
-            {country}
-        </div>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+                    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+
+                    </Paper>
+                </Grid>
+            </Grid>
+        </Container>
     )
 }
 
