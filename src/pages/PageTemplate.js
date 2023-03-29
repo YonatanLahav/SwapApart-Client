@@ -10,24 +10,11 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from '../components/HomeComponents/listItems';
+import { mainListItems, secondaryListItems } from '../components/HomeComponents/MenuItems';
 import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle'
-
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-
-
 import Relevant_apart from '../components/HomeComponents/Relevant_apart.js'
 
 const drawerWidth = 240;
