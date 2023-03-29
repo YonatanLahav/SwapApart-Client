@@ -28,7 +28,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
 
-import  Relevant_apart  from '../components/HomeComponents/Relevant_apart.js'
+import Relevant_apart from '../components/HomeComponents/Relevant_apart.js'
 
 const drawerWidth = 240;
 
@@ -156,7 +156,7 @@ function Home({ data, setData, setUser }) {
                     }}
                 >
                     <Toolbar />
-                    <Relevant_apart/>
+                    <Relevant_apart />
                 </Box>
             </Box>
 
