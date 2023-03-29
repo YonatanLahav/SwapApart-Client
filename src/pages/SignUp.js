@@ -1,13 +1,13 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SignUpForm from '../components/signUpComponents/SignUpForm'
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle';
 
 const theme = createTheme();
 
@@ -15,6 +15,26 @@ export default function SignUp({ data, setData, setUser }) {
 
     return (
         <ThemeProvider theme={theme}>
+            <Box sx={{ display: 'flex' }}>
+                <CssBaseline />
+                <Toolbar
+                    sx={{
+                        pr: '24px', // keep right padding when drawer closed
+                    }}
+                >
+                    <SwapHorizontalCircleIcon />
+                    <Typography
+                        component="h1"
+                        variant="h6"
+                        color="inherit"
+                        noWrap
+                        sx={{ flexGrow: 1 }}
+                        padding={'5px'}
+                    >
+                        SwapApart!
+                    </Typography>
+                </Toolbar>
+            </Box>
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid
