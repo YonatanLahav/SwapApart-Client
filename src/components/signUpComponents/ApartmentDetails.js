@@ -3,6 +3,9 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import ImageStepper from './ImageStepper';
+import Autocomplete from '@mui/material/Autocomplete';
+import { countries } from 'country-list-json';
+import Box from '@mui/material/Box';
 
 export default function ApartmentDetails({ formData, setFormData }) {
 
@@ -34,8 +37,39 @@ export default function ApartmentDetails({ formData, setFormData }) {
                 Apartment Details
             </Typography>
             <Grid container alignItems={'center'} spacing={3}>
-                <Grid item xs={12}>
-                    <TextField
+                <Grid item xs={6}>
+                    <Autocomplete
+                        id="country-select-demo"
+                        options={countries}
+                        autoHighlight
+                        getOptionLabel={(option) => option.name}
+                        renderOption={(props, option) => (
+                            <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                                <img
+                                    loading="lazy"
+                                    width="20"
+                                    src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                                    srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                                    alt=""
+                                />
+                                {option.name} ({option.code}) {option.dial_code}
+                            </Box>
+                        )}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Choose a country"
+                                inputProps={{
+                                    ...params.inputProps,
+                                    autoComplete: 'new-password', // disable autocomplete and autofill
+                                }}
+                            />
+                        )}
+                        onChange={(event, option) => (setFormData({
+                            ...formData,
+                            'country': option.name
+                        }))} />
+                    {/* <TextField
                         required
                         id="country"
                         name="country"
@@ -45,9 +79,9 @@ export default function ApartmentDetails({ formData, setFormData }) {
                         variant="standard"
                         value={formData.country}
                         onChange={handleInputChange}
-                    />
+                    /> */}
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                     <TextField
                         required
                         id="city"
