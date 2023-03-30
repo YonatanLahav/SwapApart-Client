@@ -4,11 +4,15 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import ImageStepper from './ImageStepper';
 import Autocomplete from '@mui/material/Autocomplete';
-import { countries } from 'country-list-json';
 import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
+
+import json from 'country-region-data/data.json';
+import { useState } from 'react';
 
 export default function ApartmentDetails({ formData, setFormData }) {
-
+    const [regions, setRegions] = useState([{ name: '' }])
+    const [region, setRegion] = useState('')
     const handleInputChange = (event) => {
         setFormData({
             ...formData,
@@ -39,20 +43,49 @@ export default function ApartmentDetails({ formData, setFormData }) {
             <Grid container alignItems={'center'} spacing={3}>
                 <Grid item xs={6}>
                     <Autocomplete
-                        id="country-select-demo"
-                        options={countries}
+                        id="country-select"
+                        options={json}
                         autoHighlight
-                        getOptionLabel={(option) => option.name}
+                        getOptionLabel={(option) => option.countryName}
                         renderOption={(props, option) => (
                             <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                                 <img
                                     loading="lazy"
                                     width="20"
-                                    src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                                    srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                                    src={`https://flagcdn.com/w20/${option.countryShortCode.toLowerCase()}.png`}
+                                    srcSet={`https://flagcdn.com/w40/${option.countryShortCode.toLowerCase()}.png 2x`}
                                     alt=""
                                 />
-                                {option.name} ({option.code}) {option.dial_code}
+                                {option.countryName} ({option.countryShortCode})
+                            </Box>
+                        )}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Country"
+                                inputProps={{
+                                    ...params.inputProps,
+                                    autoComplete: 'new-password', // disable autocomplete and autofill
+                                }}
+                            />
+                        )}
+                        onChange={(event, option) => {
+                            setFormData({
+                                ...formData,
+                                'country': option.countryName
+                            });
+                            setRegions(option.regions)
+                        }} />
+                </Grid>
+                <Grid item xs={6}>
+                    <Autocomplete
+                        id="region-select"
+                        options={regions}
+                        autoHighlight
+                        getOptionLabel={(option) => option.name}
+                        renderOption={(props, option) => (
+                            <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                                {option.name}
                             </Box>
                         )}
                         renderInput={(params) => (
@@ -67,21 +100,10 @@ export default function ApartmentDetails({ formData, setFormData }) {
                         )}
                         onChange={(event, option) => (setFormData({
                             ...formData,
-                            'country': option.name
+                            'region': option.name
                         }))} />
-                    {/* <TextField
-                        required
-                        id="country"
-                        name="country"
-                        label="Country"
-                        fullWidth
-                        autoComplete="country-name"
-                        variant="standard"
-                        value={formData.country}
-                        onChange={handleInputChange}
-                    /> */}
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                     <TextField
                         required
                         id="city"
@@ -94,7 +116,7 @@ export default function ApartmentDetails({ formData, setFormData }) {
                         onChange={handleInputChange}
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={4} >
                     <TextField
                         required
                         id="rooms"
@@ -106,7 +128,7 @@ export default function ApartmentDetails({ formData, setFormData }) {
                         onChange={handleInputChange}
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={4} >
                     <TextField
                         required
                         id="bathrooms"
@@ -119,7 +141,7 @@ export default function ApartmentDetails({ formData, setFormData }) {
                     />
                 </Grid>
                 <Grid item xs={6}>
-                    <input id='apartmentImgs' type='file' multiple onChange={handleFileSelect} />
+                    <Input id='apartmentImgs' type='file' multiple onChange={handleFileSelect} />
                 </Grid>
                 <Grid item xs={6} textAlign={'center'}>
                     <ImageStepper images={formData.apartmentImgs}></ImageStepper>
