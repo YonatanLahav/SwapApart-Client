@@ -17,12 +17,11 @@ const ChatPage = (props) => {
         <div className='container outer inner-chat '>
                 <h1 style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '3vh'}}>Matches !</h1>
             <div className='wrapper'>
-                <div>
+                
                     <ChatList user={data[0]} chats={data[0].chats} updateData={updateData} setActiveChatUsername={setActiveChatUsername} />
-                </div>
                 
                 {(activeChatUsername === null) ? "" : <Conversation setRender={setRender} chats={data[0].chats.find(({ username }) => activeChatUsername === username)} user={data[0]} />}
-
+                
             </div >
         </div >
     )

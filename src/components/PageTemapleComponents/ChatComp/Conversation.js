@@ -88,7 +88,6 @@ const Conversation = (props) => {
         props.setRender({});
     }
 
-
     const popover = (
         <Popover id="popover-basic">
             <Popover.Header as="h3">Attach:</Popover.Header>
@@ -120,10 +119,8 @@ const Conversation = (props) => {
         </Popover>
     );
     return (
-
         <div className='conversation'>
             <div className="conv_display" id="conversation_display">
-
                 {Messeges.messegeHistory.map(({ type, from, messege, time }) => {
                     let sender = (from !== '') ? chatWith : "Me";
                     if (sender !== 'Me') {

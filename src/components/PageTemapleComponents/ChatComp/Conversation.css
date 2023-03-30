@@ -1,15 +1,16 @@
 .conversation{
     border: 0px;
-    min-height: 90vh;
+    min-height: 20vh;
     border-radius: 10px;
-    display: block;
+    display: table;
     background-color: rgb(222, 222, 222);;
+    
 }
 
 .conversation .conv_display{
     background-color:lightgray;
     border-radius: 10px;
-    height: 80vh;
+    height: 70vh;
     overflow: auto;
 }
 
