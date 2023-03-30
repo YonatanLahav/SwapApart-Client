@@ -26,7 +26,7 @@ export default function PersonalInfoForm({ formData, setFormData }) {
                         label="First name"
                         fullWidth
                         autoComplete="given-name"
-                        variant="standard"
+                        variant="outlined"
                         value={formData.firstName}
                         onChange={handleInputChange}
                     />
@@ -39,7 +39,7 @@ export default function PersonalInfoForm({ formData, setFormData }) {
                         label="Last name"
                         fullWidth
                         autoComplete="family-name"
-                        variant="standard"
+                        variant="outlined"
                         value={formData.lastName}
                         onChange={handleInputChange}
                     />
@@ -52,7 +52,7 @@ export default function PersonalInfoForm({ formData, setFormData }) {
                         label="Email"
                         fullWidth
                         autoComplete="email"
-                        variant="standard"
+                        variant="outlined"
                         type={'email'}
                         value={formData.email}
                         onChange={handleInputChange}
@@ -66,7 +66,7 @@ export default function PersonalInfoForm({ formData, setFormData }) {
                         label="Password"
                         fullWidth
                         autoComplete="new-password"
-                        variant="standard"
+                        variant="outlined"
                         type={'password'}
                         value={formData.password}
                         onChange={handleInputChange}
@@ -80,7 +80,7 @@ export default function PersonalInfoForm({ formData, setFormData }) {
                         label="Verify Password"
                         fullWidth
                         autoComplete="new-password"
-                        variant="standard"
+                        variant="outlined"
                         type={'password'}
                     />
                 </Grid>

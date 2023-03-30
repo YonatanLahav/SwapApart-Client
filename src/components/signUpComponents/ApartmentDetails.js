@@ -111,7 +111,7 @@ export default function ApartmentDetails({ formData, setFormData }) {
                         label="City"
                         fullWidth
                         autoComplete="address-level2"
-                        variant="standard"
+                        variant="outlined"
                         value={formData.city}
                         onChange={handleInputChange}
                     />
@@ -123,7 +123,7 @@ export default function ApartmentDetails({ formData, setFormData }) {
                         name="rooms"
                         label="Rooms"
                         fullWidth
-                        variant="standard"
+                        variant="outlined"
                         value={formData.rooms}
                         onChange={handleInputChange}
                     />
@@ -135,13 +135,13 @@ export default function ApartmentDetails({ formData, setFormData }) {
                         name="bathrooms"
                         label="Bathrooms"
                         fullWidth
-                        variant="standard"
+                        variant="outlined"
                         value={formData.bathrooms}
                         onChange={handleInputChange}
                     />
                 </Grid>
                 <Grid item xs={6}>
-                    <Input id='apartmentImgs' type='file' multiple onChange={handleFileSelect} />
+                    <Input id='apartmentImgs' type='file' multiple onChange={handleFileSelect} variant="out" />
                 </Grid>
                 <Grid item xs={6} textAlign={'center'}>
                     <ImageStepper images={formData.apartmentImgs}></ImageStepper>
