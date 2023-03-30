@@ -343,8 +343,9 @@ const Conversation = (props) => {
                                     <img className='attachIcon' src="attachIcon.png" alt="#" height='30' />
                                 </Button>
                             </OverlayTrigger>
-                            <div className="vr" />
                             <Button variant="secondary" onClick={SendMessage}>Send</Button>
+                            <div className="vr" />
+                            
                         </Stack>
                     </form>
                 </div>
