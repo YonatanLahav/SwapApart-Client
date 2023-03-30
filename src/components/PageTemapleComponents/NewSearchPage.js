@@ -14,43 +14,26 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Paper from '@mui/material/Paper';
 import json from 'country-region-data/data.json';
 import { Typography, Link, Stepper, Step, StepLabel, Button, } from '@mui/material';
-import SelectDatesForm from './HomePageComponents/SelectDatesForm'
-import SelectPlaceForm from './HomePageComponents/PickDatesForm'
+import PickDatesForm from './HomePageComponents/PickDatesForm'
+import PreferencesForm from './HomePageComponents/PreferencesForm'
 import VacationSummary from './HomePageComponents/VacationSummary'
-function Copyright() {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
-const steps = ['Pick Dates', 'Apartment Info', 'Summary'];
 
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return <SelectPlaceForm />;
-        case 1:
-            return <SelectDatesForm />;
-        case 2:
-            return <VacationSummary />;
-        default:
-            throw new Error('Unknown step');
-    }
-}
+
+const steps = ['Dates', 'Preferences', 'Summary'];
 
 function NewSearch() {
-    const [country, setCountry] = React.useState('');
-    const [regions, setRegions] = useState([{ name: '' }])
-    const [region, setRegion] = useState('')
+    const [newVacation, setNewVacation] = useState({
+        startDate: null,
+        endDate: null,
+        country: '',
+        region: '',
+        city: '',
+        rooms: '',
+        bathrooms: ''
+    })
 
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = useState(0);
 
     const handleNext = () => {
         setActiveStep(activeStep + 1);
@@ -60,6 +43,18 @@ function NewSearch() {
         setActiveStep(activeStep - 1);
     };
 
+    function getStepContent(step) {
+        switch (step) {
+            case 0:
+                return <PickDatesForm newVacation={newVacation} setNewVacation={setNewVacation} />;
+            case 1:
+                return <PreferencesForm newVacation={newVacation} setNewVacation={setNewVacation} />;
+            case 2:
+                return <VacationSummary newVacation={newVacation} setNewVacation={setNewVacation} />;
+            default:
+                throw new Error('Unknown step');
+        }
+    }
 
     return (
         <Container maxWidth="md" sx={{ mt: 6, mb: 4, }}>
