@@ -91,7 +91,7 @@ export default function ApartmentDetails({ formData, setFormData }) {
                         renderInput={(params) => (
                             <TextField
                                 {...params}
-                                label="Choose a country"
+                                label="Region"
                                 inputProps={{
                                     ...params.inputProps,
                                     autoComplete: 'new-password', // disable autocomplete and autofill
