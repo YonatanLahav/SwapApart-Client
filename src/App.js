@@ -6,6 +6,7 @@ import { useState } from 'react';
 import PageTemplate from './pages/PageTemplate';
 import PrivateRoute from './components/PrivateRoute';
 
+// An example of a user array
 const users = [
   {
     id: 1,
@@ -38,11 +39,12 @@ const users = [
 ];
 
 function App() {
-
-  const [data, setData] = useState(users);
-  const [user, setUser] = useState(null); // add user state
+  // Define state variables.
+  const [data, setData] = useState(users); // set data init state to be users.
+  const [user, setUser] = useState(null); // set user state to be null.
 
   return (
+    // Set up routing.
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SignIn data={data} setUser={setUser} />} />

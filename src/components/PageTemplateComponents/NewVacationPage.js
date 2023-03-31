@@ -1,9 +1,5 @@
 import React, { useState } from 'react'
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
-import { Typography, Link, Stepper, Step, StepLabel, Button, } from '@mui/material';
+import { Box, Grid, Container, Paper, Typography, Link, Stepper, Step, StepLabel, Button } from '@mui/material';
 import PickDatesForm from './NewVacationPageComponents/PickDatesForm'
 import PreferencesForm from './NewVacationPageComponents/PreferencesForm'
 import VacationSummary from './NewVacationPageComponents/VacationSummary'

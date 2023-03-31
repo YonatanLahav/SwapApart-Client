@@ -6,7 +6,6 @@ import ImageStepper from './ImageStepper';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import Input from '@mui/material/Input';
-
 import json from 'country-region-data/data.json';
 import { useState } from 'react';
 
