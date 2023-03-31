@@ -5,6 +5,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 
+/**
+ * Component for displaying the summary of a vacation, including dates and preferences.
+ * @param {Object} newVacation - Object containing information about the new vacation.
+ * @param {function} setNewVacation - Function to update the information about the new vacation.
+ * @returns {JSX.Element} - Rendered component.
+ */
 function VacationSummary({ newVacation, setNewVacation }) {
     return (
         <React.Fragment>

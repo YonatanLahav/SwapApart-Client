@@ -5,6 +5,13 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 
+
+/**
+ * Renders a summary form with personal information and apartment details.
+ * @param {Object} formData - The form data containing personal and apartment details.
+ * @param {Function} setFormData - The function to update the form data.
+ * @returns {JSX.Element} - The summary form.
+ */
 export default function SummaryForm({ formData, setFormData }) {
     return (
         <React.Fragment>

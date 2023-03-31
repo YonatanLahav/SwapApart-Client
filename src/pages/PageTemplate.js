@@ -22,10 +22,12 @@ import Button from '@mui/material/Button';
 import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
 import { useEffect } from 'react';
 
+const drawerWidth = 240; // Set the width of the drawer.
 
-const drawerWidth = 240;
-
-const AppBar = styled(MuiAppBar, {
+/**
+ * Creates the styled AppBar component (top of the page)
+ */
+const AppBar = styled(MuiAppBar, { //
     shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
     zIndex: theme.zIndex.drawer + 1,
@@ -43,6 +45,9 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
+/**
+ * Creates the styled Drawer component.
+ */
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
         '& .MuiDrawer-paper': {
@@ -71,18 +76,27 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
+/**
+ * This component creates the frame of the home screen for a user connected to the site.
+ * The frame includes the top bar and the menu.
+ */
 function PageTemplate({ data, setData, setUser, user }) {
-    const [activePage, setActivePage] = React.useState(0);
-    const [open, setOpen] = React.useState(false);
+    // Set two state variables using the React.useState() hook.
+    const [activePage, setActivePage] = React.useState(0);     // 'activePage' keeps track of which page is currently active.
+    const [open, setOpen] = React.useState(false);    // 'open' determines whether the side drawer is open or closed.
 
+    // Run the useEffect() hook every time the 'data' prop changes.
+    // This function sets the current user based on their ID.
     useEffect(() => {
         setUser(data.find((u) => u.id == user.id))
     }, [data]);
 
+    // This function toggles the state of 'open' to either true or false.
     const toggleDrawer = () => {
         setOpen(!open);
     };
 
+    // This function returns the content for the active page.
     function getPageContent(step) {
         switch (step) {
             case 0:
@@ -104,12 +118,14 @@ function PageTemplate({ data, setData, setUser, user }) {
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
+                {/* AppBar contains the top navigation bar */}
                 <AppBar position="absolute" open={open}>
                     <Toolbar
                         sx={{
                             pr: '24px', // keep right padding when drawer closed
                         }}
                     >
+                        {/* The menu icon will toggle the state of the side drawer */}
                         <IconButton
                             edge="start"
                             color="inherit"
@@ -122,6 +138,7 @@ function PageTemplate({ data, setData, setUser, user }) {
                         >
                             <MenuIcon />
                         </IconButton>
+                        {/* The app's icon and name */}
                         <SwapHorizontalCircleIcon />
                         <Typography
                             component="h1"
@@ -133,7 +150,7 @@ function PageTemplate({ data, setData, setUser, user }) {
                         >
                             SwapApart!
                         </Typography>
-
+                        {/* A button to sign out the user */}
                         <Button
                             color='inherit'
                             variant="outlined"
@@ -143,6 +160,8 @@ function PageTemplate({ data, setData, setUser, user }) {
                         </Button>
                     </Toolbar>
                 </AppBar>
+
+                {/* Drawer contains the side navigation menu */}
                 <Drawer variant="permanent" open={open}>
                     <Toolbar
                         sx={{
@@ -152,11 +171,13 @@ function PageTemplate({ data, setData, setUser, user }) {
                             px: [1],
                         }}
                     >
+                        {/* The chevron icon will toggle the state of the side drawer */}
                         <IconButton onClick={toggleDrawer}>
                             <ChevronLeftIcon />
                         </IconButton>
                     </Toolbar>
                     <Divider />
+                    {/* Render the menu list of links */}
                     <List component="nav">
                         <MenuList setActivePage={setActivePage} />
                     </List>
@@ -174,12 +195,10 @@ function PageTemplate({ data, setData, setUser, user }) {
                     }}
                 >
                     <Toolbar />
+                    {/* The main content area */}
                     {getPageContent(activePage)}
                 </Box>
             </Box>
-
-
-
         </ThemeProvider>
     );
 }

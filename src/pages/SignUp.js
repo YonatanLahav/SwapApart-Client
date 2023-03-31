@@ -11,6 +11,12 @@ import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle';
 
 const theme = createTheme();
 
+/**
+ * This component creates the frame of the registration form including
+ * the top bar and the image on the left side of the screen.
+ * The right part of the screen will be the registration form.
+ * 
+ */
 export default function SignUp({ data, setData, setUser }) {
 
     return (
@@ -35,6 +41,7 @@ export default function SignUp({ data, setData, setUser }) {
                     </Typography>
                 </Toolbar>
             </Box>
+
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid

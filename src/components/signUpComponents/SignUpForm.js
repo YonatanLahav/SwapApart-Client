@@ -17,15 +17,19 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
+// The array containing the names of each step in the sign-up process.
 const steps = ['Personal Information', 'Apartment Details', 'Summary'];
+
+// Create a theme object for the app using the createTheme function.
 const theme = createTheme();
+
 
 export default function SignUpForm({ data, setData, setUser }) {
 
     const navigate = useNavigate();
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [newUser, setNewUser] = useState(null);
-    const [formData, setFormData] = useState({
+    const [activeStep, setActiveStep] = React.useState(0); // State for stepper status.
+    const [newUser, setNewUser] = useState(null); // State for the new user.
+    const [formData, setFormData] = useState({ // State for the form fields.
         id: '',
         firstName: '',
         lastName: '',
@@ -40,15 +44,18 @@ export default function SignUpForm({ data, setData, setUser }) {
         vacationsArr: []
     });
 
+    // Declare a useEffect hook that will run whenever the newUser state variable changes.
     useEffect(() => {
         if (newUser) {
             // find the newly created user and set it to the parent component state
             const user = data.find((u) => u.id === newUser.id);
             setUser(user);
+            // Navigate to the home page.
             navigate('/home');
         }
     }, [newUser]);
 
+    // Define a helper function named getStepContent that receives a step number as an argument and returns a form component based on the current step number.
     function getStepContent(step) {
         switch (step) {
             case 0:
@@ -62,13 +69,17 @@ export default function SignUpForm({ data, setData, setUser }) {
         }
     }
 
+    // Handler for "next" button.
     const handleNext = () => {
         setActiveStep(activeStep + 1);
     };
 
+    // Handler for "back" button.
     const handleBack = () => {
         setActiveStep(activeStep - 1);
     };
+
+    // Handler for "submit" button. 
     const handleSubmit = () => {
         if (activeStep === steps.length - 1) {
             // create a new user object with the form data
@@ -95,6 +106,7 @@ export default function SignUpForm({ data, setData, setUser }) {
         }
     };
 
+    // Return a component that renders a sign-up form, including a stepper component, a form component, and two buttons for navigating the form.
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

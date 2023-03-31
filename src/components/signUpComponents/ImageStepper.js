@@ -6,20 +6,29 @@ import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
-
+/**
+ * ImageStepper is a functional component that takes in an array of images and displays them in a carousel-like fashion.
+ * It uses the MUI MobileStepper component to allow users to navigate through the images.
+ *
+ * @param {Array} images - An array of image URLs.
+ * @returns {JSX.Element} - Returns a JSX element.
+ */
 function ImageStepper({ images }) {
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
     const maxSteps = images.length;
 
+    // Handle the next button click.
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
+    // Handle the back button click.
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
+    // Handle the step change.
     const handleStepChange = (step) => {
         setActiveStep(step);
     };

@@ -9,9 +9,22 @@ import Input from '@mui/material/Input';
 import json from 'country-region-data/data.json';
 import { useState } from 'react';
 
+/**
+ * Renders a form for apartment details, including country and region selection,
+ * as well as various input fields for city, number of rooms and bathrooms.
+ * Allows users to select and display images of the apartment.
+ * 
+ * @param {Object} formData - Object containing current form data. 
+ * @param {Function} setFormData - Function to update form data.
+ * @return {JSX.Element} A React Fragment containing the form for apartment details.
+*/
 export default function ApartmentDetails({ formData, setFormData }) {
-    const [regions, setRegions] = useState([{ name: '' }])
-    const [region, setRegion] = useState('')
+
+    const [regions, setRegions] = useState([{ name: '' }]) // State for regions of a specific country
+
+    /**
+     * Updates form data object when user inputs data in any input field.
+     */
     const handleInputChange = (event) => {
         setFormData({
             ...formData,
@@ -20,10 +33,12 @@ export default function ApartmentDetails({ formData, setFormData }) {
 
     };
 
+    /**
+     * Reads and updates form data object when user selects an images file.
+     */
     const handleFileSelect = (event) => {
         const files = event.target.files;
         const fileArray = [];
-
         for (let i = 0; i < files.length; i++) {
             const reader = new FileReader();
             reader.readAsDataURL(files[i]);

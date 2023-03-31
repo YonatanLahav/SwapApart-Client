@@ -6,7 +6,21 @@ import VacationSummary from './NewVacationPageComponents/VacationSummary'
 
 const steps = ['Dates', 'Preferences', 'Summary'];
 
-function NewSearch({ data, setData, user }) {
+/**
+ * This is a React functional component that displays a form for creating a new vacation search.
+ * It contains three main components for selecting dates, preferences, and displaying a summary of the search.
+ * The form consists of a stepper and navigation buttons to move between the components.
+ * Once all components are completed, the user can create a new vacation search by clicking the "Create" button.
+ * 
+ * @param {Object} data - an array of users data
+ * @param {Function} setData - a function to set the users data
+ * @param {Object} user - the user that create the new vacation.
+ * @returns {JSX.Element} - a React component that renders a new vacation form.
+ */
+function NewVacationPage({ data, setData, user }) {
+
+    // Define state to store the new vacation object and the active step in the form.
+    const [activeStep, setActiveStep] = useState(0);
     const [newVacation, setNewVacation] = useState({
         startDate: null,
         endDate: null,
@@ -17,16 +31,17 @@ function NewSearch({ data, setData, user }) {
         bathrooms: null
     })
 
-    const [activeStep, setActiveStep] = useState(0);
-
+    // Handle moving to the next step in the form.
     const handleNext = () => {
         setActiveStep(activeStep + 1);
     };
 
+    // Handle moving back to the previous step in the form.
     const handleBack = () => {
         setActiveStep(activeStep - 1);
     };
 
+    // Define a function to render the component for the current active step in the form.
     function getStepContent(step) {
         switch (step) {
             case 0:
@@ -40,8 +55,10 @@ function NewSearch({ data, setData, user }) {
         }
     }
 
+    // Handle creating a new vacation.
     const handleCreate = () => {
         if (activeStep === steps.length - 1) {
+            // Create a new search object
             const search = {
                 id: user.vacationsArr.length + 1,
                 startDate: newVacation.startDate.format('DD-MM-YYYY'),
@@ -52,7 +69,7 @@ function NewSearch({ data, setData, user }) {
                 rooms: newVacation.rooms,
                 bathrooms: newVacation.bathrooms
             };
-
+            // Update the user data with the new search
             const userIndex = data.findIndex((userData) => userData.id === user.id);
             const users = [...data];
             users[userIndex] = {
@@ -65,15 +82,17 @@ function NewSearch({ data, setData, user }) {
         }
     }
 
-
+    // Render the form
     return (
         <Container maxWidth="md" sx={{ mt: 6, mb: 4, }}>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                        {/* Header */}
                         <Typography component="h1" variant="h4" align="center">
                             New Vacation
                         </Typography>
+                        {/* Stepper */}
                         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
                             {steps.map((label) => (
                                 <Step key={label}>
@@ -81,39 +100,27 @@ function NewSearch({ data, setData, user }) {
                                 </Step>
                             ))}
                         </Stepper>
-                        {activeStep === steps.length ? (
-                            <React.Fragment>
-                                <Typography variant="h5" gutterBottom>
-                                    Thank you for your order.
-                                </Typography>
-                                <Typography variant="subtitle1">
-                                    Your order number is #2001539. We have emailed your order
-                                    confirmation, and will send you an update when your order has
-                                    shipped.
-                                </Typography>
-                            </React.Fragment>
-                        ) : (
-                            <React.Fragment>
-
-                                {/* Body of the form */}
-                                {getStepContent(activeStep)}
-                                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                    {activeStep !== 0 && (
-                                        <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                                            Back
-                                        </Button>
-                                    )}
-
-                                    <Button
-                                        variant="contained"
-                                        onClick={activeStep === steps.length - 1 ? handleCreate : handleNext}
-                                        sx={{ mt: 3, ml: 1 }}
-                                    >
-                                        {activeStep === steps.length - 1 ? 'Create' : 'Next'}
+                        <React.Fragment>
+                            {/* Body of the form */}
+                            {getStepContent(activeStep)}
+                            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                {/* Create back button if activeStep != 0 */}
+                                {activeStep !== 0 && (
+                                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                                        Back
                                     </Button>
-                                </Box>
-                            </React.Fragment>
-                        )}
+                                )}
+                                {/* Create "Create" or "Next" button. */}
+                                <Button
+                                    variant="contained"
+                                    onClick={activeStep === steps.length - 1 ? handleCreate : handleNext}
+                                    sx={{ mt: 3, ml: 1 }}
+                                >
+                                    {activeStep === steps.length - 1 ? 'Create' : 'Next'}
+                                </Button>
+                            </Box>
+                        </React.Fragment>
+
                     </Paper>
                 </Grid>
             </Grid>
@@ -121,4 +128,4 @@ function NewSearch({ data, setData, user }) {
     )
 }
 
-export default NewSearch
+export default NewVacationPage

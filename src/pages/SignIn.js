@@ -19,11 +19,23 @@ import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle';
 
 const theme = createTheme();
 
+/**
+ * This component displays the website signin form in its entirety.
+ * The component contains the top bar of the login screen,
+ * the image on the left side of the screen and the login form on the right side.
+ * After a successful login, route to the path "/home"
+ * 
+ */
 export default function SignIn({ data, setUser }) {
 
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+    const [error, setError] = useState(''); // Set an error state for invalid input.
+    const navigate = useNavigate(); // navigator to navigate.
 
+    /**
+     * After submission checks whether the user exists in the data.
+     * If the email and password are correct, setUser to user and route to "/home".
+     * Otherwise, show an error massage.
+     */
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = new FormData(event.currentTarget);
@@ -39,18 +51,16 @@ export default function SignIn({ data, setUser }) {
         }
     };
 
+    /**
+     * navigate to "/signup"
+     */
     const handleSignUp = (event) => { navigate('/signup') };
 
     return (
         <ThemeProvider theme={theme}>
-
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex' }}> {/* Top Bar */}
                 <CssBaseline />
-                <Toolbar
-                    sx={{
-                        pr: '24px', // keep right padding when drawer closed
-                    }}
-                >
+                <Toolbar sx={{ pr: '24px', }}>
                     <SwapHorizontalCircleIcon />
                     <Typography
                         component="h1"
@@ -67,7 +77,7 @@ export default function SignIn({ data, setUser }) {
 
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
-                <Grid
+                <Grid //Left Img background.
                     item
                     xs={false}
                     sm={4}
@@ -81,7 +91,7 @@ export default function SignIn({ data, setUser }) {
                         backgroundPosition: 'center',
                     }}
                 />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square> {/* SignIn form grid item */}
                     <Box
                         sx={{
                             my: 8,
@@ -98,14 +108,14 @@ export default function SignIn({ data, setUser }) {
                             Sign in
                         </Typography>
 
-                        {error && (
+                        {error && ( // Show error after incorrect input.
                             <Typography color="error" sx={{ mt: 2, mb: 2 }}>
                                 {error}
                             </Typography>
                         )}
 
-                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                            <TextField
+                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}> {/* SignIn form inputs. */}
+                            <TextField // Email input.
                                 margin="normal"
                                 required
                                 fullWidth
@@ -115,7 +125,7 @@ export default function SignIn({ data, setUser }) {
                                 autoComplete="email"
                                 autoFocus
                             />
-                            <TextField
+                            <TextField // Password input.
                                 margin="normal"
                                 required
                                 fullWidth
@@ -125,11 +135,11 @@ export default function SignIn({ data, setUser }) {
                                 id="password"
                                 autoComplete="current-password"
                             />
-                            <FormControlLabel
+                            <FormControlLabel // Remember me Checkbox. // NEED TO ADD FUNCTIONALITY.
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
                             />
-                            <Button
+                            <Button // Submit button.
                                 type="submit"
                                 fullWidth
                                 variant="contained"
@@ -139,7 +149,7 @@ export default function SignIn({ data, setUser }) {
                             </Button>
                             <Grid container >
                                 <Grid item>
-                                    <Link underline='hover' onClick={handleSignUp}>Don't have an account? Sign Up</Link>
+                                    <Link underline='hover' onClick={handleSignUp}>Don't have an account? Sign Up</Link> {/* Route to "/signup" */}
                                 </Grid>
                             </Grid>
                         </Box>

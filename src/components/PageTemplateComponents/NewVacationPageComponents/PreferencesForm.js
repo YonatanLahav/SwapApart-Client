@@ -5,14 +5,18 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import json from 'country-region-data/data.json';
 
-// Country
-// Region
-// City
-// Rooms
-// Bathrooms
-// Other things ? (pool, private)
-
+/**
+ * PreferencesForm component renders a form for users to enter their vacation preferences, 
+ * including country, region, city, number of rooms, and bathrooms. 
+ * It uses the Autocomplete component from Material-UI for country and region inputs, 
+ * and TextField component for city, rooms, and bathrooms inputs.
+ * 
+ * @param {Object} newVacation - An object containing the current values of the form fields.
+ * @param {function} setNewVacation - A function to update the values of the form fields.
+ * @returns {JSX.Element} - A form component that displays the input fields for country, region, city, rooms, and bathrooms.
+ */
 function PreferencesForm({ newVacation, setNewVacation }) {
+    // Define state for specific regions for selected country.
     const [regions, setRegions] = useState([{ name: null }])
 
     return (
@@ -105,6 +109,7 @@ function PreferencesForm({ newVacation, setNewVacation }) {
 
             <Grid item xs={3} />
             <Grid item xs={3} align='center'>
+                {/* Rooms number */}
                 <TextField
                     variant="outlined"
                     label="Rooms"
@@ -114,6 +119,7 @@ function PreferencesForm({ newVacation, setNewVacation }) {
                     onChange={(event) => setNewVacation({ ...newVacation, rooms: event.target.value })} />
             </Grid>
             <Grid item xs={3} >
+                {/* Bathrooms number */}
                 <TextField
                     variant="outlined"
                     label="Bathrooms"

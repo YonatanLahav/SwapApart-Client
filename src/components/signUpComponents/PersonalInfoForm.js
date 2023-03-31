@@ -3,8 +3,19 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 
+/**
+ * A form component that displays personal information fields such as first name, last name, email and password fields.
+ * 
+ * @param {Object} formData - An object containing the form data.
+ * @param {Function} props.setFormData - A function to set the form data.
+ * @returns {JSX.Element} - A form component that displays personal information fields.
+ */
 export default function PersonalInfoForm({ formData, setFormData }) {
 
+    /**
+     * Updating the formData object by copying its previous values and setting the
+     * relevant values of the current inputs fields.
+    */
     const handleInputChange = (event) => {
         setFormData({
             ...formData,

@@ -7,7 +7,13 @@ import Grid from '@mui/material/Grid';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 
-
+/**
+ * A React functional component for rendering a form to pick relevant dates for a new vacation.
+ * 
+ * @param {Object} newVacation - An object containing the new vacation data including start and end dates.
+ * @param {Function} setNewVacation - A function to update the new vacation data in parent component state.
+ * @returns {JSX.Element} - The rendered JSX element.
+*/
 function PickDatesForm({ newVacation, setNewVacation }) {
 
     return (
