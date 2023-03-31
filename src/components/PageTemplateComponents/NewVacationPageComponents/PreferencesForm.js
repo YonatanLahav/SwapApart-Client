@@ -1,19 +1,9 @@
 import React, { useState } from 'react'
-import { countries } from 'country-list-json';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
-import { Input } from '@mui/material';
-import Container from '@mui/material/Container';
-import { maxHeight } from '@mui/system';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import Paper from '@mui/material/Paper';
 import json from 'country-region-data/data.json';
-import { Typography, Link, Stepper, Step, StepLabel, Button, } from '@mui/material';
 
 // Country
 // Region
@@ -23,12 +13,10 @@ import { Typography, Link, Stepper, Step, StepLabel, Button, } from '@mui/materi
 // Other things ? (pool, private)
 
 function PreferencesForm({ newVacation, setNewVacation }) {
-    const [country, setCountry] = React.useState('');
-    const [regions, setRegions] = useState([{ name: '' }])
-    const [region, setRegion] = useState('')
+    const [regions, setRegions] = useState([{ name: null }])
 
     return (
-        <Grid container spacing={3}>
+        <Grid container spacing={3} component="form">
             <Grid item xs={12}>
                 <Grid item xs={12} textAlign="center">
                     Enter you preferences
@@ -65,7 +53,7 @@ function PreferencesForm({ newVacation, setNewVacation }) {
                         />
                     )}
                     onChange={(event, option) => {
-                        setCountry(option.countryName);
+                        setNewVacation({ ...newVacation, country: option.countryName });
                         setRegions(option.regions)
 
                     }}
@@ -97,7 +85,8 @@ function PreferencesForm({ newVacation, setNewVacation }) {
                         />
                     )}
                     onChange={(event, option) => {
-                        setRegion(option.name)
+                        setNewVacation({ ...newVacation, region: option.name });
+
                     }}
                     disableClearable />
             </Grid>
@@ -105,17 +94,33 @@ function PreferencesForm({ newVacation, setNewVacation }) {
             <Grid item xs={3} />
             <Grid item xs={6} align='center'>
                 {/* City */}
-                <TextField variant="outlined" label="City" fullWidth />
+                <TextField
+                    variant="outlined"
+                    label="City"
+                    fullWidth
+                    value={newVacation.city}
+                    onChange={(event) => setNewVacation({ ...newVacation, city: event.target.value })} />
             </Grid>
             <Grid item xs={3} />
 
             <Grid item xs={3} />
             <Grid item xs={3} align='center'>
-                <TextField variant="outlined" label="Rooms" type={'number'} fullWidth />
+                <TextField
+                    variant="outlined"
+                    label="Rooms"
+                    type={'number'}
+                    fullWidth
+                    value={newVacation.rooms}
+                    onChange={(event) => setNewVacation({ ...newVacation, rooms: event.target.value })} />
             </Grid>
             <Grid item xs={3} >
-                <TextField variant="outlined" label="Bathrooms" type={'number'} fullWidth />
-            </Grid>
+                <TextField
+                    variant="outlined"
+                    label="Bathrooms"
+                    type={'number'}
+                    fullWidth
+                    value={newVacation.bathrooms}
+                    onChange={(event) => setNewVacation({ ...newVacation, bathrooms: event.target.value })} />            </Grid>
             <Grid item xs={3} />
         </Grid>
     )

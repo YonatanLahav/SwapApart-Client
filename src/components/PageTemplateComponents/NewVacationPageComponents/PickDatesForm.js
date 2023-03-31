@@ -11,8 +11,6 @@ import Switch from '@mui/material/Switch';
 
 function PickDatesForm({ newVacation, setNewVacation }) {
 
-    const [date, setDate] = useState([null, null]);
-
     return (
         <Grid container spacing={2}>
             <Grid item xs={12} textAlign="center">
@@ -33,7 +31,6 @@ function PickDatesForm({ newVacation, setNewVacation }) {
                     </DemoContainer>
                 </LocalizationProvider>
             </Grid>
-            {/* {(date[0] != null) ? console.log(date[0].format('YYYY-MM-DD')) : ''} */}
             <Grid item xs={3} display="flex" justifyContent="center" >
                 <FormControlLabel control={<Switch defaultChecked />} label="Flexible Dates" labelPlacement="top" />
             </Grid>

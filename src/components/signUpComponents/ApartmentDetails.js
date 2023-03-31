@@ -75,7 +75,8 @@ export default function ApartmentDetails({ formData, setFormData }) {
                                 'country': option.countryName
                             });
                             setRegions(option.regions)
-                        }} />
+                        }}
+                        disableClearable />
                 </Grid>
                 <Grid item xs={6}>
                     <Autocomplete
@@ -101,7 +102,8 @@ export default function ApartmentDetails({ formData, setFormData }) {
                         onChange={(event, option) => (setFormData({
                             ...formData,
                             'region': option.name
-                        }))} />
+                        }))}
+                        disableClearable />
                 </Grid>
                 <Grid item xs={4}>
                     <TextField

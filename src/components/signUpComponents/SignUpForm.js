@@ -36,7 +36,8 @@ export default function SignUpForm({ data, setData, setUser }) {
         city: '',
         rooms: '',
         bathrooms: '',
-        apartmentImgs: []
+        apartmentImgs: [],
+        vacationsArr: []
     });
 
     useEffect(() => {
@@ -82,7 +83,8 @@ export default function SignUpForm({ data, setData, setUser }) {
                 city: formData.city,
                 rooms: formData.rooms,
                 bathrooms: formData.bathrooms,
-                apartmentImgs: formData.apartmentImgs
+                apartmentImgs: formData.apartmentImgs,
+                vacationsArr: formData.vacationsArr,
             };
             // update the data object with the new user
             setData([...data, user]);

@@ -3,7 +3,7 @@ import SignIn from './pages/SignIn';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignUp from './pages/SignUp';
 import { useState } from 'react';
-import Home from './pages/PageTemplate';
+import PageTemplate from './pages/PageTemplate';
 import PrivateRoute from './components/PrivateRoute';
 
 const users = [
@@ -18,7 +18,8 @@ const users = [
     city: 'Tel aviv',
     rooms: '3',
     bathrooms: '2',
-    apartmentImgs: []
+    apartmentImgs: [],
+    vacationsArr: []
   },
   {
     id: 2,
@@ -31,7 +32,8 @@ const users = [
     city: 'Tel aviv',
     rooms: '3',
     bathrooms: '3',
-    apartmentImgs: []
+    apartmentImgs: [],
+    vacationsArr: []
   }
 ];
 
@@ -48,7 +50,7 @@ function App() {
         <Route path="signup" element={<SignUp data={data} setData={setData} setUser={setUser} />} />
         <Route
           path="home"
-          element={<PrivateRoute element={<Home data={data} setData={setData} setUser={setUser} />} user={user} />}
+          element={<PrivateRoute element={<PageTemplate data={data} setData={setData} setUser={setUser} user={user} />} user={user} />}
         />
       </Routes>
     </BrowserRouter >

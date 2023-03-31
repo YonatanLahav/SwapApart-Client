@@ -9,19 +9,18 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle'
-import HomePage from '../components/PageTemapleComponents/HomePage'
-import ChatPage from '../components/PageTemapleComponents/ChatPage'
-import NewSearchPage from '../components/PageTemapleComponents/NewSearchPage';
-import MenuList from '../components/PageTemapleComponents/MenuList';
-import SettingsPage from '../components/PageTemapleComponents/SettingsPage';
-import ContactUsPage from '../components/PageTemapleComponents/ContactUsPage';
+import HomePage from '../components/PageTemplateComponents/HomePage'
+import ChatPage from '../components/PageTemplateComponents/ChatPage'
+import NewVacationPage from '../components/PageTemplateComponents/NewVacationPage';
+import MenuList from '../components/PageTemplateComponents/MenuList';
+import SettingsPage from '../components/PageTemplateComponents/SettingsPage';
+import ContactUsPage from '../components/PageTemplateComponents/ContactUsPage';
 import Button from '@mui/material/Button';
 import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
+import { useEffect } from 'react';
 
 
 const drawerWidth = 240;
@@ -72,9 +71,14 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function Home({ data, setData, setUser }) {
+function PageTemplate({ data, setData, setUser, user }) {
     const [activePage, setActivePage] = React.useState(0);
     const [open, setOpen] = React.useState(false);
+
+    useEffect(() => {
+        setUser(data.find((u) => u.id == user.id))
+    }, [data]);
+
     const toggleDrawer = () => {
         setOpen(!open);
     };
@@ -84,7 +88,7 @@ function Home({ data, setData, setUser }) {
             case 0:
                 return <HomePage setActivePage={setActivePage} />;
             case 1:
-                return <NewSearchPage />;
+                return <NewVacationPage data={data} setData={setData} user={user} />;
             case 2:
                 return <ChatPage />;
             case 3:
@@ -180,4 +184,4 @@ function Home({ data, setData, setUser }) {
     );
 }
 
-export default Home
+export default PageTemplate
