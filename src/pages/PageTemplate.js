@@ -106,7 +106,7 @@ function PageTemplate({ data, setData, setUser, user }) {
             case 2:
                 return <ChatPage />;
             case 3:
-                return <SettingsPage />;
+                return <SettingsPage data={data} setData={setData} user={user}/>;
             case 4:
                 return <ContactUsPage />;
             default:

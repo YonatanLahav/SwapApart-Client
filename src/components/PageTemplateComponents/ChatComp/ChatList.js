@@ -4,6 +4,7 @@ import ChatListItems from './ChatListItems'
 import { useState } from 'react'
 import { Button, Modal, Form, FloatingLabel } from 'react-bootstrap'
 import plus from './plus.png'
+import AddIcon from '@mui/icons-material/Add';
 
 const ChatList = (props) => {
 
@@ -38,7 +39,7 @@ const ChatList = (props) => {
         <div className='chat-list'>
             <div className='chatlist-header'>
                 <button className='popup' variant="" onClick={handleShow}>
-                    <img src={plus} alt="Add" />
+                    <AddIcon></AddIcon>
                 </button>
 
                 <Modal show={show} onHide={handleClose}>
