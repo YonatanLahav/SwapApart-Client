@@ -12,15 +12,25 @@ const users = [
     id: 1,
     firstName: 'Yonatan',
     lastName: 'Lahav',
-    email: 'a@a.a',
-    password: '123',
+    email: 'b',
+    password: 'b',
     country: 'Israel',
     region: 'Tel Aviv',
     city: 'Tel aviv',
     rooms: '3',
     bathrooms: '2',
     apartmentImgs: [],
-    vacationsArr: []
+    vacationsArr: [
+      {
+        startDate: '01-04-2023',
+        endDate: '11-04-2023',
+        country: 'Israel',
+        region: 'HaMerkaz',
+        city: 'Tel-Aviv',
+        rooms: '3',
+        bathrooms: '2',
+        seenVacations: []
+      }]
   },
   {
     id: 2,

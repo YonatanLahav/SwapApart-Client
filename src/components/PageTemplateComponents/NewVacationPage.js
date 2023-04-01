@@ -28,7 +28,8 @@ function NewVacationPage({ data, setData, user }) {
         region: null,
         city: null,
         rooms: null,
-        bathrooms: null
+        bathrooms: null,
+        seenVacations: []
     })
 
     // Handle moving to the next step in the form.
@@ -67,7 +68,8 @@ function NewVacationPage({ data, setData, user }) {
                 region: newVacation.region,
                 city: newVacation.city,
                 rooms: newVacation.rooms,
-                bathrooms: newVacation.bathrooms
+                bathrooms: newVacation.bathrooms,
+                seenVacations: []
             };
             // Update the user data with the new search
             const userIndex = data.findIndex((userData) => userData.id === user.id);

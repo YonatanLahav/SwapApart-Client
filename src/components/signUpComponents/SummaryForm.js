@@ -47,6 +47,9 @@ export default function SummaryForm({ formData, setFormData }) {
                             <ListItemText primary={'Country'} secondary={formData.country} />
                         </ListItem>
                         <ListItem sx={{ py: 0, px: 0 }}>
+                            <ListItemText primary={'Region'} secondary={formData.region} />
+                        </ListItem>
+                        <ListItem sx={{ py: 0, px: 0 }}>
                             <ListItemText primary={'City'} secondary={formData.city} />
                         </ListItem>
                         <ListItem sx={{ py: 0, px: 0 }}>

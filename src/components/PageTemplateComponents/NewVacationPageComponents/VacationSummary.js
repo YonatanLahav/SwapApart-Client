@@ -41,6 +41,9 @@ function VacationSummary({ newVacation, setNewVacation }) {
                             <ListItemText primary={'Country'} secondary={newVacation.country} align='center' />
                         </ListItem>
                         <ListItem sx={{ py: 0, px: 0 }}>
+                            <ListItemText primary={'Region'} secondary={newVacation.region} align='center' />
+                        </ListItem>
+                        <ListItem sx={{ py: 0, px: 0 }}>
                             <ListItemText primary={'City'} secondary={newVacation.city} align='center' />
                         </ListItem>
                         <ListItem sx={{ py: 0, px: 0 }}>
