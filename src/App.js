@@ -29,7 +29,7 @@ const users = [
     email: 'a',
     password: 'a',
     country: 'Israel',
-    region: 'Tel Aviv',
+    region: 'Tel-Aviv',
     city: 'Tel aviv',
     rooms: '3',
     bathrooms: '3',

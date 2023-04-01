@@ -2,12 +2,13 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import ImageStepper from './ImageStepper';
+import ImageStepper from '../../signUpComponents/ImageStepper'
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import Input from '@mui/material/Input';
 import json from 'country-region-data/data.json';
 import { useState } from 'react';
+import { Button } from '@mui/material';
 
 /**
  * Renders a form for apartment details, including country and region selection,
@@ -18,9 +19,28 @@ import { useState } from 'react';
  * @param {Function} setFormData - Function to update form data.
  * @return {JSX.Element} A React Fragment containing the form for apartment details.
 */
-export default function ApartmentDetails({ formData, setFormData }) {
+export default function ApartDetails({setActivePage, setData, data, user}) {
+    console.log(json.find((c)=>user.country==c.countryName).regions)
+    const [regionss, setRegions] = useState(json.find((c)=>user.country==c.countryName).regions) // State for regions of a specific country
 
-    const [regions, setRegions] = useState([{ name: '' }]) // State for regions of a specific country
+    const [formData, setFormData] = useState({ // State for the form fields.
+        country: json.find((country)=>(user.country == country.countryName)),
+        region: regionss.find((r)=>user.region==r.name),
+        city: user.city,
+        rooms: user.rooms,
+        bathrooms: user.bathrooms,
+    });
+
+    const handleSubmit = () => {
+        user.country = formData.country;
+        user.region = formData.region;
+        user.city = formData.city;
+        user.rooms =  formData.rooms;
+        user.bathrooms = formData.bathrooms;
+        setData([...data]);
+        setActivePage(0)
+           
+    };
 
     /**
      * Updates form data object when user inputs data in any input field.
@@ -36,18 +56,18 @@ export default function ApartmentDetails({ formData, setFormData }) {
     /**
      * Reads and updates form data object when user selects an images file.
      */
-    const handleFileSelect = (event) => {
-        const files = event.target.files;
-        const fileArray = [];
-        for (let i = 0; i < files.length; i++) {
-            const reader = new FileReader();
-            reader.readAsDataURL(files[i]);
-            reader.onloadend = () => {
-                fileArray.push(reader.result);
-                setFormData((prevState) => ({ ...prevState, apartmentImgs: fileArray }));
-            };
-        }
-    };
+    // const handleFileSelect = (event) => {
+    //     const files = event.target.files;
+    //     const fileArray = [];
+    //     for (let i = 0; i < files.length; i++) {
+    //         const reader = new FileReader();
+    //         reader.readAsDataURL(files[i]);
+    //         reader.onloadend = () => {
+    //             fileArray.push(reader.result);
+    //             setData((prevState) => ({ ...prevState, apartmentImgs: fileArray }));
+    //         };
+    //     }
+    // };
 
     return (
         <React.Fragment>
@@ -57,6 +77,8 @@ export default function ApartmentDetails({ formData, setFormData }) {
             <Grid container alignItems={'center'} spacing={3}>
                 <Grid item xs={6}>
                     <Autocomplete
+                        defaultValue={formData.country}
+
                         id="country-select"
                         options={json}
                         autoHighlight
@@ -81,12 +103,14 @@ export default function ApartmentDetails({ formData, setFormData }) {
                                     ...params.inputProps,
                                     autoComplete: 'new-password', // disable autocomplete and autofill
                                 }}
+                                
                             />
                         )}
+                        
                         onChange={(event, option) => {
                             setFormData({
                                 ...formData,
-                                'country': option.countryName
+                                'country' : option.countryName
                             });
                             setRegions(option.regions)
                         }}
@@ -94,8 +118,9 @@ export default function ApartmentDetails({ formData, setFormData }) {
                 </Grid>
                 <Grid item xs={6}>
                     <Autocomplete
+                        defaultValue={formData.region}
                         id="region-select"
-                        options={regions}
+                        options={regionss}
                         autoHighlight
                         getOptionLabel={(option) => option.name}
                         renderOption={(props, option) => (
@@ -113,6 +138,7 @@ export default function ApartmentDetails({ formData, setFormData }) {
                                 }}
                             />
                         )}
+                        value={formData.region}
                         onChange={(event, option) => (setFormData({
                             ...formData,
                             'region': option.name
@@ -157,11 +183,16 @@ export default function ApartmentDetails({ formData, setFormData }) {
                     />
                 </Grid>
                 <Grid item xs={6}>
-                    <input id='apartmentImgs' type='file' multiple onChange={handleFileSelect} variant="out" />
+                    {/* <Input id='apartmentImgs' type='file' multiple onChange={handleFileSelect} variant="out" /> */}
                 </Grid>
                 <Grid item xs={6} textAlign={'center'}>
-                    <ImageStepper images={formData.apartmentImgs}></ImageStepper>
+                    {/* <ImageStepper images={data.apartmentImgs}></ImageStepper> */}
                 </Grid>
+                <Button
+                                variant="contained"
+                                onClick={handleSubmit}
+                                sx={{ mt: 3, ml: 1 }}
+                            >Submit</Button>
             </Grid>
         </React.Fragment>
     );
