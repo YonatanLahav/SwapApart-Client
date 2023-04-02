@@ -100,13 +100,13 @@ function PageTemplate({ data, setData, setUser, user }) {
     function getPageContent(step) {
         switch (step) {
             case 0:
-                return <HomePage data={data} setData={setData} user={user} />;
+                return <HomePage data={data} setData={setData} user={user} setActivePage={setActivePage} />;
             case 1:
                 return <NewVacationPage data={data} setData={setData} user={user} />;
             case 2:
                 return <ChatPage />;
             case 3:
-                return <SettingsPage data={data} setData={setData} user={user}/>;
+                return <SettingsPage data={data} setData={setData} user={user} />;
             case 4:
                 return <ContactUsPage />;
             default:

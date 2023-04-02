@@ -1,12 +1,13 @@
 import * as React from 'react';
-import Grid from '@mui/material/Grid';
+import { Grid, IconButton } from '@mui/material';
 import VacationCard from './HomePageComponents/VacationCard';
 import HoverShadowCard from './HomePageComponents/HoverShadowCard';
 import { useState } from 'react';
 import DefaultHomePage from './HomePageComponents/DefaultHomePage';
 import VacationMatchsPage from './HomePageComponents/VacationMatchsPage';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
-function HomePage({ data, setData, user }) {
+function HomePage({ data, setData, user, setActivePage }) {
 
     const [vacationIndex, setVacationIndex] = useState(null);
 
@@ -21,7 +22,7 @@ function HomePage({ data, setData, user }) {
 
     return (vacationIndex == null) ? (
         // Show all the vacations of the user.
-        <DefaultHomePage vacationCards={vacationCards} />
+        <DefaultHomePage vacationCards={vacationCards} setActivePage={setActivePage} />
     ) : (
         // Show specific vacation.
         <VacationMatchsPage optionalMatch={user.vacationsArr[vacationIndex]} images={user.apartmentImgs} setVacationIndex={setVacationIndex} />
