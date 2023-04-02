@@ -24,7 +24,7 @@ function HomePage({ data, setData, user }) {
         <DefaultHomePage vacationCards={vacationCards} />
     ) : (
         // Show specific vacation.
-        <VacationMatchsPage optionalMatchs={user.vacationsArr[vacationIndex]} setVacationIndex={setVacationIndex} />
+        <VacationMatchsPage optionalMatch={user.vacationsArr[vacationIndex]} images={user.apartmentImgs} setVacationIndex={setVacationIndex} />
     );
 }
 
