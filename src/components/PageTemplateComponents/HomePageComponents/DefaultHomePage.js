@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Container, Paper, Grid, Divider } from '@mui/material';
 import HeaderCard from './HeaderCard';
+import UserContext from '../../../context/UserContext';
 
 function DefaultHomePage({ vacationCards, setActivePage }) {
     return (

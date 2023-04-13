@@ -16,6 +16,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle';
+import { useContext } from 'react';
+import UserContext from '../context/UserContext';
 
 const theme = createTheme();
 
@@ -26,25 +28,24 @@ const theme = createTheme();
  * After a successful login, route to the path "/home"
  * 
  */
-export default function SignIn({ data, setUser }) {
+export default function SignIn() {
 
     const [error, setError] = useState(''); // Set an error state for invalid input.
     const navigate = useNavigate(); // navigator to navigate.
-
+    const { handleLogin } = useContext(UserContext);
     /**
      * After submission checks whether the user exists in the data.
      * If the email and password are correct, setUser to user and route to "/home".
      * Otherwise, show an error massage.
      */
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const form = new FormData(event.currentTarget);
         const email = form.get('email');
         const password = form.get('password');
         console.log(email, password)
-        const user = data.find((user) => user.email === email && user.password === password);
-        if (user) {
-            setUser(user);
+        const res = await handleLogin(email, password);
+        if (res) {
             navigate('/home');
         } else {
             setError('Invalid email or password');

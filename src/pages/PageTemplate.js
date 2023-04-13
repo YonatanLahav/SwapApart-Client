@@ -21,6 +21,10 @@ import ContactUsPage from '../components/PageTemplateComponents/ContactUsPage';
 import Button from '@mui/material/Button';
 import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
 import { useEffect } from 'react';
+import { useContext } from 'react';
+import UserContext from '../context/UserContext';
+import { getAllUsers } from '../utils/api';
+
 
 const drawerWidth = 240; // Set the width of the drawer.
 
@@ -84,18 +88,19 @@ function PageTemplate({ data, setData, setUser, user }) {
     // Set two state variables using the React.useState() hook.
     const [activePage, setActivePage] = React.useState(0);     // 'activePage' keeps track of which page is currently active.
     const [open, setOpen] = React.useState(false);    // 'open' determines whether the side drawer is open or closed.
+    const { handleLogout, token } = useContext(UserContext);
 
     // Run the useEffect() hook every time the 'data' prop changes.
     // This function sets the current user based on their ID.
-    useEffect(() => {
-        setUser(data.find((u) => u.id == user.id))
-    }, [data]);
+    // useEffect(() => {
+    //     setUser(data.find((u) => u.id == user.id))
+    // }, [data]);
 
     // This function toggles the state of 'open' to either true or false.
     const toggleDrawer = () => {
         setOpen(!open);
     };
-
+    getAllUsers().then((r) => console.log(r));
     // This function returns the content for the active page.
     function getPageContent(step) {
         switch (step) {
@@ -155,7 +160,7 @@ function PageTemplate({ data, setData, setUser, user }) {
                             color='inherit'
                             variant="outlined"
                             startIcon={<MeetingRoomOutlinedIcon />}
-                            onClick={(event) => { setUser(null) }}>
+                            onClick={() => { handleLogout() }}>
                             Sign Out
                         </Button>
                     </Toolbar>
