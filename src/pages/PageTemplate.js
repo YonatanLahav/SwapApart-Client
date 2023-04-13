@@ -23,6 +23,7 @@ import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import UserContext from '../context/UserContext';
+import { getAllUsers } from '../utils/api';
 
 
 const drawerWidth = 240; // Set the width of the drawer.
@@ -99,7 +100,7 @@ function PageTemplate({ data, setData, setUser, user }) {
     const toggleDrawer = () => {
         setOpen(!open);
     };
-
+    getAllUsers().then((r) => console.log(r));
     // This function returns the content for the active page.
     function getPageContent(step) {
         switch (step) {

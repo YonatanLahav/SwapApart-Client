@@ -16,6 +16,8 @@ import SummaryForm from './SummaryForm';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useContext } from 'react';
+import UserContext from '../../context/UserContext';
 
 // The array containing the names of each step in the sign-up process.
 const steps = ['Personal Information', 'Apartment Details', 'Summary'];
@@ -24,13 +26,12 @@ const steps = ['Personal Information', 'Apartment Details', 'Summary'];
 const theme = createTheme();
 
 
-export default function SignUpForm({ data, setData, setUser }) {
+export default function SignUpForm() {
 
     const navigate = useNavigate();
     const [activeStep, setActiveStep] = React.useState(0); // State for stepper status.
     const [newUser, setNewUser] = useState(null); // State for the new user.
     const [formData, setFormData] = useState({ // State for the form fields.
-        id: '',
         firstName: '',
         lastName: '',
         email: '',
@@ -41,19 +42,9 @@ export default function SignUpForm({ data, setData, setUser }) {
         rooms: '',
         bathrooms: '',
         apartmentImgs: [],
-        vacationsArr: []
     });
 
-    // Declare a useEffect hook that will run whenever the newUser state variable changes.
-    useEffect(() => {
-        if (newUser) {
-            // find the newly created user and set it to the parent component state
-            const user = data.find((u) => u.id === newUser.id);
-            setUser(user);
-            // Navigate to the home page.
-            navigate('/home');
-        }
-    }, [newUser]);
+    const { handleRegister } = useContext(UserContext);
 
     // Define a helper function named getStepContent that receives a step number as an argument and returns a form component based on the current step number.
     function getStepContent(step) {
@@ -80,27 +71,27 @@ export default function SignUpForm({ data, setData, setUser }) {
     };
 
     // Handler for "submit" button. 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (activeStep === steps.length - 1) {
-            // create a new user object with the form data
             const user = {
-                id: data.length + 1, // generate a new ID based on the number of existing users
                 firstName: formData.firstName,
                 lastName: formData.lastName,
                 email: formData.email,
                 password: formData.password,
-                country: formData.country,
-                region: formData.region,
-                city: formData.city,
-                rooms: formData.rooms,
-                bathrooms: formData.bathrooms,
-                apartmentImgs: formData.apartmentImgs,
-                vacationsArr: formData.vacationsArr,
+                apartment: {
+                    country: formData.country,
+                    region: formData.region,
+                    city: formData.city,
+                    rooms: Number(formData.rooms),
+                    bathrooms: Number(formData.bathrooms),
+                    pictures: formData.apartmentImgs
+                }
             };
-            // update the data object with the new user
-            setData([...data, user]);
-            // set the newly created user to the state variable
-            setNewUser(user);
+
+            const res = await handleRegister(user);
+            if (res) {
+                navigate('/home');
+            }
         } else {
             handleNext();
         }

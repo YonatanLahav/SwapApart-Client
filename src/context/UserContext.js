@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { login } from '../utils/auth';
+import { login, register } from '../utils/auth';
 
 const UserContext = createContext();
 
@@ -14,8 +14,15 @@ export const UserProvider = ({ children }) => {
     }, []);
 
     const handleLogin = async (email, password) => {
-        login(email, password)
-            .then((token) => setToken(token));
+        const res = await login(email, password);
+        setToken(res);
+        return res;
+    };
+
+    const handleRegister = async (user) => {
+        const res = await register(user);
+        setToken(res);
+        return res;
     };
 
     const handleLogout = () => {
@@ -24,7 +31,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ token, handleLogin, handleLogout }}>
+        <UserContext.Provider value={{ token, handleLogin, handleLogout, handleRegister }}>
             {children}
         </UserContext.Provider>
     );

@@ -32,7 +32,7 @@ export default function SignIn() {
 
     const [error, setError] = useState(''); // Set an error state for invalid input.
     const navigate = useNavigate(); // navigator to navigate.
-    const { handleLogin, handleLogout, token } = useContext(UserContext);
+    const { handleLogin } = useContext(UserContext);
     /**
      * After submission checks whether the user exists in the data.
      * If the email and password are correct, setUser to user and route to "/home".
@@ -44,14 +44,12 @@ export default function SignIn() {
         const email = form.get('email');
         const password = form.get('password');
         console.log(email, password)
-        handleLogin(email, password)
-            .then(() => {
-                if (token) {
-                    navigate('/home');
-                } else {
-                    setError('Invalid email or password');
-                }
-            });
+        const res = await handleLogin(email, password);
+        if (res) {
+            navigate('/home');
+        } else {
+            setError('Invalid email or password');
+        }
     };
 
     /**

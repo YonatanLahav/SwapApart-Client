@@ -21,3 +21,16 @@ export const login = async (email, password) => {
         return null;
     }
 };
+
+export const register = async (user) => {
+    try {
+        const response = await api.post('/register', user);
+        const { token } = response.data;
+        console.log(token)
+        localStorage.setItem('token', token); // Store token in local storage
+        return token;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+};

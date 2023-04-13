@@ -61,7 +61,7 @@ function App() {
         <Routes>
           <Route path="/" element={<SignIn />} /> {/* "/" Route to SignIn */}
           <Route path="signin" element={<SignIn />} /> {/* "/signin" Route to SignIn */}
-          <Route path="signup" element={<SignUp data={data} setData={setData} setUser={setUser} />} /> {/* "/signup" Route to SignUp */}
+          <Route path="signup" element={<SignUp />} /> {/* "/signup" Route to SignUp */}
           <Route  // "/home" PrivateRoute to SignUp (only to loggedin users). 
             path="home"
             element={
