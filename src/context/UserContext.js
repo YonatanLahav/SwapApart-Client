@@ -1,10 +1,11 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { login } from '../utils/auth';
+import { login, fetchData } from '../utils/auth';
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const [token, setToken] = useState(null);
+    const [userData, setUserData] = useState(null);
 
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
@@ -16,6 +17,8 @@ export const UserProvider = ({ children }) => {
     const handleLogin = async (email, password) => {
         login(email, password)
             .then((token) => setToken(token));
+        const respo = await fetchData(token)
+        setUserData(respo)
     };
 
     const handleLogout = () => {
@@ -24,7 +27,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ token, handleLogin, handleLogout }}>
+        <UserContext.Provider value={{ token, handleLogin, handleLogout, userData }}>
             {children}
         </UserContext.Provider>
     );
