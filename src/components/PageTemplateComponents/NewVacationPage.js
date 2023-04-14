@@ -3,6 +3,9 @@ import { Box, Grid, Container, Paper, Typography, Link, Stepper, Step, StepLabel
 import PickDatesForm from './NewVacationPageComponents/PickDatesForm'
 import PreferencesForm from './NewVacationPageComponents/PreferencesForm'
 import VacationSummary from './NewVacationPageComponents/VacationSummary'
+import { addVacation } from "../../utils/api";
+import { useContext } from 'react';
+import UserContext from '../../context/UserContext';
 
 const steps = ['Dates', 'Preferences', 'Summary'];
 
@@ -17,7 +20,8 @@ const steps = ['Dates', 'Preferences', 'Summary'];
  * @param {Object} user - the user that create the new vacation.
  * @returns {JSX.Element} - a React component that renders a new vacation form.
  */
-function NewVacationPage({ data, setData, user }) {
+function NewVacationPage({setActivePage}) {
+    const {token}  = useContext(UserContext);
 
     // Define state to store the new vacation object and the active step in the form.
     const [activeStep, setActiveStep] = useState(0);
@@ -61,24 +65,16 @@ function NewVacationPage({ data, setData, user }) {
         if (activeStep === steps.length - 1) {
             // Create a new search object
             const search = {
-                id: user.vacationsArr.length + 1,
                 startDate: newVacation.startDate.format('DD-MM-YYYY'),
                 endDate: newVacation.endDate.format('DD-MM-YYYY'),
                 country: newVacation.country,
                 region: newVacation.region,
                 city: newVacation.city,
-                rooms: newVacation.rooms,
-                bathrooms: newVacation.bathrooms,
-                seenVacations: []
+                minRoomsNum: newVacation.rooms,
+                minBathroomsNum: newVacation.bathrooms,
             };
-            // Update the user data with the new search
-            const userIndex = data.findIndex((userData) => userData.id === user.id);
-            const users = [...data];
-            users[userIndex] = {
-                ...user,
-                vacationsArr: [...user.vacationsArr, search]
-            };
-            setData(users);
+            
+            addVacation(token, search)
         } else {
             handleNext();
         }

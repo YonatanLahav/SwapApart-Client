@@ -107,7 +107,7 @@ function PageTemplate({ data, setData, setUser, user }) {
             case 0:
                 return <HomePage data={data} setData={setData} user={user} setActivePage={setActivePage} />;
             case 1:
-                return <NewVacationPage data={data} setData={setData} user={user} />;
+                return <NewVacationPage  setActivePage={setActivePage}/>;
             case 2:
                 return <ChatPage />;
             case 3:
