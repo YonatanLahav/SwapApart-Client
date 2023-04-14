@@ -20,7 +20,7 @@ function VacationCard({ vacation, onClick }) {
             <CardMedia
                 component="img"
                 height="140"
-                src={`https://random.imagecdn.app/400/150?${Math.random()}`} />
+                src={`https://picsum.photos/400/300?${Math.random()}`} />
             <CardContent sx={{ pb: 0 }} >
                 <Typography gutterBottom variant="h5" component="div" textAlign={'center'}>
                     Vacation Details

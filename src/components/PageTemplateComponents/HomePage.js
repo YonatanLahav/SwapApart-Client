@@ -1,31 +1,48 @@
-import * as React from 'react';
-import Grid from '@mui/material/Grid';
-import VacationCard from './HomePageComponents/VacationCard';
-import HoverShadowCard from './HomePageComponents/HoverShadowCard';
-import { useState } from 'react';
-import DefaultHomePage from './HomePageComponents/DefaultHomePage';
-import VacationMatchsPage from './HomePageComponents/VacationMatchsPage';
+import * as React from "react";
+import { Grid, IconButton } from "@mui/material";
+import VacationCard from "./HomePageComponents/VacationCard";
+import HoverShadowCard from "./HomePageComponents/HoverShadowCard";
+import { useState } from "react";
+import DefaultHomePage from "./HomePageComponents/DefaultHomePage";
+import VacationMatchsPage from "./HomePageComponents/VacationMatchsPage";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import UserContext from "../../context/UserContext";
+import { useContext } from "react";
+import { useEffect } from "react";
+import { getPlans } from "../../utils/api";
 
-function HomePage({ data, setData, user }) {
-
+function HomePage({ user, setActivePage }) {
     const [vacationIndex, setVacationIndex] = useState(null);
+    const [plans, setPlans] = useState(null);
+    const { token } = useContext(UserContext);
 
-    const vacationCards = [];
-    // for (let i = 0; i < user.vacationsArr.length; i++) {
-    //     vacationCards.push(
-    //         <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    //             <HoverShadowCard element={<VacationCard vacation={user.vacationsArr[i]} onClick={() => setVacationIndex(i)} />} />
-    //         </Grid>
-    //     );
-    // }
+    useEffect(() => {
+        const fetchPlans = async () => {
+            const plansData = await getPlans(token);
+            setPlans(plansData);
+        };
+        fetchPlans();
+    }, [token]);
 
-    return (vacationIndex == null) ? (
-        // Show all the vacations of the user.
-        <DefaultHomePage vacationCards={vacationCards} />
+    return !plans ? (
+        <div />
+    ) : (vacationIndex == null) ? (
+        <DefaultHomePage
+            plans={plans}
+            setActivePage={setActivePage}
+            setVacationIndex={setVacationIndex}
+        />
     ) : (
-        // Show specific vacation.
         <VacationMatchsPage optionalMatch={user.vacationsArr[vacationIndex]} images={user.apartmentImgs} setVacationIndex={setVacationIndex} />
     );
+
+    // return (vacationIndex == null) ? (
+    //     // Show all the vacations of the user.
+    //     <DefaultHomePage plans={plans} vacationCards={[]} setActivePage={setActivePage} />
+    // ) : (
+    //     // Show specific vacation.
+    //     <VacationMatchsPage optionalMatch={user.vacationsArr[vacationIndex]} images={user.apartmentImgs} setVacationIndex={setVacationIndex} />
+    // );
 }
 
-export default HomePage
+export default HomePage;

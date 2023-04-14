@@ -17,3 +17,12 @@ export const getAllUsers = async () => {
     });
     return response.data
 };
+
+export const getPlans = async (token) => {
+    const res = await api.get('/plans', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return res.data;
+};
