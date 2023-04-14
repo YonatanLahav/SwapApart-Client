@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Box, Grid, Container, Paper, Typography, Link, Stepper, Step, StepLabel, Button } from '@mui/material';
 import ApartDetails from './SettingsComponents/ApartDetails'
 import MainSettings from './SettingsComponents/MainSettings'
-import Info from './SettingsComponents/info'
+import Info from './SettingsComponents/Info'
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -26,7 +26,7 @@ function SettingsPage({ data, setData, user }) {
         case 1:
             return <ApartDetails setActivePage={setActivePage} setData={setData} data={data} user={user}/>;
         case 2:
-            return <Info setActivePage={setActivePage} user={user}/>;
+            return <Info setActivePage={setActivePage}/>;
         default:
             throw new Error('Unknown step');
     }
