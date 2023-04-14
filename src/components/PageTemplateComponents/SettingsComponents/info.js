@@ -14,7 +14,6 @@ import UserContext from '../../../context/UserContext';
 
 function Info() {
     const {userData}  = useContext(UserContext);
-    console.log(userData)
   return (
     <TableContainer component={Paper}>
     <Table sx={{ minWidth: 650 }} aria-label="simple table">

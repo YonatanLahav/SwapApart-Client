@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { login, register, fetchData } from '../utils/auth';
+import { login, register, fetchData, updateData } from '../utils/auth';
 
 const UserContext = createContext();
 
@@ -33,9 +33,14 @@ export const UserProvider = ({ children }) => {
         setToken(null);
     };
 
+    const handleUserUpdate = async (tok, updatedData) => {
+        const res = await updateData(tok, updatedData);
+        setUserData(res);
+    };
+
     return (
 
-        <UserContext.Provider value={{ token, handleLogin, handleLogout, handleRegister, userData }}>
+        <UserContext.Provider value={{ token, handleLogin, handleLogout, handleRegister, userData, handleUserUpdate }}>
             {children}
         </UserContext.Provider>
     );

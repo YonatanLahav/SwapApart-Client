@@ -9,6 +9,8 @@ import Input from '@mui/material/Input';
 import json from 'country-region-data/data.json';
 import { useState } from 'react';
 import { Button } from '@mui/material';
+import { useContext } from 'react';
+import UserContext from '../../../context/UserContext';
 
 /**
  * Renders a form for apartment details, including country and region selection,
@@ -19,27 +21,34 @@ import { Button } from '@mui/material';
  * @param {Function} setFormData - Function to update form data.
  * @return {JSX.Element} A React Fragment containing the form for apartment details.
 */
-export default function ApartDetails({setActivePage, setData, data, user}) {
-    console.log(json.find((c)=>user.country==c.countryName).regions)
-    const [regionss, setRegions] = useState(json.find((c)=>user.country==c.countryName).regions) // State for regions of a specific country
+export default function ApartDetails({setActivePage}) {
+
+    const {userData, handleUserUpdate, token}  = useContext(UserContext);
+
+    // console.log(json.find((c)=>user.country==c.countryName).regions)
+    const [regionss, setRegions] = useState(json.find((country)=>JSON.parse(userData).apartment.country==country.countryName).regions) // State for regions of a specific country
 
     const [formData, setFormData] = useState({ // State for the form fields.
-        country: json.find((country)=>(user.country == country.countryName)),
-        region: regionss.find((r)=>user.region==r.name),
-        city: user.city,
-        rooms: user.rooms,
-        bathrooms: user.bathrooms,
+        country: json.find((country)=>(JSON.parse(userData).apartment.country == country.countryName)),
+        region: regionss.find((regions)=>JSON.parse(userData).apartment.region==regions.name),
+        city: JSON.parse(userData).apartment.city,
+        rooms: JSON.parse(userData).apartment.rooms,
+        bathrooms: JSON.parse(userData).apartment.bathrooms,
     });
 
     const handleSubmit = () => {
-        user.country = formData.country;
-        user.region = formData.region;
-        user.city = formData.city;
-        user.rooms =  formData.rooms;
-        user.bathrooms = formData.bathrooms;
-        setData([...data]);
-        setActivePage(0)
-           
+        const changes =         
+        {
+            apartment:{
+        country: formData.country,
+        region : formData.region,  
+        city : formData.city,
+        rooms :  formData.rooms,
+        bathrooms : formData.bathrooms,
+            }
+        }
+        handleUserUpdate(token, changes)
+        setActivePage(0)           
     };
 
     /**
@@ -53,29 +62,13 @@ export default function ApartDetails({setActivePage, setData, data, user}) {
 
     };
 
-    /**
-     * Reads and updates form data object when user selects an images file.
-     */
-    // const handleFileSelect = (event) => {
-    //     const files = event.target.files;
-    //     const fileArray = [];
-    //     for (let i = 0; i < files.length; i++) {
-    //         const reader = new FileReader();
-    //         reader.readAsDataURL(files[i]);
-    //         reader.onloadend = () => {
-    //             fileArray.push(reader.result);
-    //             setData((prevState) => ({ ...prevState, apartmentImgs: fileArray }));
-    //         };
-    //     }
-    // };
-
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
                 Apartment Details
             </Typography>
             <Grid container alignItems={'center'} spacing={3}>
-                <Grid item xs={6}>
+                 <Grid item xs={6}>
                     <Autocomplete
                         defaultValue={formData.country}
 
@@ -138,13 +131,12 @@ export default function ApartDetails({setActivePage, setData, data, user}) {
                                 }}
                             />
                         )}
-                        value={formData.region}
                         onChange={(event, option) => (setFormData({
                             ...formData,
                             'region': option.name
                         }))}
                         disableClearable />
-                </Grid>
+                </Grid> 
                 <Grid item xs={4}>
                     <TextField
                         required

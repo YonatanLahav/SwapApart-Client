@@ -4,19 +4,12 @@ import ApartDetails from './SettingsComponents/ApartDetails'
 import MainSettings from './SettingsComponents/MainSettings'
 import Info from './SettingsComponents/Info'
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-
 function createData(d, y) {
   return { d, y };
 }
 
 
-function SettingsPage({ data, setData, user }) {
+function SettingsPage() {
   const [activePage, setActivePage] = React.useState(0); 
 
   function getPageContent(page) {
@@ -24,7 +17,7 @@ function SettingsPage({ data, setData, user }) {
         case 0:
             return <MainSettings setActivePage={setActivePage}/>;
         case 1:
-            return <ApartDetails setActivePage={setActivePage} setData={setData} data={data} user={user}/>;
+            return <ApartDetails setActivePage={setActivePage}/>;
         case 2:
             return <Info setActivePage={setActivePage}/>;
         default:

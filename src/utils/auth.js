@@ -51,4 +51,21 @@ export const fetchData = async (token) => {
       throw error;
     }
   };
+
+  export const updateData = async (token, userChanges) => {
+    try {
+      const response = await api.put('/api/users', userChanges, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        responseType: 'json'
+      });
+      const usersData  = JSON.stringify(response.data);
+      return usersData
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
   
