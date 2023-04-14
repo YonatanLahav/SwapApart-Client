@@ -14,7 +14,7 @@ const listItemTextStyle = {
     textAlign: 'center'
 };
 
-function VacationCard({ vacation, onClick }) {
+function VacationCard({ plan, onClick }) {
     return (
         <Card sx={{ maxWidth: 345, p: 0 }} onClick={onClick} >
             <CardMedia
@@ -29,37 +29,37 @@ function VacationCard({ vacation, onClick }) {
                     <Grid container  >
                         <Grid item xs={6}>
                             <ListItem >
-                                <ListItemText primary="Start Date" secondary={vacation.startDate} style={listItemTextStyle} />
+                                <ListItemText primary="Start Date" secondary={plan.startDate} style={listItemTextStyle} />
                             </ListItem>
                         </Grid>
                         <Grid item xs={6}>
                             <ListItem>
-                                <ListItemText primary="End Date" secondary={vacation.endDate} style={listItemTextStyle} />
+                                <ListItemText primary="End Date" secondary={plan.endDate} style={listItemTextStyle} />
                             </ListItem>
                         </Grid>
                         <Grid item xs={6}>
                             <ListItem>
-                                <ListItemText primary="Country" secondary={vacation.country} style={listItemTextStyle} />
+                                <ListItemText primary="Country" secondary={plan.country} style={listItemTextStyle} />
                             </ListItem>
                         </Grid>
                         <Grid item xs={6}>
                             <ListItem>
-                                <ListItemText primary="Region" secondary={vacation.region} style={listItemTextStyle} />
+                                <ListItemText primary="Region" secondary={plan.region} style={listItemTextStyle} />
                             </ListItem>
                         </Grid>
                         <Grid item xs={6}>
                             <ListItem>
-                                <ListItemText primary="City" secondary={vacation.city} style={listItemTextStyle} />
+                                <ListItemText primary="City" secondary={plan.city} style={listItemTextStyle} />
                             </ListItem>
                         </Grid>
                         <Grid item xs={6}>
                             <ListItem>
-                                <ListItemText primary="Rooms" secondary={vacation.rooms} style={listItemTextStyle} />
+                                <ListItemText primary="Rooms" secondary={plan.minRoomsNum} style={listItemTextStyle} />
                             </ListItem>
                         </Grid>
                         <Grid item xs={6}>
                             <ListItem>
-                                <ListItemText primary="Bathrooms" secondary={vacation.bathrooms} style={listItemTextStyle} />
+                                <ListItemText primary="Bathrooms" secondary={plan.minBathroomsNum} style={listItemTextStyle} />
                             </ListItem>
                         </Grid>
 

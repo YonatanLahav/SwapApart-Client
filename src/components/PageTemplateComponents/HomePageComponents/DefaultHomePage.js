@@ -26,7 +26,7 @@ function DefaultHomePage({ plans, setActivePage, setVacationIndex }) {
                         <HoverShadowCard
                             element={
                                 <VacationCard
-                                    vacation={plan}
+                                    plan={plan}
                                     onClick={() => setVacationIndex(index)}
                                 />
                             }

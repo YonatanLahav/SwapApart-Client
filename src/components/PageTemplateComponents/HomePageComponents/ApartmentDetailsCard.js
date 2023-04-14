@@ -31,10 +31,10 @@ function ApartmentDetailsCard({ optionalMatch, setVacationIndex }) {
                 <ListItem sx={{ py: 0, px: 0 }}>
                     <Grid container spacing={2} >
                         <Grid item xs={4}>
-                            <ListItemText primary={'Rooms'} secondary={optionalMatch.rooms} align='center' />
+                            <ListItemText primary={'Rooms'} secondary={optionalMatch.minRoomsNum} align='center' />
                         </Grid>
                         <Grid item xs={4}>
-                            <ListItemText primary={'Bathrooms'} secondary={optionalMatch.bathrooms} align='center' />
+                            <ListItemText primary={'Bathrooms'} secondary={optionalMatch.minBathroomsNum} align='center' />
                         </Grid>
                         <Grid item xs={4} />
                     </Grid>

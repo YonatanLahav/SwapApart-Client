@@ -26,3 +26,12 @@ export const getPlans = async (token) => {
     });
     return res.data;
 };
+
+export const getOptionalMatchs = async (token, plan) => {
+    const res = await api.get('/plans/optional/' + plan, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return res.data;
+};
