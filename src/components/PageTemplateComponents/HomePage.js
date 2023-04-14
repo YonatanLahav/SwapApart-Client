@@ -33,7 +33,7 @@ function HomePage({ user, setActivePage }) {
             setVacationIndex={setVacationIndex}
         />
     ) : (
-        <VacationMatchsPage optionalMatch={user.vacationsArr[vacationIndex]} images={user.apartmentImgs} setVacationIndex={setVacationIndex} />
+        <VacationMatchsPage plan={plans[vacationIndex]._id} images={[]} setVacationIndex={setVacationIndex} />
     );
 
     // return (vacationIndex == null) ? (

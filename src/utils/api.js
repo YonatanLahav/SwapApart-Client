@@ -43,3 +43,11 @@ export const addVacation = async (token, vacation) => {
       throw error;
     }
   };
+export const getOptionalMatchs = async (token, plan) => {
+    const res = await api.get('/plans/optional/' + plan, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return res.data;
+};
