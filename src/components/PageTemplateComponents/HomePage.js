@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { getPlans } from "../../utils/api";
 
 function HomePage({ user, setActivePage }) {
-    const [vacationIndex, setVacationIndex] = useState(null);
+    const [planIndex, setPlanIndex] = useState(null);
     const [plans, setPlans] = useState(null);
     const { token } = useContext(UserContext);
 
@@ -26,14 +26,14 @@ function HomePage({ user, setActivePage }) {
 
     return !plans ? (
         <div />
-    ) : (vacationIndex == null) ? (
+    ) : (planIndex == null) ? (
         <DefaultHomePage
             plans={plans}
             setActivePage={setActivePage}
-            setVacationIndex={setVacationIndex}
+            setPlanIndex={setPlanIndex}
         />
     ) : (
-        <VacationMatchsPage plan={plans[vacationIndex]._id} images={[]} setVacationIndex={setVacationIndex} />
+        <VacationMatchsPage plan={plans[planIndex]._id} images={[]} setPlanIndex={setPlanIndex} />
     );
 
     // return (vacationIndex == null) ? (

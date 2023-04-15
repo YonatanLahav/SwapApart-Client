@@ -27,17 +27,33 @@ export const getPlans = async (token) => {
     return res.data;
 };
 
-export const addVacation = async (token, vacation) => {
+// export const addVacation = async (token, vacation) => {
+//     try {
+//         const response = await api.post('/plans', vacation, {
+//             headers: {
+//                 Authorization: `Bearer ${token}`,
+//                 'Content-Type': 'application/json'
+//             },
+//             responseType: 'json'
+//         });
+//         const usersData = JSON.stringify(response.data);
+//         return usersData
+//     } catch (error) {
+//         console.error(error);
+//         throw error;
+//     }
+// };
+
+export const addPlan = async (token, plan) => {
     try {
-        const response = await api.post('/plans', vacation, {
+        const response = await api.post('/plans', plan, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
-            responseType: 'json'
         });
-        const usersData = JSON.stringify(response.data);
-        return usersData
+        console.log(response.data)
+        return response.data;
     } catch (error) {
         console.error(error);
         throw error;

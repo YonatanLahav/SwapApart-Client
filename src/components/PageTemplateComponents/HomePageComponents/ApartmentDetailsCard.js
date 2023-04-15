@@ -6,7 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 
-function ApartmentDetailsCard({ optionalMatch, setVacationIndex }) {
+function ApartmentDetailsCard({ optionalMatch }) {
     return (
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
 

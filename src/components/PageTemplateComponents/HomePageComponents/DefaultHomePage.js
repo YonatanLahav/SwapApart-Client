@@ -4,7 +4,7 @@ import HeaderCard from "./HeaderCard";
 import VacationCard from "./VacationCard";
 import HoverShadowCard from "./HoverShadowCard";
 
-function DefaultHomePage({ plans, setActivePage, setVacationIndex }) {
+function DefaultHomePage({ plans, setActivePage, setPlanIndex }) {
     return (
         <Container maxWidth="lg" sx={{ mt: 6, mb: 4 }}>
             <Grid container spacing={3}>
@@ -27,7 +27,7 @@ function DefaultHomePage({ plans, setActivePage, setVacationIndex }) {
                             element={
                                 <VacationCard
                                     plan={plan}
-                                    onClick={() => setVacationIndex(index)}
+                                    onClick={() => setPlanIndex(index)}
                                 />
                             }
                         />

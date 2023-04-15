@@ -8,7 +8,7 @@ import { getOptionalMatchs } from '../../../utils/api';
 import { useContext, useEffect, useState } from 'react';
 import UserContext from '../../../context/UserContext';
 
-function VacationMatchsPage({ plan, images, setVacationIndex }) {
+function VacationMatchsPage({ plan, images, setPlanIndex }) {
     const [optionalMatchs, setOptionalMatchs] = useState(null);
     const { token } = useContext(UserContext);
 
@@ -23,22 +23,22 @@ function VacationMatchsPage({ plan, images, setVacationIndex }) {
 
     return (optionalMatchs && (optionalMatchs.length > 0)) ? (
         <Container maxWidth="lg" sx={{ mt: 6, mb: 4, }}>
-            <IconButton onClick={() => setVacationIndex(null)}>
+            <IconButton onClick={() => setPlanIndex(null)}>
                 <ArrowBackIosIcon />
             </IconButton>
             <Grid container spacing={3}>
                 <Grid item xs={6} >
-                    <ApartmentDetailsCard optionalMatch={optionalMatchs[0]} setVacationIndex={setVacationIndex} />
+                    <ApartmentDetailsCard optionalMatch={optionalMatchs[0]} />
                 </Grid>
                 <Grid item xs={6} >
                     <ApartmentImageCard optionalMatch={optionalMatchs[0]} images={images} />
                 </Grid>
             </Grid>
-            <Button onClick={() => setVacationIndex(null)}>click</Button>
+            <Button onClick={() => setPlanIndex(null)}>click</Button>
         </Container >
     ) : (
         <Container maxWidth="md" sx={{ mt: 6, mb: 4, }}>
-            <IconButton onClick={() => setVacationIndex(null)}>
+            <IconButton onClick={() => setPlanIndex(null)}>
                 <ArrowBackIosIcon />
             </IconButton>
             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
