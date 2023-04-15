@@ -30,7 +30,6 @@ export default function SignUpForm() {
 
     const navigate = useNavigate();
     const [activeStep, setActiveStep] = React.useState(0); // State for stepper status.
-    const [newUser, setNewUser] = useState(null); // State for the new user.
     const [formData, setFormData] = useState({ // State for the form fields.
         firstName: '',
         lastName: '',

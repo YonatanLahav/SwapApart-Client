@@ -17,7 +17,7 @@ const theme = createTheme();
  * The right part of the screen will be the registration form.
  * 
  */
-export default function SignUp({ data, setData, setUser }) {
+export default function SignUp() {
 
     return (
         <ThemeProvider theme={theme}>
@@ -59,7 +59,7 @@ export default function SignUp({ data, setData, setUser }) {
                     }}
                 />
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                    <SignUpForm data={data} setData={setData} setUser={setUser} />
+                    <SignUpForm />
                 </Grid>
             </Grid>
         </ThemeProvider>
