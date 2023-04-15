@@ -49,7 +49,6 @@ export const addPlan = async (token, plan) => {
         const response = await api.post('/plans', plan, {
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
             },
         });
         console.log(response.data)

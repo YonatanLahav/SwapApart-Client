@@ -7,34 +7,45 @@ import ApartmentImageCard from './ApartmentImageCard';
 import { getOptionalMatchs } from '../../../utils/api';
 import { useContext, useEffect, useState } from 'react';
 import UserContext from '../../../context/UserContext';
+import FooterApartImgsCard from './FooterApartImgsCard';
+import { Card } from 'react-bootstrap';
 
 function VacationMatchsPage({ plan, images, setPlanIndex }) {
-    const [optionalMatchs, setOptionalMatchs] = useState(null);
+    const [optionalPlans, setOptionalPlans] = useState(null);
+
     const { token } = useContext(UserContext);
+
+    const swipePlan = (isLike) => {
+        const plans = optionalPlans;
+        plans.pop();
+        setOptionalPlans([...plans]);
+    };
 
     useEffect(() => {
         const fetchOptionalMatchs = async () => {
-            const Data = await getOptionalMatchs(token, plan);
-            setOptionalMatchs(Data);
-            console.log(Data)
+            const plans = await getOptionalMatchs(token, plan);
+            setOptionalPlans(plans);
+            console.log(plans)
         };
         fetchOptionalMatchs();
     }, []);
 
-    return (optionalMatchs && (optionalMatchs.length > 0)) ? (
+    return (optionalPlans && (optionalPlans.length > 0)) ? (
         <Container maxWidth="lg" sx={{ mt: 6, mb: 4, }}>
             <IconButton onClick={() => setPlanIndex(null)}>
                 <ArrowBackIosIcon />
             </IconButton>
-            <Grid container spacing={3}>
+            <Grid container spacing={3} alignItems={'center'}>
                 <Grid item xs={6} >
-                    <ApartmentDetailsCard optionalMatch={optionalMatchs[0]} />
+                    <ApartmentDetailsCard optionalMatch={optionalPlans[optionalPlans.length - 1]} />
                 </Grid>
                 <Grid item xs={6} >
-                    <ApartmentImageCard optionalMatch={optionalMatchs[0]} images={images} />
+                    <ApartmentImageCard optionalMatch={optionalPlans[optionalPlans.length - 1]} />
+                </Grid>
+                <Grid item xs={12} >
+                    <FooterApartImgsCard swipePlan={swipePlan} />
                 </Grid>
             </Grid>
-            <Button onClick={() => setPlanIndex(null)}>click</Button>
         </Container >
     ) : (
         <Container maxWidth="md" sx={{ mt: 6, mb: 4, }}>
