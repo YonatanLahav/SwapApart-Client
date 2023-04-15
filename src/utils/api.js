@@ -66,3 +66,29 @@ export const getOptionalMatchs = async (token, plan) => {
     });
     return res.data;
 };
+
+
+/**
+ * Swipes API
+ */
+
+/**
+ * 
+ * @param {*} token 
+ * @param {*} swiperPlan 
+ * @param {*} swipedPlan 
+ * @param {Boolean} isLiked 
+ * @returns 
+ */
+export const addSwipe = async (token, swiperPlan, swipedPlan, isLiked) => {
+
+    const res = await api.post('/swipes',
+        { swiperPlan, swipedPlan, isLiked },
+        {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    console.log("1")
+    return res.data;
+};

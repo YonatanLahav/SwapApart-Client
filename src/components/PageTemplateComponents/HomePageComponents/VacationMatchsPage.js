@@ -4,21 +4,25 @@ import { Container, Button, IconButton, Paper, Typography } from '@mui/material'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ApartmentDetailsCard from './ApartmentDetailsCard';
 import ApartmentImageCard from './ApartmentImageCard';
-import { getOptionalMatchs } from '../../../utils/api';
+import { addSwipe, getOptionalMatchs } from '../../../utils/api';
 import { useContext, useEffect, useState } from 'react';
 import UserContext from '../../../context/UserContext';
 import FooterApartImgsCard from './FooterApartImgsCard';
-import { Card } from 'react-bootstrap';
 
-function VacationMatchsPage({ plan, images, setPlanIndex }) {
+function VacationMatchsPage({ plan, setPlanIndex }) {
     const [optionalPlans, setOptionalPlans] = useState(null);
 
     const { token } = useContext(UserContext);
 
-    const swipePlan = (isLike) => {
-        const plans = optionalPlans;
-        plans.pop();
-        setOptionalPlans([...plans]);
+    const swipePlan = async (isLiked) => {
+        try {
+            await addSwipe(token, plan, optionalPlans[optionalPlans.length - 1]._id, isLiked)
+            const plans = optionalPlans;
+            plans.pop();
+            setOptionalPlans([...plans]);
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     useEffect(() => {
