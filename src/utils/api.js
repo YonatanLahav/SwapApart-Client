@@ -29,20 +29,20 @@ export const getPlans = async (token) => {
 
 export const addVacation = async (token, vacation) => {
     try {
-      const response = await api.post('/plans', vacation, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        responseType: 'json'
-      });
-      const usersData  = JSON.stringify(response.data);
-      return usersData
+        const response = await api.post('/plans', vacation, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            responseType: 'json'
+        });
+        const usersData = JSON.stringify(response.data);
+        return usersData
     } catch (error) {
-      console.error(error);
-      throw error;
+        console.error(error);
+        throw error;
     }
-  };
+};
 export const getOptionalMatchs = async (token, plan) => {
     const res = await api.get('/plans/optional/' + plan, {
         headers: {
