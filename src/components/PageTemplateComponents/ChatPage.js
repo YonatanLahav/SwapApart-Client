@@ -14,7 +14,7 @@ import UserContext from "../../context/UserContext";
 import RightSidebar from "./ChatComponents/RightSidebar";
 
 const ChatPage = () => {
-    const [activeChatUsername, setActiveChatUsername] = useState("roy");
+    const [activeChatUsername, setActiveChatUsername] = useState("Roy");
     // const [render, setRender] = useState(null);
     // const [updateData, setData] = useState(data);
     const { token } = useContext(UserContext);

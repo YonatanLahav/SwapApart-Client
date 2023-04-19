@@ -3,18 +3,21 @@ import { Conversation} from "@chatscope/chat-ui-kit-react";
 
 function ConversationList({setActiveChatUsername}) {
     const chats = [{
-        Name : "Roy"
+        Name : "Roy",
+        day : "9"
     },
     {
-        Name : "Lilly"
+        Name : "Lilly",
+        day : "8"
     },
     {
-        Name : "Yonatan"
+        Name : "Yonatan",
+        day : "7"
     }
 ]
   return (
     <div>
-        {chats.map(({Name}) => <Conversation name={Name} onClick={()=>setActiveChatUsername(Name)}/>)}
+        {chats.map(({day}) => <Conversation name={day} onClick={()=>setActiveChatUsername(day)}/>)}
     </div>
   )
 }
