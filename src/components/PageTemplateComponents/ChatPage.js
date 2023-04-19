@@ -1,30 +1,39 @@
-import React from 'react'
-import './ChatPage.css'
-import ChatList from './ChatComp/ChatList'
-import { useState } from 'react'
-import Conversation from './ChatComp/Conversation'
-import { data } from './data';
+import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import {
+    MainContainer,
+    MessageList,
+    Message,
+    MessageInput,
+} from "@chatscope/chat-ui-kit-react";
+import LeftSidebar from "./ChatComponents/LeftSidebar";
+import ChatContainer from "./ChatComponents/ChatContainer";
+import { useEffect } from "react";
+import { getConversations } from "../../utils/api";
+import { useContext } from "react";
+import UserContext from "../../context/UserContext";
 
+const ChatPage = () => {
+    // const [activeChatUsername, setActiveChatUsername] = useState(null);
+    // const [render, setRender] = useState(null);
+    // const [updateData, setData] = useState(data);
+    const { token } = useContext(UserContext);
 
-const ChatPage = (props) => {
-
-    const [activeChatUsername, setActiveChatUsername] = useState(null);
-    const [render, setRender] = useState(null);
-    const [updateData, setData] = useState(data);
-
+    useEffect(() => {
+        const fetchConversations = async () => {
+            const conversationsData = await getConversations(token);
+            console.log(conversationsData)
+        };
+        fetchConversations();
+    }, [token]);
 
     return (
-        <div className='container outer inner-chat '>
-                <h1 style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '3vh'}}>Matches !</h1>
-            <div className='wrapper'>
-                
-                    <ChatList user={data[0]} chats={data[0].chats} updateData={updateData} setActiveChatUsername={setActiveChatUsername} />
-                
-                {(activeChatUsername === null) ? "" : <Conversation setRender={setRender} chats={data[0].chats.find(({ username }) => activeChatUsername === username)} user={data[0]} />}
-                
-            </div >
-        </div >
-    )
+        <div style={{ position: "relative", height: "500px" }}>
+            <MainContainer>
+                <LeftSidebar />
+                <ChatContainer />
+            </MainContainer>
+        </div>
+    );
 }
 
 

@@ -71,15 +71,6 @@ export const getOptionalMatchs = async (token, plan) => {
 /**
  * Swipes API
  */
-
-/**
- * 
- * @param {*} token 
- * @param {*} swiperPlan 
- * @param {*} swipedPlan 
- * @param {Boolean} isLiked 
- * @returns 
- */
 export const addSwipe = async (token, swiperPlan, swipedPlan, isLiked) => {
 
     const res = await api.post('/swipes',
@@ -89,6 +80,17 @@ export const addSwipe = async (token, swiperPlan, swipedPlan, isLiked) => {
                 'Authorization': `Bearer ${token}`
             }
         });
-    console.log("1")
+    return res.data;
+};
+
+/**
+ * Conversations API
+ */
+export const getConversations = async (token) => {
+    const res = await api.get('conversations', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
     return res.data;
 };
