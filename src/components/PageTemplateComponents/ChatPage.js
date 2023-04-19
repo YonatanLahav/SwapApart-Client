@@ -8,31 +8,33 @@ import {
 import LeftSidebar from "./ChatComponents/LeftSidebar";
 import ChatContainer from "./ChatComponents/ChatContainer";
 import { useEffect } from "react";
-import { getConversations } from "../../utils/api";
+import { getConversations, getMatches } from "../../utils/api";
 import { useContext, useState } from "react";
 import UserContext from "../../context/UserContext";
 import RightSidebar from "./ChatComponents/RightSidebar";
 
 const ChatPage = () => {
     const [activeChatUsername, setActiveChatUsername] = useState("Roy");
+    const [conversations, setConversations] = useState([]);
     // const [render, setRender] = useState(null);
     // const [updateData, setData] = useState(data);
     const { token } = useContext(UserContext);
 
     useEffect(() => {
-        const fetchConversations = async () => {
-            const conversationsData = await getConversations(token);
-            console.log(conversationsData)
+        const fetchMatches = async () => {
+            const matchesData = await getMatches(token);
+            setConversations(matchesData)
+            console.log(matchesData)
         };
-        fetchConversations();
+        fetchMatches();
     }, [token]);
 
     return (
         <div style={{ position: "relative", height: "500px" }}>
             <MainContainer>
-                <LeftSidebar  setActiveChatUsername={setActiveChatUsername} />
-                <ChatContainer activeChatUsername={activeChatUsername}/>
-                <RightSidebar/>
+                <LeftSidebar conversations={conversations} setActiveChatUsername={setActiveChatUsername} />
+                <ChatContainer activeChatUsername={activeChatUsername} />
+                <RightSidebar />
             </MainContainer>
         </div>
     );

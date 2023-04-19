@@ -1,25 +1,16 @@
 import React from 'react'
-import { Conversation} from "@chatscope/chat-ui-kit-react";
+import { Conversation } from "@chatscope/chat-ui-kit-react";
 
-function ConversationList({setActiveChatUsername}) {
-    const chats = [{
-        Name : "Roy",
-        day : "9"
-    },
-    {
-        Name : "Lilly",
-        day : "8"
-    },
-    {
-        Name : "Yonatan",
-        day : "7"
-    }
-]
-  return (
-    <div>
-        {chats.map(({day}) => <Conversation name={day} onClick={()=>setActiveChatUsername(day)}/>)}
-    </div>
-  )
+function ConversationList({ conversations, setActiveChatUsername }) {
+    return (
+        <>
+            {conversations.map((conversation) =>
+                <Conversation
+                    name={conversation.matchedUser.firstName + " " + conversation.matchedUser.lastName}
+                    onClick={() => setActiveChatUsername(conversation.matchedUser.firstName)} />
+            )}
+        </>
+    )
 }
 
 export default ConversationList

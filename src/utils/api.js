@@ -94,3 +94,16 @@ export const getConversations = async (token) => {
     });
     return res.data;
 };
+
+
+/**
+ * Matches API
+ */
+export const getMatches = async (token) => {
+    const res = await api.get('matches', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return res.data;
+};
