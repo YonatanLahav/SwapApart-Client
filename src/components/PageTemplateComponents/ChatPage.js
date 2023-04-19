@@ -9,11 +9,12 @@ import LeftSidebar from "./ChatComponents/LeftSidebar";
 import ChatContainer from "./ChatComponents/ChatContainer";
 import { useEffect } from "react";
 import { getConversations } from "../../utils/api";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import UserContext from "../../context/UserContext";
+import RightSidebar from "./ChatComponents/RightSidebar";
 
 const ChatPage = () => {
-    // const [activeChatUsername, setActiveChatUsername] = useState(null);
+    const [activeChatUsername, setActiveChatUsername] = useState("roy");
     // const [render, setRender] = useState(null);
     // const [updateData, setData] = useState(data);
     const { token } = useContext(UserContext);
@@ -29,8 +30,9 @@ const ChatPage = () => {
     return (
         <div style={{ position: "relative", height: "500px" }}>
             <MainContainer>
-                <LeftSidebar />
-                <ChatContainer />
+                <LeftSidebar  setActiveChatUsername={setActiveChatUsername} />
+                <ChatContainer activeChatUsername={activeChatUsername}/>
+                <RightSidebar/>
             </MainContainer>
         </div>
     );

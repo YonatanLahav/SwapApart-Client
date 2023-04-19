@@ -1,15 +1,13 @@
 import React from 'react'
-import { Sidebar, Search, ConversationList, Conversation, Avatar } from "@chatscope/chat-ui-kit-react";
+import { Sidebar, Search, Conversation, Avatar } from "@chatscope/chat-ui-kit-react";
+import ConversationList from './ConversationList';
 
-const LeftSidebar = (props) => {
+const LeftSidebar = ({setActiveChatUsername}) => {
 
     return (
         <Sidebar position="left" scrollable={false}>
             <Search placeholder="Search..." />
-            <ConversationList>
-                <Conversation name="Lilly"  >
-                </Conversation>
-            </ConversationList>
+            <ConversationList setActiveChatUsername={setActiveChatUsername}/>
         </Sidebar>
     );
 }
