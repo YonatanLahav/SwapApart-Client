@@ -46,7 +46,7 @@ export default function RightSidebar() {
         </ListItemIcon>
         <ListItemText primary="Rooms : 6" />
       </ListItemButton>
-      
+
     </List>
   );
 }

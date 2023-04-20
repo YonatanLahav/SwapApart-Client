@@ -34,7 +34,10 @@ const ChatPage = () => {
         <div style={{ position: "relative", height: "90vh" }}>
             <MainContainer>
                 <LeftSidebar conversations={conversations} setActiveChat={setActiveChat} activeChat={activeChat} />
-                {activeChat && <ActiveChatContainer conversation={conversations.find((c) => c._id === activeChat)} />}
+                {activeChat &&
+                    <ActiveChatContainer
+                        conversation={conversations.find((c) => c._id === activeChat)}
+                        setConversations={setConversations} />}
                 {/* <RightSidebar /> */}
             </MainContainer>
         </div>

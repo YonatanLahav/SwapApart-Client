@@ -107,3 +107,23 @@ export const getMatches = async (token) => {
     });
     return res.data;
 };
+
+/**
+ * Messages API
+ */
+export const addMessage = async (token, { match, sender, text }) => {
+    try {
+        const res = await api.post('/messages',
+            { match, sender, text },
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+        return res.data;
+    } catch (error) {
+        // Handle the error
+        console.error('Error adding message:', error);
+        throw error; // re-throw the error so it can be caught further up the call stack
+    }
+};
