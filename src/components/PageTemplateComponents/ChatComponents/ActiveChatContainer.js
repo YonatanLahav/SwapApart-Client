@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import UserContext from '../../../context/UserContext';
 import { addMessage } from '../../../utils/api';
 
-function ActiveChatContainer({ conversation, setConversations }) {
+function ActiveChatContainer({ conversation, setConversations, isRightSidebarOpen, setIsRightSidebarOpen }) {
 
     const { token } = useContext(UserContext);
 
@@ -77,7 +77,7 @@ function ActiveChatContainer({ conversation, setConversations }) {
                 <Avatar src={getAvatarSrc(conversation)} name={getFullName(conversation)} />
                 <ConversationHeader.Content userName={getFullName(conversation)} />
                 <ConversationHeader.Actions>
-                    <InfoButton />
+                    <InfoButton onClick={() => setIsRightSidebarOpen(!isRightSidebarOpen)} />
                 </ConversationHeader.Actions>
             </ConversationHeader>
 
