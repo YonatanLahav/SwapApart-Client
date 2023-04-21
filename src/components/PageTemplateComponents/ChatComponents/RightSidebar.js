@@ -12,81 +12,80 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import ApartmentImageStepper from '../HomePageComponents/ApartmentImageStepper';
 
 
 export default function RightSidebar({ conversation }) {
-  const [open, setOpen] = React.useState(true);
-  const startDate = "start date: " + conversation.plan.startDate.slice(8,10) +
-      "." + conversation.plan.startDate.slice(5,7) + 
-      "." + conversation.plan.startDate.slice(0,4) 
-  const endDate = "end date: " + conversation.plan.endDate.slice(8,10) +
-      "." + conversation.plan.endDate.slice(5,7) + 
-      "." + conversation.plan.endDate.slice(0,4)
-  const handleClick = () => {
-    setOpen(!open);
+
+  const getStartDate = () => {
+    const startDate = new Date(conversation.plan.startDate);
+    const formattedDate = startDate.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    return "Start Date: " + formattedDate;
   };
+
+  const getEndDate = () => {
+    const endDate = new Date(conversation.plan.endDate);
+    const formattedDate = endDate.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    return "Start Date: " + formattedDate;
+  };
+
+  const getCountry = () => { return "Country: " + conversation.matchedUser.apartment.country; };
+  const getRegion = () => { return "Region: " + conversation.matchedUser.apartment.region; };
+  const getCity = () => { return "City: " + conversation.matchedUser.apartment.city; };
+  const getRooms = () => { return "Rooms: " + conversation.matchedUser.apartment.rooms; };
+  const getBathrooms = () => { return "Bathrooms: " + conversation.matchedUser.apartment.bathrooms; };
+
 
   return (
     <Sidebar position="right">
-      <ExpansionPanel open title="Match Info">  
+      <ExpansionPanel open title="Match Info">
         <List>
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <ArrowForwardIcon />
-              </ListItemIcon>
-              <ListItemText primary = {startDate} />
-            </ListItemButton>
+            <ListItemIcon>
+              <ArrowForwardIcon />
+            </ListItemIcon>
+            <ListItemText primary={getStartDate()} />
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <ArrowBackIcon />
-              </ListItemIcon>
-              <ListItemText primary={endDate} />
-            </ListItemButton>
+            <ListItemIcon>
+              <ArrowBackIcon />
+            </ListItemIcon>
+            <ListItemText primary={getEndDate()} />
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <PublicIcon />
-              </ListItemIcon>
-              <ListItemText primary={"country: " + conversation.plan.country} />
-            </ListItemButton>
+            <ListItemIcon>
+              <PublicIcon />
+            </ListItemIcon>
+            <ListItemText primary={getCountry()} />
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <MapIcon />
-              </ListItemIcon>
-              <ListItemText primary={"region: " + conversation.plan.region} />
-            </ListItemButton>
+            <ListItemIcon>
+              <MapIcon />
+            </ListItemIcon>
+            <ListItemText primary={getRegion()} />
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <LocationOnIcon />
-              </ListItemIcon>
-              <ListItemText primary={"city: " + conversation.plan.city} />
-            </ListItemButton>
+            <ListItemIcon>
+              <LocationOnIcon />
+            </ListItemIcon>
+            <ListItemText primary={getCity()} />
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <HomeWorkIcon />
-              </ListItemIcon>
-              <ListItemText primary={"rooms: " + conversation.plan.rooms} />
-            </ListItemButton>
+            <ListItemIcon>
+              <HomeWorkIcon />
+            </ListItemIcon>
+            <ListItemText primary={getRooms()} />
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <BathtubIcon />
-              </ListItemIcon>
-              <ListItemText primary={"bathrooms: " + conversation.plan.bathrooms} />
-            </ListItemButton>
+            <ListItemIcon>
+              <BathtubIcon />
+            </ListItemIcon>
+            <ListItemText primary={getBathrooms()} />
           </ListItem>
-        </List>      
+          <ListItem disablePadding>
+            <ApartmentImageStepper images={conversation.matchedUser.apartment.pictures} />
+          </ListItem>
+        </List>
       </ExpansionPanel>
     </Sidebar>
   );
