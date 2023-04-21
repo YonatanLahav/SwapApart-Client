@@ -7,6 +7,12 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 
 function ApartmentDetailsCard({ optionalMatch }) {
+
+    const getCountry = () => { return optionalMatch.userId.apartment.country };
+    const getRegion = () => { return optionalMatch.userId.apartment.region };
+    const getCity = () => { return optionalMatch.userId.apartment.city };
+    const getRooms = () => { return optionalMatch.userId.apartment.rooms };
+    const getBathrooms = () => { return optionalMatch.userId.apartment.bathrooms };
     return (
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
 
@@ -18,23 +24,23 @@ function ApartmentDetailsCard({ optionalMatch }) {
                 <ListItem sx={{ py: 0, px: 0 }}>
                     <Grid container spacing={2} >
                         <Grid item xs={4}>
-                            <ListItemText primary={'Country'} secondary={optionalMatch.country} align='center' />
+                            <ListItemText primary={'Country'} secondary={getCountry()} align='center' />
                         </Grid>
                         <Grid item xs={4}>
-                            <ListItemText primary={'Region'} secondary={optionalMatch.region} align='center' />
+                            <ListItemText primary={'Region'} secondary={getRegion()} align='center' />
                         </Grid>
                         <Grid item xs={4}>
-                            <ListItemText primary={'City'} secondary={optionalMatch.city} align='center' />
+                            <ListItemText primary={'City'} secondary={getCity()} align='center' />
                         </Grid>
                     </Grid>
                 </ListItem>
                 <ListItem sx={{ py: 0, px: 0 }}>
                     <Grid container spacing={2} >
                         <Grid item xs={4}>
-                            <ListItemText primary={'Rooms'} secondary={optionalMatch.minRoomsNum} align='center' />
+                            <ListItemText primary={'Rooms'} secondary={getRooms()} align='center' />
                         </Grid>
                         <Grid item xs={4}>
-                            <ListItemText primary={'Bathrooms'} secondary={optionalMatch.minBathroomsNum} align='center' />
+                            <ListItemText primary={'Bathrooms'} secondary={getBathrooms()} align='center' />
                         </Grid>
                         <Grid item xs={4} />
                     </Grid>
