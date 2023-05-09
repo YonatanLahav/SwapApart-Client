@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import UserContext from '../../context/UserContext';
+import { isEmail } from 'validator';
 
 // The array containing the names of each step in the sign-up process.
 const steps = ['Personal Information', 'Apartment Details', 'Summary'];
@@ -27,7 +28,7 @@ const theme = createTheme();
 
 
 export default function SignUpForm() {
-
+    const [error, setError] = useState('')
     const navigate = useNavigate();
     const [activeStep, setActiveStep] = React.useState(0); // State for stepper status.
     const [formData, setFormData] = useState({ // State for the form fields.
@@ -35,6 +36,7 @@ export default function SignUpForm() {
         lastName: '',
         email: '',
         password: '',
+        verifypassword: '',
         country: '',
         region: '',
         city: '',
@@ -59,13 +61,60 @@ export default function SignUpForm() {
         }
     }
 
+    const VerifyStepZero = () => {
+        if( formData.firstName == '' ||
+                formData.lastName == '' ||
+                formData.email == '' ||
+                formData.password == '' ) {
+                    setError('All the fields are required')
+                    return false
+            }
+            else if(!isEmail(formData.email)) {
+                    setError('Not a valid Email')
+                    return false
+            }
+            else if (formData.password != formData.verifypassword) {
+                    setError("The password you entered and the verification password do not match")
+                    return false
+            }
+            else if (formData.password.length < 6) {
+                    setError("The password must be at least 6 characters long")
+                    return false
+            }
+        return true
+    }
+
+    const VerifyStepOne = () => {
+        if( formData.country == '' ||
+                formData.region == '' ||
+                formData.city == '' ||
+                formData.rooms == '' ||
+                formData.bathrooms == '') {
+                    setError('All the fields are required')
+                    return false
+            }
+        else if (isNaN(formData.rooms) || isNaN(formData.bathrooms)) {
+            setError('Rooms and bathroom fields should contain numbers only')
+            return false
+            }
+        return true
+    }
+
     // Handler for "next" button.
     const handleNext = () => {
-        setActiveStep(activeStep + 1);
+        if (activeStep == 0 &&  VerifyStepZero()) {
+            setError('')
+            setActiveStep(activeStep + 1);            
+        }
+        if (activeStep == 1 &&  VerifyStepOne()) {
+            setError('')
+            setActiveStep(activeStep + 1);            
+        }       
     };
 
     // Handler for "back" button.
     const handleBack = () => {
+        setError('')
         setActiveStep(activeStep - 1);
     };
 
@@ -86,12 +135,15 @@ export default function SignUpForm() {
                     pictures: formData.apartmentImgs
                 }
             };
-
             const res = await handleRegister(user);
             if (res) {
                 navigate('/home');
             }
-        } else {
+            else {
+                setError('This email already exist')
+            }
+        }
+        else {
             handleNext();
         }
     };
@@ -105,6 +157,7 @@ export default function SignUpForm() {
                     <Typography component="h1" variant="h4" align="center">
                         Sign Up
                     </Typography>
+                    
                     <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
                         {steps.map((label) => (
                             <Step key={label}>
@@ -112,6 +165,9 @@ export default function SignUpForm() {
                             </Step>
                         ))}
                     </Stepper>
+                    <Typography color="error" sx={{ mt: 0, mb: 2 }}>
+                                {error}
+                    </Typography>
                     <React.Fragment>
                         {getStepContent(activeStep)}
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>

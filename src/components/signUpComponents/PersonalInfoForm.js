@@ -93,6 +93,8 @@ export default function PersonalInfoForm({ formData, setFormData }) {
                         autoComplete="new-password"
                         variant="outlined"
                         type={'password'}
+                        value={formData.verifypassword}
+                        onChange={handleInputChange}
                     />
                 </Grid>
             </Grid>

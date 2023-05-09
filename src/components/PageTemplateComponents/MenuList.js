@@ -10,11 +10,11 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import InfoIcon from '@mui/icons-material/Info';
 import Divider from '@mui/material/Divider';
 
-function MenuList({ setActivePage }) {
+function MenuList({ setActivePage, setActiveSettingsPage, setPlanIndex }) {
     return (
         <div>
             <React.Fragment>
-                <ListItemButton onClick={() => setActivePage(0)}  >
+                <ListItemButton onClick={() => {setActivePage(0); setPlanIndex(null);}}  >
                     <ListItemIcon >
                         <HomeIcon />
                     </ListItemIcon>
@@ -37,7 +37,11 @@ function MenuList({ setActivePage }) {
             <React.Fragment>
                 <ListSubheader component="div" inset>
                 </ListSubheader>
-                <ListItemButton onClick={() => setActivePage(3)}>
+                <ListItemButton onClick={() => {
+                                setActivePage(3);
+                                setActiveSettingsPage(0);
+                    }}>
+
                     <ListItemIcon>
                         <SettingsIcon />
                     </ListItemIcon>

@@ -21,6 +21,7 @@ import ContactUsPage from '../components/PageTemplateComponents/ContactUsPage';
 import Button from '@mui/material/Button';
 import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
 import { useEffect } from 'react';
+import { useState } from "react";
 import { useContext } from 'react';
 import UserContext from '../context/UserContext';
 import { getAllUsers } from '../utils/api';
@@ -90,6 +91,9 @@ function PageTemplate({ data, setData, setUser, user }) {
     const [open, setOpen] = React.useState(false);    // 'open' determines whether the side drawer is open or closed.
     const { handleLogout, token } = useContext(UserContext);
 
+    const [activeSettingsPage, setActiveSettingsPage] = React.useState(0);
+    const [planIndex, setPlanIndex] = useState(null);
+
     // Run the useEffect() hook every time the 'data' prop changes.
     // This function sets the current user based on their ID.
     // useEffect(() => {
@@ -105,13 +109,13 @@ function PageTemplate({ data, setData, setUser, user }) {
     function getPageContent(step) {
         switch (step) {
             case 0:
-                return <HomePage data={data} setData={setData} user={user} setActivePage={setActivePage} />;
+                return <HomePage data={data} setData={setData} user={user} setActivePage={setActivePage} setPlanIndex={setPlanIndex} planIndex={planIndex} />;
             case 1:
-                return <NewVacationPage  setActivePage={setActivePage}/>;
+                return <NewVacationPage setActivePage={setActivePage}/>;
             case 2:
                 return <ChatPage />;
             case 3:
-                return <SettingsPage data={data} setData={setData} user={user} />;
+                return <SettingsPage data={data} setData={setData} user={user} activeSettingsPage={activeSettingsPage} setActiveSettingsPage={setActiveSettingsPage} />;
             case 4:
                 return <ContactUsPage />;
             default:
@@ -184,7 +188,7 @@ function PageTemplate({ data, setData, setUser, user }) {
                     <Divider />
                     {/* Render the menu list of links */}
                     <List component="nav">
-                        <MenuList setActivePage={setActivePage} />
+                        <MenuList setActivePage={setActivePage} setActiveSettingsPage={setActiveSettingsPage} setPlanIndex={setPlanIndex}/>
                     </List>
                 </Drawer>
                 <Box

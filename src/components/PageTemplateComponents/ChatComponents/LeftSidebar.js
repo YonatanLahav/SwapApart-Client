@@ -12,6 +12,9 @@ const LeftSidebar = ({ conversations, activeChat, setActiveChat }) => {
     const getFullName = (conversation) => {
         return `${conversation.matchedUser.firstName} ${conversation.matchedUser.lastName}`;
     };
+    const getFullNameRegion = (conversation) => {
+        return `${conversation.matchedUser.firstName} ${conversation.matchedUser.lastName} : ${conversation.plan.region}`;
+    };
 
     const lastSenderName = (conversation) => {
         if (!conversation.lastMessage) return null;
@@ -42,7 +45,7 @@ const LeftSidebar = ({ conversations, activeChat, setActiveChat }) => {
                 {conversations.map((conversation, index) => (
                     <Conversation
                         key={conversation._id}
-                        name={getFullName(conversation)}
+                        name={getFullNameRegion(conversation)}
                         lastSenderName={lastSenderName(conversation)}
                         onClick={() => setActiveChat(conversation._id)}
                         active={isActive(conversation)}
@@ -51,6 +54,7 @@ const LeftSidebar = ({ conversations, activeChat, setActiveChat }) => {
                         <Avatar
                             src={getAvatarSrc(conversation)}
                             name={getFullName(conversation)}
+                            
                         />
                     </Conversation>
                 ))}

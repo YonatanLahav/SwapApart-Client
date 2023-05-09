@@ -22,6 +22,7 @@ const steps = ['Dates', 'Preferences', 'Summary'];
  */
 function NewVacationPage({ setActivePage }) {
     const { token } = useContext(UserContext);
+    const [error, setError] = useState('h')
 
     // Define state to store the new vacation object and the active step in the form.
     const [activeStep, setActiveStep] = useState(0);
@@ -36,9 +37,41 @@ function NewVacationPage({ setActivePage }) {
         seenVacations: []
     })
 
+    const isDateInPast = (date) => {
+        const now = new Date();
+        if (date < now) {
+            setError('The date is in the past')
+            return true
+        }
+        return false
+      }
+
+    const VerifyStepOne = () => {
+        if( newVacation.country == null ||
+            newVacation.region == null ||
+            newVacation.city == null ||
+            newVacation.rooms == null ||
+            newVacation.bathrooms == null) {
+                    setError('All the fields are required')
+                    return false
+            }
+        else if (isNaN(newVacation.rooms) || isNaN(newVacation.bathrooms)) {
+            setError('Rooms and bathroom fields should contain numbers only')
+            return false
+            }
+        return true
+    }
+
     // Handle moving to the next step in the form.
     const handleNext = () => {
-        setActiveStep(activeStep + 1);
+        if (activeStep == 0 && !isDateInPast(newVacation.startDate)) {
+            setError('')
+            setActiveStep(activeStep + 1)
+        }
+        else if (activeStep == 1 && VerifyStepOne()) {
+            setError('')
+            setActiveStep(activeStep + 1)
+        }
     };
 
     // Handle moving back to the previous step in the form.
@@ -75,6 +108,7 @@ function NewVacationPage({ setActivePage }) {
             };
 
             addPlan(token, plan)
+            setActivePage(0)
         } else {
             handleNext();
         }
@@ -98,6 +132,9 @@ function NewVacationPage({ setActivePage }) {
                                 </Step>
                             ))}
                         </Stepper>
+                        <Typography color="error" sx={{ mt: 0, mb: 2 }}>
+                                {error}
+                        </Typography>
                         <React.Fragment>
                             {/* Body of the form */}
                             {getStepContent(activeStep)}

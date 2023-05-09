@@ -5,17 +5,16 @@ import MainSettings from './SettingsComponents/MainSettings'
 import Info from './SettingsComponents/Info'
 
 
-function SettingsPage() {
-    const [activePage, setActivePage] = React.useState(0);
+function SettingsPage({activeSettingsPage, setActiveSettingsPage }) {
 
     function getPageContent(page) {
         switch (page) {
             case 0:
-                return <MainSettings setActivePage={setActivePage} />;
+                return <MainSettings setActiveSettingsPage={setActiveSettingsPage} />;
             case 1:
-                return <ApartDetails setActivePage={setActivePage} />;
+                return <ApartDetails setActiveSettingsPage={setActiveSettingsPage} />;
             case 2:
-                return <Info setActivePage={setActivePage} />;
+                return <Info setActiveSettingsPage={setActiveSettingsPage} />;
             default:
                 throw new Error('Unknown step');
         }
@@ -31,7 +30,7 @@ function SettingsPage() {
                             Settings
                         </Typography>
 
-                        {getPageContent(activePage)}
+                        {getPageContent(activeSettingsPage)}
                     </Paper>
                 </Grid>
             </Grid>

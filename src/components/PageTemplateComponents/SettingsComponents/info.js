@@ -10,6 +10,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { useContext } from 'react';
 import UserContext from '../../../context/UserContext';
+import ApartmentImageStepper from '../HomePageComponents/ApartmentImageStepper';
 
 
 function Info() {
@@ -48,11 +49,8 @@ function Info() {
         </TableRow>
       </TableHead>
     </Table> 
-    {/* /* <ImageList>
-      {user.apartmentImgs.map((image, index) => (
-        <img key={index} src={image} alt={`Image ${index + 1}`}    loading="lazy" />
-      ))}
-     </ImageList> */}
+    <TableCell>Pictures</TableCell>
+    <ApartmentImageStepper images={(JSON.parse(userData).apartment.pictures)} />
   </TableContainer>
 
   )

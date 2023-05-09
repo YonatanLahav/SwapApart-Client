@@ -13,7 +13,6 @@ import RightSidebar from "./ChatComponents/RightSidebar";
 const ChatPage = () => {
     const [activeChat, setActiveChat] = useState(null);
     const [conversations, setConversations] = useState([]);
-    const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
 
     const { token } = useContext(UserContext);
 
@@ -37,10 +36,8 @@ const ChatPage = () => {
                     <ActiveChatContainer
                         conversation={conversations.find((c) => c._id === activeChat)}
                         setConversations={setConversations}
-                        isRightSidebarOpen={isRightSidebarOpen}
-                        setIsRightSidebarOpen={setIsRightSidebarOpen}
                     />}
-                {isRightSidebarOpen &&
+                {activeChat &&
                     <RightSidebar
                         conversation={conversations.find((c) => c._id === activeChat)}
                     />}

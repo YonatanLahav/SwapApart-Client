@@ -15,6 +15,14 @@ const listItemTextStyle = {
 };
 
 function VacationCard({ plan, onClick }) {
+    const getStartDate = () => {
+        const startDate = new Date(plan.startDate);
+        return startDate.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
+      };
+    const getEndDate = () => {
+        const endDate = new Date(plan.endDate);
+        return endDate.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    };
     return (
         <Card sx={{ maxWidth: 345, p: 0 }} onClick={onClick} >
             <CardMedia
@@ -29,12 +37,12 @@ function VacationCard({ plan, onClick }) {
                     <Grid container  >
                         <Grid item xs={6}>
                             <ListItem >
-                                <ListItemText primary="Start Date" secondary={plan.startDate} style={listItemTextStyle} />
+                                <ListItemText primary="Start Date:" secondary={getStartDate()} />
                             </ListItem>
                         </Grid>
                         <Grid item xs={6}>
                             <ListItem>
-                                <ListItemText primary="End Date" secondary={plan.endDate} style={listItemTextStyle} />
+                                <ListItemText primary="End Date:" secondary={getEndDate()} style={listItemTextStyle} />
                             </ListItem>
                         </Grid>
                         <Grid item xs={6}>

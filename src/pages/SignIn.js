@@ -44,12 +44,12 @@ export default function SignIn() {
         const email = form.get('email');
         const password = form.get('password');
         console.log(email, password)
+        try{
         const res = await handleLogin(email, password);
         if (res) {
             navigate('/home');
-        } else {
-            setError('Invalid email or password');
-        }
+        }}
+        catch(e) { setError('Invalid email or password') }
     };
 
     /**

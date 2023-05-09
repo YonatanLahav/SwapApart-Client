@@ -21,8 +21,8 @@ import UserContext from '../../../context/UserContext';
  * @param {Function} setFormData - Function to update form data.
  * @return {JSX.Element} A React Fragment containing the form for apartment details.
 */
-export default function ApartDetails({setActivePage}) {
-
+export default function ApartDetails({setActiveSettingsPage}) {
+    const [error, setError] = useState('')
     const {userData, handleUserUpdate, token}  = useContext(UserContext);
 
     // console.log(json.find((c)=>user.country==c.countryName).regions)
@@ -37,6 +37,17 @@ export default function ApartDetails({setActivePage}) {
     });
 
     const handleSubmit = () => {
+        if( formData.country == '' ||
+                formData.region == '' ||
+                formData.city == '' ||
+                formData.rooms == '' ||
+                formData.bathrooms == '') {
+                    setError('All the fields are required')
+        }
+        else if (isNaN(formData.rooms) || isNaN(formData.bathrooms)) {
+            setError('Rooms and bathroom fields should contain numbers only')
+        }
+        else {
         const changes =         
         {
             apartment:{
@@ -48,7 +59,8 @@ export default function ApartDetails({setActivePage}) {
             }
         }
         handleUserUpdate(token, changes)
-        setActivePage(0)           
+        setActiveSettingsPage(0)
+    }           
     };
 
     /**
@@ -64,6 +76,9 @@ export default function ApartDetails({setActivePage}) {
 
     return (
         <React.Fragment>
+            <Typography color="error" sx={{ mt: 0, mb: 2 }}>
+                                {error}
+                </Typography>
             <Typography variant="h6" gutterBottom>
                 Apartment Details
             </Typography>
