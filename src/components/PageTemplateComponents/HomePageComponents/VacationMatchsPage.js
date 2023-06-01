@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import { Container, Button, IconButton, Paper, Typography } from '@mui/material';
+import { Container, IconButton, Paper, Typography } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ApartmentDetailsCard from './ApartmentDetailsCard';
 import ApartmentImageCard from './ApartmentImageCard';

@@ -15,7 +15,6 @@ import ApartmentDetails from './ApartmentDetails';
 import SummaryForm from './SummaryForm';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useContext } from 'react';
 import UserContext from '../../context/UserContext';
 import { isEmail } from 'validator';
@@ -62,10 +61,10 @@ export default function SignUpForm() {
     }
 
     const VerifyStepZero = () => {
-        if( formData.firstName == '' ||
-                formData.lastName == '' ||
-                formData.email == '' ||
-                formData.password == '' ) {
+        if( formData.firstName === '' ||
+                formData.lastName === '' ||
+                formData.email === '' ||
+                formData.password === '' ) {
                     setError('All the fields are required')
                     return false
             }
@@ -73,7 +72,7 @@ export default function SignUpForm() {
                     setError('Not a valid Email')
                     return false
             }
-            else if (formData.password != formData.verifypassword) {
+            else if (formData.password !== formData.verifypassword) {
                     setError("The password you entered and the verification password do not match")
                     return false
             }
@@ -85,11 +84,11 @@ export default function SignUpForm() {
     }
 
     const VerifyStepOne = () => {
-        if( formData.country == '' ||
-                formData.region == '' ||
-                formData.city == '' ||
-                formData.rooms == '' ||
-                formData.bathrooms == '') {
+        if( formData.country === '' ||
+                formData.region === '' ||
+                formData.city === '' ||
+                formData.rooms === '' ||
+                formData.bathrooms === '') {
                     setError('All the fields are required')
                     return false
             }
@@ -102,11 +101,11 @@ export default function SignUpForm() {
 
     // Handler for "next" button.
     const handleNext = () => {
-        if (activeStep == 0 &&  VerifyStepZero()) {
+        if (activeStep === 0 &&  VerifyStepZero()) {
             setError('')
             setActiveStep(activeStep + 1);            
         }
-        if (activeStep == 1 &&  VerifyStepOne()) {
+        if (activeStep === 1 &&  VerifyStepOne()) {
             setError('')
             setActiveStep(activeStep + 1);            
         }       
@@ -186,7 +185,7 @@ export default function SignUpForm() {
                         </Box>
                     </React.Fragment>
                 </Paper>
-                <Link onClick={() => navigate("/signin")} underline='hover' >Have an account? Sign Ip</Link>
+                <Link onClick={() => navigate("/signin")} underline='hover' >Have an account? Sign In</Link>
             </Container>
         </ThemeProvider >
     );

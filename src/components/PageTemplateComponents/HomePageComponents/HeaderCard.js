@@ -1,6 +1,5 @@
 import React from 'react'
-import { Container, Paper, Typography, Stack, Button } from '@mui/material';
-import { WrapText } from '@mui/icons-material';
+import { Typography, Stack, Button } from '@mui/material';
 
 function HeaderCard({ setActivePage }) {
     return (

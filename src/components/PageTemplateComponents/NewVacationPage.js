@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Grid, Container, Paper, Typography, Link, Stepper, Step, StepLabel, Button } from '@mui/material';
+import { Box, Grid, Container, Paper, Typography, Stepper, Step, StepLabel, Button } from '@mui/material';
 import PickDatesForm from './NewVacationPageComponents/PickDatesForm'
 import PreferencesForm from './NewVacationPageComponents/PreferencesForm'
 import VacationSummary from './NewVacationPageComponents/VacationSummary'
@@ -22,7 +22,7 @@ const steps = ['Dates', 'Preferences', 'Summary'];
  */
 function NewVacationPage({ setActivePage }) {
     const { token } = useContext(UserContext);
-    const [error, setError] = useState('h')
+    const [error, setError] = useState('')
 
     // Define state to store the new vacation object and the active step in the form.
     const [activeStep, setActiveStep] = useState(0);
@@ -64,11 +64,11 @@ function NewVacationPage({ setActivePage }) {
 
     // Handle moving to the next step in the form.
     const handleNext = () => {
-        if (activeStep == 0 && !isDateInPast(newVacation.startDate)) {
+        if (activeStep === 0 && !isDateInPast(newVacation.startDate)) {
             setError('')
             setActiveStep(activeStep + 1)
         }
-        else if (activeStep == 1 && VerifyStepOne()) {
+        else if (activeStep === 1 && VerifyStepOne()) {
             setError('')
             setActiveStep(activeStep + 1)
         }

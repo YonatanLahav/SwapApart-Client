@@ -3,10 +3,6 @@ import { Card, CardMedia, CardContent, Typography, Button, CardActions, Grid, Di
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-
-
 
 const listItemTextStyle = {
     marginTop: 0,
@@ -37,7 +33,7 @@ function VacationCard({ plan, onClick }) {
                     <Grid container  >
                         <Grid item xs={6}>
                             <ListItem >
-                                <ListItemText primary="Start Date:" secondary={getStartDate()} />
+                                <ListItemText primary="Start Date:" secondary={getStartDate()} style={listItemTextStyle} />
                             </ListItem>
                         </Grid>
                         <Grid item xs={6}>

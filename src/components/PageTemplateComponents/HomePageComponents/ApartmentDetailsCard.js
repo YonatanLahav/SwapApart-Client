@@ -1,10 +1,8 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import { Paper, Typography, Divider, List, IconButton } from '@mui/material';
+import { Paper, Typography, Divider, List } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-
 
 function ApartmentDetailsCard({ optionalMatch }) {
 

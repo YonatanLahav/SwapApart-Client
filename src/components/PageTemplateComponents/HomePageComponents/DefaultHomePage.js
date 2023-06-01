@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Paper, Grid, Divider } from "@mui/material";
+import { Container, Paper, Grid } from "@mui/material";
 import HeaderCard from "./HeaderCard";
 import VacationCard from "./VacationCard";
 import HoverShadowCard from "./HoverShadowCard";

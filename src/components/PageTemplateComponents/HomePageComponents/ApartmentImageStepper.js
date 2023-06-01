@@ -19,7 +19,7 @@ function ApartmentImageStepper({ images }) {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    return (images.length != 0) ? (
+    return (images.length !== 0) ? (
         <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ mt: 5, mb: 5 }}>
             <Grid item xs={2} >
                 <IconButton onClick={handleBack} disabled={(activeStep === 0)}>

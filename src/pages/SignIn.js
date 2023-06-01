@@ -18,6 +18,7 @@ import Toolbar from '@mui/material/Toolbar';
 import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle';
 import { useContext } from 'react';
 import UserContext from '../context/UserContext';
+import myImage from '../swap-houses.jpg'
 
 const theme = createTheme();
 
@@ -84,7 +85,7 @@ export default function SignIn() {
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage: 'url(https://source.unsplash.com/random)',
+                        backgroundImage: `url(${myImage})`,
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
                             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],

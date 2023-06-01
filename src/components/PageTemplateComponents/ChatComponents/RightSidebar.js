@@ -9,7 +9,6 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ApartmentImageStepper from '../HomePageComponents/ApartmentImageStepper';

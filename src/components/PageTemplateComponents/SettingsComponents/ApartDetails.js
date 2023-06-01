@@ -2,10 +2,8 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import ImageStepper from '../../signUpComponents/ImageStepper'
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
-import Input from '@mui/material/Input';
 import json from 'country-region-data/data.json';
 import { useState } from 'react';
 import { Button } from '@mui/material';
@@ -26,22 +24,22 @@ export default function ApartDetails({setActiveSettingsPage}) {
     const {userData, handleUserUpdate, token}  = useContext(UserContext);
 
     // console.log(json.find((c)=>user.country==c.countryName).regions)
-    const [regionss, setRegions] = useState(json.find((country)=>JSON.parse(userData).apartment.country==country.countryName).regions) // State for regions of a specific country
+    const [regionss, setRegions] = useState(json.find((country)=>JSON.parse(userData).apartment.country === country.countryName).regions) // State for regions of a specific country
 
     const [formData, setFormData] = useState({ // State for the form fields.
-        country: json.find((country)=>(JSON.parse(userData).apartment.country == country.countryName)),
-        region: regionss.find((regions)=>JSON.parse(userData).apartment.region==regions.name),
+        country: json.find((country)=>(JSON.parse(userData).apartment.country === country.countryName)),
+        region: regionss.find((regions)=>JSON.parse(userData).apartment.region === regions.name),
         city: JSON.parse(userData).apartment.city,
         rooms: JSON.parse(userData).apartment.rooms,
         bathrooms: JSON.parse(userData).apartment.bathrooms,
     });
 
     const handleSubmit = () => {
-        if( formData.country == '' ||
-                formData.region == '' ||
-                formData.city == '' ||
-                formData.rooms == '' ||
-                formData.bathrooms == '') {
+        if( formData.country === '' ||
+                formData.region === '' ||
+                formData.city === '' ||
+                formData.rooms === '' ||
+                formData.bathrooms === '') {
                     setError('All the fields are required')
         }
         else if (isNaN(formData.rooms) || isNaN(formData.bathrooms)) {

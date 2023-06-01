@@ -28,12 +28,7 @@ function ImageStepper({ images }) {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    // Handle the step change.
-    const handleStepChange = (step) => {
-        setActiveStep(step);
-    };
-
-    return ((images.length != 0) ?
+    return ((images.length !== 0) ?
         <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
             <MobileStepper
                 steps={maxSteps}

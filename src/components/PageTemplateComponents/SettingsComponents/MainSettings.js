@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Grid, Container, Paper, Typography, Link, Stepper, Step, StepLabel, Button } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 
 function MainSettings({setActiveSettingsPage}) {
   return (

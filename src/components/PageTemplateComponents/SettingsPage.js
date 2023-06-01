@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Grid, Container, Paper, Typography, Link, Stepper, Step, StepLabel, Button } from '@mui/material';
+import { Grid, Container, Paper, Typography } from '@mui/material';
 import ApartDetails from './SettingsComponents/ApartDetails'
 import MainSettings from './SettingsComponents/MainSettings'
 import Info from './SettingsComponents/Info'
