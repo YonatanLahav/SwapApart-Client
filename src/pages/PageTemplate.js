@@ -208,7 +208,7 @@ function PageTemplate({ data, setData, setUser, user }) {
                             vertical: 'top',
                             horizontal: 'left',
                         }}>
-                        <MenuItem onClick={handleClose}>{JSON.parse(userData).firstName}</MenuItem>
+                        <MenuItem onClick={handleClose}>{JSON.parse(userData).firstname}</MenuItem>
                         </Menu>
                         
                         <Button
