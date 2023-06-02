@@ -4,7 +4,7 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 import LeftSidebar from "./ChatComponents/LeftSidebar";
 import ActiveChatContainer from "./ChatComponents/ActiveChatContainer";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { getMatches } from "../../utils/api";
 import { useContext, useState } from "react";
 import UserContext from "../../context/UserContext";
@@ -17,22 +17,18 @@ const ChatPage = () => {
 
     const { token } = useContext(UserContext);
 
-    ///////
-    const socket = io('http://localhost:5000', {
-        auth: {
-            token: token, // Use the actual token value from the UserContext
-        },
-        withCredentials: true
-    });
-    const m = "Message"
-    socket.emit('newMessage', { "message": m })
+    const socket = useRef();
+
     useEffect(() => {
-        // Event handler for new messages received from the server
-        socket.on('newMessage', (message) => {
-            console.log(message)
-        });
-    }, []);
-    //////
+        if (token) {
+            socket.current = io('http://localhost:5000');
+            socket.current.emit("add_user", token);
+            socket.current.on("msg_recieve", (msg) => {
+                console.log(msg);
+            });
+
+        }
+    }, [token]);
 
     useEffect(() => {
         const fetchMatches = async () => {
@@ -54,6 +50,7 @@ const ChatPage = () => {
                     <ActiveChatContainer
                         conversation={conversations.find((c) => c._id === activeChat)}
                         setConversations={setConversations}
+                        socket={socket}
                     />}
                 {activeChat &&
                     <RightSidebar
