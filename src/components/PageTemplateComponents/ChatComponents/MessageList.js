@@ -1,13 +1,18 @@
-import React from 'react'
+import React from 'react';
 import { MessageSeparator, Message } from "@chatscope/chat-ui-kit-react";
 
-function MessageList({messeges}) {    
+/**
+ * MessageList component displays a list of messages.
+ *
+ * @param {Object[]} messages - The array of message objects.
+ * @returns {JSX.Element} The rendered MessageList component.
+ */
+function MessageList({ messages }) {
   return (
     <div>
-        <MessageSeparator content="Saturday, 30 November 2019" />
-        {messeges.map((messageDetails) => <Message model={messageDetails}/>)}
+      {messages.map((messageDetails) => <Message model={messageDetails} />)}
     </div>
-  )
+  );
 }
 
-export default MessageList
+export default MessageList;
