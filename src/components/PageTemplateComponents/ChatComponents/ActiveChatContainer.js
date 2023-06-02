@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import UserContext from '../../../context/UserContext';
 import { addMessage } from '../../../utils/api';
 
-function ActiveChatContainer({ conversation, setConversations, socket }) {
+function ActiveChatContainer({ conversation, setConversations, socket, handleSendMessage }) {
 
     const { token } = useContext(UserContext);
 
@@ -120,7 +120,7 @@ function ActiveChatContainer({ conversation, setConversations, socket }) {
                 })}
             </MessageList>
 
-            <MessageInput placeholder="Type message here..." attachButton={false} onSend={handleSend} />
+            <MessageInput placeholder="Type message here..." attachButton={false} onSend={handleSendMessage} />
 
 
 
