@@ -20,7 +20,6 @@ import NewVacationPage from '../components/PageTemplateComponents/NewVacationPag
 import MenuList from '../components/PageTemplateComponents/MenuList';
 import SettingsPage from '../components/PageTemplateComponents/SettingsPage';
 import ContactUsPage from '../components/PageTemplateComponents/ContactUsPage';
-import { getAllUsers } from '../utils/api';
 import UserContext from '../context/UserContext';
 
 const drawerWidth = 240;
