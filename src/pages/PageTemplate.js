@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useContext } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -12,28 +12,23 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle'
-import HomePage from '../components/PageTemplateComponents/HomePage'
-import ChatPage from '../components/PageTemplateComponents/ChatPage'
+import Button from '@mui/material/Button';
+import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
+import HomePage from '../components/PageTemplateComponents/HomePage';
+import ChatPage from '../components/PageTemplateComponents/ChatPage';
 import NewVacationPage from '../components/PageTemplateComponents/NewVacationPage';
 import MenuList from '../components/PageTemplateComponents/MenuList';
 import SettingsPage from '../components/PageTemplateComponents/SettingsPage';
 import ContactUsPage from '../components/PageTemplateComponents/ContactUsPage';
-import Button from '@mui/material/Button';
-import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
-import { useState } from "react";
-import { useContext } from 'react';
-import UserContext from '../context/UserContext';
 import { getAllUsers } from '../utils/api';
+import UserContext from '../context/UserContext';
 
-
-const drawerWidth = 240; // Set the width of the drawer.
+const drawerWidth = 240;
 
 /**
- * Creates the styled AppBar component (top of the page)
+ * Styled AppBar component.
  */
-const AppBar = styled(MuiAppBar, { //
-    shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
+const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
@@ -50,66 +45,67 @@ const AppBar = styled(MuiAppBar, { //
 }));
 
 /**
- * Creates the styled Drawer component.
+ * Styled Drawer component.
  */
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-        '& .MuiDrawer-paper': {
-            position: 'relative',
-            whiteSpace: 'nowrap',
-            width: drawerWidth,
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
+    '& .MuiDrawer-paper': {
+        position: 'relative',
+        whiteSpace: 'nowrap',
+        width: drawerWidth,
+        transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        boxSizing: 'border-box',
+        ...(!open && {
+            overflowX: 'hidden',
             transition: theme.transitions.create('width', {
                 easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen,
+                duration: theme.transitions.duration.leavingScreen,
             }),
-            boxSizing: 'border-box',
-            ...(!open && {
-                overflowX: 'hidden',
-                transition: theme.transitions.create('width', {
-                    easing: theme.transitions.easing.sharp,
-                    duration: theme.transitions.duration.leavingScreen,
-                }),
-                width: theme.spacing(7),
-                [theme.breakpoints.up('sm')]: {
-                    width: theme.spacing(9),
-                },
-            }),
-        },
-    }),
-);
+            width: theme.spacing(7),
+            [theme.breakpoints.up('sm')]: {
+                width: theme.spacing(9),
+            },
+        }),
+    },
+}));
 
 const mdTheme = createTheme();
 
 /**
- * This component creates the frame of the home screen for a user connected to the site.
- * The frame includes the top bar and the menu.
+ * Component representing the frame of the home screen for a logged-in user.
  */
-function PageTemplate({ data, setData, setUser, user }) {
-    // Set two state variables using the React.useState() hook.
-    const [activePage, setActivePage] = React.useState(0);     // 'activePage' keeps track of which page is currently active.
-    const [open, setOpen] = React.useState(false);    // 'open' determines whether the side drawer is open or closed.
+function PageTemplate() {
+    const [activePage, setActivePage] = useState(0);
+    const [open, setOpen] = useState(false);
     const { handleLogout } = useContext(UserContext);
-
-    const [activeSettingsPage, setActiveSettingsPage] = React.useState(0);
+    const [activeSettingsPage, setActiveSettingsPage] = useState(0);
     const [planIndex, setPlanIndex] = useState(null);
 
-
-    // This function toggles the state of 'open' to either true or false.
+    /**
+     * Toggles the state of the side drawer.
+     */
     const toggleDrawer = () => {
         setOpen(!open);
     };
-    getAllUsers().then((r) => console.log(r));
-    // This function returns the content for the active page.
+
+
+    /**
+     * Returns the content for the active page based on the step value.
+     * @param {number} step - The step value representing the active page.
+     * @returns {JSX.Element} - The content for the active page.
+     */
     function getPageContent(step) {
         switch (step) {
             case 0:
-                return <HomePage data={data} setData={setData} user={user} setActivePage={setActivePage} setPlanIndex={setPlanIndex} planIndex={planIndex} />;
+                return <HomePage setActivePage={setActivePage} setPlanIndex={setPlanIndex} planIndex={planIndex} />;
             case 1:
-                return <NewVacationPage setActivePage={setActivePage}/>;
+                return <NewVacationPage setActivePage={setActivePage} />;
             case 2:
                 return <ChatPage />;
             case 3:
-                return <SettingsPage data={data} setData={setData} user={user} activeSettingsPage={activeSettingsPage} setActiveSettingsPage={setActiveSettingsPage} />;
+                return <SettingsPage activeSettingsPage={activeSettingsPage} setActiveSettingsPage={setActiveSettingsPage} />;
             case 4:
                 return <ContactUsPage />;
             default:
@@ -121,14 +117,8 @@ function PageTemplate({ data, setData, setUser, user }) {
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
-                {/* AppBar contains the top navigation bar */}
                 <AppBar position="absolute" open={open}>
-                    <Toolbar
-                        sx={{
-                            pr: '24px', // keep right padding when drawer closed
-                        }}
-                    >
-                        {/* The menu icon will toggle the state of the side drawer */}
+                    <Toolbar sx={{ pr: '24px' }}>
                         <IconButton
                             edge="start"
                             color="inherit"
@@ -141,7 +131,6 @@ function PageTemplate({ data, setData, setUser, user }) {
                         >
                             <MenuIcon />
                         </IconButton>
-                        {/* The app's icon and name */}
                         <SwapHorizontalCircleIcon />
                         <Typography
                             component="h1"
@@ -153,18 +142,11 @@ function PageTemplate({ data, setData, setUser, user }) {
                         >
                             SwapApart!
                         </Typography>
-                        {/* A button to sign out the user */}
-                        <Button
-                            color='inherit'
-                            variant="outlined"
-                            startIcon={<MeetingRoomOutlinedIcon />}
-                            onClick={() => { handleLogout() }}>
+                        <Button color="inherit" variant="outlined" startIcon={<MeetingRoomOutlinedIcon />} onClick={handleLogout}>
                             Sign Out
                         </Button>
                     </Toolbar>
                 </AppBar>
-
-                {/* Drawer contains the side navigation menu */}
                 <Drawer variant="permanent" open={open}>
                     <Toolbar
                         sx={{
@@ -174,31 +156,26 @@ function PageTemplate({ data, setData, setUser, user }) {
                             px: [1],
                         }}
                     >
-                        {/* The chevron icon will toggle the state of the side drawer */}
                         <IconButton onClick={toggleDrawer}>
                             <ChevronLeftIcon />
                         </IconButton>
                     </Toolbar>
                     <Divider />
-                    {/* Render the menu list of links */}
                     <List component="nav">
-                        <MenuList setActivePage={setActivePage} setActiveSettingsPage={setActiveSettingsPage} setPlanIndex={setPlanIndex}/>
+                        <MenuList setActivePage={setActivePage} setActiveSettingsPage={setActiveSettingsPage} setPlanIndex={setPlanIndex} />
                     </List>
                 </Drawer>
                 <Box
                     component="main"
                     sx={{
                         backgroundColor: (theme) =>
-                            theme.palette.mode === 'light'
-                                ? theme.palette.grey[100]
-                                : theme.palette.grey[900],
+                            theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900],
                         flexGrow: 1,
                         height: '100vh',
                         overflow: 'auto',
                     }}
                 >
                     <Toolbar />
-                    {/* The main content area */}
                     {getPageContent(activePage)}
                 </Box>
             </Box>
@@ -206,4 +183,4 @@ function PageTemplate({ data, setData, setUser, user }) {
     );
 }
 
-export default PageTemplate
+export default PageTemplate;

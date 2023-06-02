@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Paper, Grid } from "@mui/material";
 import HeaderCard from "./HeaderCard";
 import VacationCard from "./VacationCard";
 import HoverShadowCard from "./HoverShadowCard";
+import UserContext from "../../../context/UserContext";
 
-function DefaultHomePage({ plans, setActivePage, setPlanIndex }) {
+/**
+ * DefaultHomePage component displays the default home page with header and vacation cards.
+ *
+ * @param {Object} props - The component props.
+ * @param {function} props.setActivePage - Function to set the active page.
+ * @param {function} props.setPlanIndex - Function to set the index of the selected plan.
+ * @returns {JSX.Element} The rendered DefaultHomePage component.
+ */
+function DefaultHomePage({ setActivePage, setPlanIndex }) {
+    const { plans } = useContext(UserContext);
+
     return (
         <Container maxWidth="lg" sx={{ mt: 6, mb: 4 }}>
             <Grid container spacing={3}>

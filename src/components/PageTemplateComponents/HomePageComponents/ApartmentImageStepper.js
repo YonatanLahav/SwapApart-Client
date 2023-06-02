@@ -1,11 +1,17 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Grid, IconButton } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
+/**
+ * Renders the Apartment Image Stepper component.
+ * Displays a stepper for navigating through apartment images.
+ *
+ * @param {Object} props - The component props.
+ * @param {string[]} props.images - The array of apartment images.
+ * @returns {JSX.Element|null} - The rendered Apartment Image Stepper component.
+ */
 function ApartmentImageStepper({ images }) {
-
     const [activeStep, setActiveStep] = useState(0);
     const maxSteps = images.length;
 
@@ -19,23 +25,23 @@ function ApartmentImageStepper({ images }) {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    return (images.length !== 0) ? (
+    return images.length !== 0 ? (
         <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ mt: 5, mb: 5 }}>
-            <Grid item xs={2} >
-                <IconButton onClick={handleBack} disabled={(activeStep === 0)}>
+            <Grid item xs={2}>
+                <IconButton onClick={handleBack} disabled={activeStep === 0}>
                     <ArrowBackIosIcon />
                 </IconButton>
             </Grid>
             <Grid item xs={8}>
-                <img src={images[activeStep]} width={'100%'} />
+                <img src={images[activeStep]} alt={`Apartment Image ${activeStep + 1}`} width="100%" />
             </Grid>
-            <Grid item xs={2} >
-                <IconButton onClick={handleNext} disabled={(activeStep === maxSteps - 1)}>
+            <Grid item xs={2}>
+                <IconButton onClick={handleNext} disabled={activeStep === maxSteps - 1}>
                     <ArrowForwardIosIcon />
                 </IconButton>
             </Grid>
         </Grid>
-    ) : (null);
+    ) : null;
 }
 
-export default ApartmentImageStepper
+export default ApartmentImageStepper;

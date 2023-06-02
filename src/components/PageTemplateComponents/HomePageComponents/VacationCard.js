@@ -1,38 +1,64 @@
 import React from 'react';
-import { Card, CardMedia, CardContent, Typography, Button, CardActions, Grid, Divider } from '@mui/material';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
+import {
+    Card,
+    CardMedia,
+    CardContent,
+    Typography,
+    Button,
+    CardActions,
+    Grid,
+    Divider,
+    List,
+    ListItem,
+    ListItemText,
+} from '@mui/material';
 
 const listItemTextStyle = {
     marginTop: 0,
     marginBottom: 0,
-    textAlign: 'center'
+    textAlign: 'center',
 };
 
+/**
+ * VacationCard component displays a card with vacation details.
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.plan - The vacation plan object.
+ * @param {Function} props.onClick - The function to handle the click event.
+ * @returns {JSX.Element} The rendered VacationCard component.
+ */
 function VacationCard({ plan, onClick }) {
+    /**
+     * Retrieves the formatted start date of the vacation.
+     *
+     * @returns {string} The formatted start date.
+     */
     const getStartDate = () => {
         const startDate = new Date(plan.startDate);
         return startDate.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
-      };
+    };
+
+    /**
+     * Retrieves the formatted end date of the vacation.
+     *
+     * @returns {string} The formatted end date.
+     */
     const getEndDate = () => {
         const endDate = new Date(plan.endDate);
         return endDate.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
     };
+
     return (
-        <Card sx={{ maxWidth: 345, p: 0 }} onClick={onClick} >
-            <CardMedia
-                component="img"
-                height="140"
-                src={`https://picsum.photos/400/300?${Math.random()}`} />
-            <CardContent sx={{ pb: 0 }} >
+        <Card sx={{ maxWidth: 345, p: 0 }} onClick={onClick}>
+            <CardMedia component="img" height="140" src={`https://picsum.photos/400/300?${Math.random()}`} />
+            <CardContent sx={{ pb: 0 }}>
                 <Typography gutterBottom variant="h5" component="div" textAlign={'center'}>
                     Vacation Details
                 </Typography>
                 <List dense sx={{ p: 0 }}>
-                    <Grid container  >
+                    <Grid container>
                         <Grid item xs={6}>
-                            <ListItem >
+                            <ListItem>
                                 <ListItemText primary="Start Date:" secondary={getStartDate()} style={listItemTextStyle} />
                             </ListItem>
                         </Grid>
@@ -66,7 +92,6 @@ function VacationCard({ plan, onClick }) {
                                 <ListItemText primary="Bathrooms" secondary={plan.minBathroomsNum} style={listItemTextStyle} />
                             </ListItem>
                         </Grid>
-
                     </Grid>
                 </List>
             </CardContent>
@@ -74,7 +99,7 @@ function VacationCard({ plan, onClick }) {
             <CardActions sx={{ justifyContent: 'flex-end' }}>
                 <Button size="small">Find A Match</Button>
             </CardActions>
-        </Card >
+        </Card>
     );
 }
 
