@@ -1,35 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ChatContainer, ConversationHeader, InfoButton, Avatar, MessageList, MessageSeparator, Message, MessageInput } from "@chatscope/chat-ui-kit-react";
-import { useContext } from 'react';
-import UserContext from '../../../context/UserContext';
-import { addMessage } from '../../../utils/api';
 
-function ActiveChatContainer({ conversation, setConversations, socket, handleSendMessage }) {
-
-    const { token } = useContext(UserContext);
-
-    const handleSend = async (innerHtml, textContent, innerText) => {
-        const match = conversation._id;
-        const sender = conversation.plan.userId;
-        const message = { match, sender, text: textContent };
-        await addMessage(token, message);
-        setConversations(prevConversations => {
-            const updatedConversations = prevConversations.map(c => {
-                if (c._id === conversation._id) {
-                    return {
-                        ...c,
-                        messages: [...c.messages, { createdAt: Date.now(), sender, text: textContent }],
-                        lastMessage: { createdAt: Date.now(), sender, text: textContent }
-                    };
-                } else {
-                    return c;
-                }
-            });
-            return updatedConversations;
-        });
-        socket.current.emit("send_msg", message);
-    };
-
+function ActiveChatContainer({ conversation, handleSendMessage }) {
 
 
     const senderName = (sender) => {

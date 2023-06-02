@@ -15,9 +15,9 @@ import { addMessage } from '../../utils/api';
 const ChatPage = () => {
 
     const [activeChat, setActiveChat] = useState(null);
-    const [conversations, setConversations] = useState([]);
-    const { token } = useContext(UserContext);
-    const socket = useRef();
+    // const [conversations, setConversations] = useState([]);
+    const { token, socket, conversations, setConversations } = useContext(UserContext);
+    // const socket = useRef();
 
     const handleSendMessage = async (innerHtml, textContent, innerText) => {
         const conversation = conversations.find((c) => c._id == activeChat);
@@ -29,8 +29,6 @@ const ChatPage = () => {
         const convsAfterRemove = conversations.filter((c) => c._id != activeChat);
         const updatedConvs = [conversation, ...convsAfterRemove]
         setConversations(updatedConvs);
-        console.log(conversation);
-        console.log(updatedConvs.length);
         socket.current.emit("send_msg", message);
     };
 
@@ -40,7 +38,6 @@ const ChatPage = () => {
         const fetchMatches = async () => {
             const matchesData = await getMatches(token);
             setConversations(matchesData)
-            console.log(matchesData)
         };
         fetchMatches();
     }, []);
@@ -52,8 +49,6 @@ const ChatPage = () => {
             socket.current.on("msg_recieve", (message) => {
                 const matchId = message.match;
                 const conversation = conversations.find((c) => c._id == matchId);
-                console.log(conversations);
-                console.log(matchId)
                 conversation.messages = [...conversation.messages, { createdAt: Date.now(), sender: message.sender, text: message.text }];
                 const convsAfterRemove = conversations.filter((c) => c._id != matchId);
                 const updatedConvs = [conversation, ...convsAfterRemove]
@@ -73,8 +68,6 @@ const ChatPage = () => {
                 {activeChat &&
                     <ActiveChatContainer
                         conversation={conversations.find((c) => c._id === activeChat)}
-                        setConversations={setConversations}
-                        socket={socket}
                         handleSendMessage={handleSendMessage}
                     />}
                 {activeChat &&
