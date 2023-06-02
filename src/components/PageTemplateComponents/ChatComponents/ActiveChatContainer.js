@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import UserContext from '../../../context/UserContext';
 import { addMessage } from '../../../utils/api';
 
-function ActiveChatContainer({ conversation, setConversations, isRightSidebarOpen, setIsRightSidebarOpen }) {
+function ActiveChatContainer({ conversation, setConversations, socket }) {
 
     const { token } = useContext(UserContext);
 
@@ -18,7 +18,8 @@ function ActiveChatContainer({ conversation, setConversations, isRightSidebarOpe
                 if (c._id === conversation._id) {
                     return {
                         ...c,
-                        messages: [...c.messages, { createdAt: Date.now(), sender, text: textContent }]
+                        messages: [...c.messages, { createdAt: Date.now(), sender, text: textContent }],
+                        lastMessage: { createdAt: Date.now(), sender, text: textContent }
                     };
                 } else {
                     return c;
@@ -26,6 +27,7 @@ function ActiveChatContainer({ conversation, setConversations, isRightSidebarOpe
             });
             return updatedConversations;
         });
+        socket.current.emit("send_msg", message);
     };
 
 
@@ -77,7 +79,7 @@ function ActiveChatContainer({ conversation, setConversations, isRightSidebarOpe
                 <Avatar src={getAvatarSrc(conversation)} name={getFullName(conversation)} />
                 <ConversationHeader.Content userName={getFullName(conversation)} />
                 <ConversationHeader.Actions>
-                    <InfoButton onClick={() => setIsRightSidebarOpen(!isRightSidebarOpen)} />
+                    <InfoButton />
                 </ConversationHeader.Actions>
             </ConversationHeader>
 

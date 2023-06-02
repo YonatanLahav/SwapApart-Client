@@ -17,7 +17,7 @@ const LeftSidebar = ({ conversations, activeChat, setActiveChat }) => {
     };
 
     const lastSenderName = (conversation) => {
-        if (!conversation.lastMessage) return null;
+        if (conversation.messages.length == 0) return null;
         return conversation.plan.userId === conversation.lastMessage.sender
             ? 'Me'
             : conversation.matchedUser.firstName;
@@ -34,8 +34,9 @@ const LeftSidebar = ({ conversations, activeChat, setActiveChat }) => {
     };
 
     const getLastMessageText = (conversation) => {
-        if (!conversation.lastMessage) return null;
-        return conversation.lastMessage.text;
+        console.log("getLastMessageText: " + conversation.messages.length)
+        if (conversation.messages.length == 0) return null;
+        return conversation.messages[conversation.messages.length - 1].text;
     };
 
     return (
@@ -54,7 +55,7 @@ const LeftSidebar = ({ conversations, activeChat, setActiveChat }) => {
                         <Avatar
                             src={getAvatarSrc(conversation)}
                             name={getFullName(conversation)}
-                            
+
                         />
                     </Conversation>
                 ))}
