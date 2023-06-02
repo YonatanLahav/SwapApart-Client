@@ -11,24 +11,24 @@ import UserContext from "../../context/UserContext";
 import RightSidebar from "./ChatComponents/RightSidebar";
 import io from 'socket.io-client';
 
-const ChatPage = () => {
+const ChatPage = ({token, socket}) => {
     const [activeChat, setActiveChat] = useState(null);
     const [conversations, setConversations] = useState([]);
 
-    const { token } = useContext(UserContext);
+    // const { token } = useContext(UserContext);
 
-    const socket = useRef();
+    // const socket = useRef();
 
-    useEffect(() => {
-        if (token) {
-            socket.current = io('http://localhost:5000');
-            socket.current.emit("add_user", token);
-            socket.current.on("msg_recieve", (msg) => {
-                console.log(msg);
-            });
+    // useEffect(() => {
+    //     if (token) {
+    //         socket.current = io('http://localhost:5000');
+    //         socket.current.emit("add_user", token);
+    //         socket.current.on("msg_recieve", (msg) => {
+    //             console.log(msg);
+    //         });
 
-        }
-    }, [token]);
+    //     }
+    // }, [token]);
 
     useEffect(() => {
         const fetchMatches = async () => {

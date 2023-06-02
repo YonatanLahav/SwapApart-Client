@@ -20,10 +20,14 @@ import SettingsPage from '../components/PageTemplateComponents/SettingsPage';
 import ContactUsPage from '../components/PageTemplateComponents/ContactUsPage';
 import Button from '@mui/material/Button';
 import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useContext } from 'react';
 import UserContext from '../context/UserContext';
 import { getAllUsers } from '../utils/api';
+import io from 'socket.io-client';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 
 
 const drawerWidth = 240; // Set the width of the drawer.
@@ -107,7 +111,7 @@ function PageTemplate({ data, setData, setUser, user }) {
             case 1:
                 return <NewVacationPage setActivePage={setActivePage}/>;
             case 2:
-                return <ChatPage />;
+                return <ChatPage token={token} socket={socket} />;
             case 3:
                 return <SettingsPage data={data} setData={setData} user={user} activeSettingsPage={activeSettingsPage} setActiveSettingsPage={setActiveSettingsPage} />;
             case 4:
@@ -116,6 +120,31 @@ function PageTemplate({ data, setData, setUser, user }) {
                 throw new Error('Unknown step');
         }
     }
+
+    const { token } = useContext(UserContext);
+    const socket = useRef();
+
+    useEffect(() => {
+        if (token) {
+            socket.current = io('http://localhost:5000');
+            socket.current.emit("add_user", token);
+            socket.current.on("msg_recieve", (msg) => {
+                console.log(msg);
+                alert('You got a new message')
+            });
+
+        }
+    }, [token]);
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const opening = Boolean(anchorEl);
+    const handleClickOening = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+    const { userData } = useContext(UserContext);
 
     return (
         <ThemeProvider theme={mdTheme}>
@@ -154,6 +183,34 @@ function PageTemplate({ data, setData, setUser, user }) {
                             SwapApart!
                         </Typography>
                         {/* A button to sign out the user */}
+
+                        <Button
+                        startIcon={<NotificationsNoneIcon />}
+                         color='inherit'
+                        id="demo-positioned-button"
+                        aria-controls={opening ? 'demo-positioned-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={opening ? 'true' : undefined}
+                        onClick={handleClickOening} >      
+                        Notifactions
+                        </Button>
+                        <Menu        
+                        id="demo-positioned-menu"
+                        aria-labelledby="demo-positioned-button"
+                        anchorEl={anchorEl}
+                        open={opening}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}>
+                        <MenuItem onClick={handleClose}>{JSON.parse(userData).firstName}</MenuItem>
+                        </Menu>
+                        
                         <Button
                             color='inherit'
                             variant="outlined"
