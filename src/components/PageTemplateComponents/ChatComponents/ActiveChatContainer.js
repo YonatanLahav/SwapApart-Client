@@ -1,9 +1,27 @@
 import React from 'react'
-import { ChatContainer, ConversationHeader, InfoButton, Avatar, MessageList, MessageSeparator, Message, MessageInput } from "@chatscope/chat-ui-kit-react";
+import {
+    ChatContainer,
+    ConversationHeader,
+    InfoButton,
+    Avatar,
+    MessageList,
+    Message,
+    MessageInput
+} from "@chatscope/chat-ui-kit-react";
 
+/**
+ * ActiveChatContainer component displays the active chat conversation.
+ * It includes the conversation header, message list, and message input.
+ * @param {Object} conversation - The conversation object.
+ * @param {Function} handleSendMessage - The function to handle sending a message.
+ */
 function ActiveChatContainer({ conversation, handleSendMessage }) {
 
-
+    /**
+       * Retrieves the sender name based on the conversation and sender ID.
+       * @param {string} sender - The sender ID.
+       * @returns {string|null} - The sender name or null if not found.
+       */
     const senderName = (sender) => {
         if (!sender) return null;
         return conversation.plan.userId == sender
@@ -11,12 +29,22 @@ function ActiveChatContainer({ conversation, handleSendMessage }) {
             : conversation.matchedUser.firstName;
     };
 
+    /**
+   * Determines the message direction based on the sender.
+   * @param {string} sender - The sender ID.
+   * @returns {string} - The message direction ("outgoing" or "incoming").
+   */
     const getDirection = (sender) => {
         return senderName(sender) == 'Me'
             ? "outgoing"
             : "incoming";
     };
 
+    /**
+      * Calculates the time difference between the message creation time and the current time.
+      * @param {string} createdAt - The creation time of the message.
+      * @returns {string} - The formatted time difference string.
+      */
     const calcTime = (createdAt) => {
         const messageDate = new Date(createdAt);
         const now = new Date();
@@ -35,9 +63,20 @@ function ActiveChatContainer({ conversation, handleSendMessage }) {
         return timeString;
     };
 
+    /**
+   * Retrieves the full name of a conversation user.
+   * @param {Object} c - The conversation object.
+   * @returns {string} - The full name of the user.
+   */
     const getFullName = (c) => {
         return `${c.matchedUser.firstName} ${c.matchedUser.lastName}`;
     };
+
+    /**
+   * Generates the avatar source URL based on the conversation user's full name.
+   * @param {Object} c - The conversation object.
+   * @returns {string} - The avatar source URL.
+   */
     const getAvatarSrc = (c) => {
         const url =
             'https://ui-avatars.com/api/?rounded=true&bold=true&background=random&name=';

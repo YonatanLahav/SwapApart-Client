@@ -5,7 +5,6 @@ import LeftSidebar from "./ChatComponents/LeftSidebar";
 import ActiveChatContainer from "./ChatComponents/ActiveChatContainer";
 import RightSidebar from "./ChatComponents/RightSidebar";
 import { getMatches, addMessage } from "../../utils/api";
-import io from 'socket.io-client';
 import UserContext from "../../context/UserContext";
 
 /**

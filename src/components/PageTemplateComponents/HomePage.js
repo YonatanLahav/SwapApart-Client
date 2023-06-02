@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { getPlans } from "../../utils/api";
 
-function HomePage({ user, setActivePage, planIndex, setPlanIndex }) {
+function HomePage({ setActivePage, planIndex, setPlanIndex }) {
     const [plans, setPlans] = useState(null);
     const { token } = useContext(UserContext);
 
