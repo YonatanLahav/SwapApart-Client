@@ -152,7 +152,7 @@ function VacationCard({ plan, onClick, setPlanIndex, index, setActivePage, setAc
                 <Button size="small" sx={{'&:hover': {backgroundColor: 'blue', color: 'white', }}} onClick={() => setPlanIndex(index)} >Find A Match</Button>
             </CardActions>
             <StyledDialog open={open} onClose={handleClose} >
-      <StyledDialogTitle id="match-dialog-title" sx={{marginBottom: '8px'}}>Existing Matches</StyledDialogTitle>
+      <StyledDialogTitle id="match-dialog-title" sx={{marginBottom: '8px'}}>{matchedUsers.length != 0 ? 'Matches with:': 'No Matchs for this plan'}</StyledDialogTitle>
       <StyledDialogContent>
         {matchedUsers.map((MatchedPlan) => (
           <Typography
