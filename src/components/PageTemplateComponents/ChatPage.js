@@ -11,8 +11,7 @@ import UserContext from "../../context/UserContext";
  * ChatPage component represents the main chat page of the application.
  * It displays the left sidebar, active chat container, and right sidebar.
  */
-const ChatPage = () => {
-    const [activeChat, setActiveChat] = useState(null);
+const ChatPage = ({activeChat, setActiveChat}) => {
     const { token, socket, conversations, setConversations } = useContext(UserContext);
 
     /**

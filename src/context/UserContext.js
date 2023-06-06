@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext, useRef } from 'react';
 import { login, register, fetchData, updateData } from '../utils/auth';
 import io from 'socket.io-client';
-import { getMatches } from "../utils/api";
+import { getMatches, getPlans } from "../utils/api";
 
 // Create a new context for user-related data
 const UserContext = createContext();
@@ -14,6 +14,7 @@ const UserContext = createContext();
  */
 export const UserProvider = ({ children }) => {
     const [token, setToken] = useState(null); // Stores the user's authentication token
+    const [plans, setPlans] = useState(null);
     const [userData, setUserData] = useState(null); // Stores the user's data
     const [conversations, setConversations] = useState([]); // Stores the user's conversations
     const socket = useRef(); // Reference to the socket instance
@@ -27,6 +28,14 @@ export const UserProvider = ({ children }) => {
             setToken(storedToken);
         }
     }, []);
+
+    useEffect(() => {
+        const fetchPlans = async () => {
+            const plansData = await getPlans(token);
+            setPlans(plansData);
+        };
+        fetchPlans();
+    }, [token]);
 
     useEffect(() => {
         // Fetch matches and set conversations when token changes
@@ -135,7 +144,9 @@ export const UserProvider = ({ children }) => {
                 handleUserUpdate,
                 socket,
                 setConversations,
-                conversations
+                conversations,
+                plans,
+                setPlans
             }}
         >
             {children}
