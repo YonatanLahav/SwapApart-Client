@@ -159,7 +159,8 @@ export const UserProvider = ({ children }) => {
                 setConversations,
                 conversations,
                 plans,
-                setPlans
+                setPlans,
+                notifications
             }}
         >
             {children}

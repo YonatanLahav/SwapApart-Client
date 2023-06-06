@@ -21,7 +21,10 @@ import MenuList from '../components/PageTemplateComponents/MenuList';
 import SettingsPage from '../components/PageTemplateComponents/SettingsPage';
 import ContactUsPage from '../components/PageTemplateComponents/ContactUsPage';
 import UserContext from '../context/UserContext';
-
+import Badge from '@mui/material/Badge';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import Popover from '@mui/material/Popover';
+import Notifications from '../components/PageTemplateComponents/Notifications'
 const drawerWidth = 240;
 
 /**
@@ -78,10 +81,22 @@ const mdTheme = createTheme();
 function PageTemplate() {
     const [activePage, setActivePage] = useState(0);
     const [open, setOpen] = useState(false);
-    const { handleLogout } = useContext(UserContext);
+    const { handleLogout, notifications, conversations } = useContext(UserContext);
     const [activeSettingsPage, setActiveSettingsPage] = useState(0);
     const [planIndex, setPlanIndex] = useState(null);
     const [activeChat, setActiveChat] = useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const openNotification = Boolean(anchorEl);
+    const id = openNotification ? 'simple-popover' : undefined;
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
 
     /**
      * Toggles the state of the side drawer.
@@ -103,7 +118,7 @@ function PageTemplate() {
             case 1:
                 return <NewVacationPage setActivePage={setActivePage} />;
             case 2:
-                return <ChatPage activeChat={activeChat}  setActiveChat={setActiveChat}/>;
+                return <ChatPage activeChat={activeChat} setActiveChat={setActiveChat} />;
             case 3:
                 return <SettingsPage activeSettingsPage={activeSettingsPage} setActiveSettingsPage={setActiveSettingsPage} />;
             case 4:
@@ -112,17 +127,6 @@ function PageTemplate() {
                 throw new Error('Unknown step');
         }
     }
-
-
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const opening = Boolean(anchorEl);
-    const handleClickOening = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-    const { conversations } = useContext(UserContext);
 
     return (
         <ThemeProvider theme={mdTheme}>
@@ -153,9 +157,36 @@ function PageTemplate() {
                         >
                             SwapApart!
                         </Typography>
-                        <Button color="inherit" variant="outlined" startIcon={<MeetingRoomOutlinedIcon />} onClick={handleLogout}>
+
+                        {/* 
+                        
+                        */}
+                        {/* <IconButton color="inherit" onClick={handleClick}>
+                            <Badge badgeContent={notifications.length} color="secondary">
+                                <NotificationsIcon />
+                            </Badge>
+                        </IconButton>
+                        <Popover
+                            id={id}
+                            open={openNotification}
+                            anchorEl={anchorEl}
+                            onClose={handleClose}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                        >
+                            <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+                        </Popover> */}
+                        <Notifications></Notifications>
+                        {/* 
+                        
+                        */}
+
+
+                        {/* <Button color="inherit" variant="outlined" startIcon={<MeetingRoomOutlinedIcon />} onClick={handleLogout}>
                             Sign Out
-                        </Button>
+                        </Button> */}
                     </Toolbar>
                 </AppBar>
                 <Drawer variant="permanent" open={open}>
