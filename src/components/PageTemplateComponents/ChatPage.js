@@ -1,43 +1,53 @@
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-import {
-    MainContainer
-} from "@chatscope/chat-ui-kit-react";
+import { MainContainer } from "@chatscope/chat-ui-kit-react";
 import LeftSidebar from "./ChatComponents/LeftSidebar";
 import ActiveChatContainer from "./ChatComponents/ActiveChatContainer";
-import { useEffect, useRef } from "react";
-import { getMatches } from "../../utils/api";
-import { useContext, useState } from "react";
-import UserContext from "../../context/UserContext";
 import RightSidebar from "./ChatComponents/RightSidebar";
-import io from 'socket.io-client';
+import { getMatches, addMessage } from "../../utils/api";
+import UserContext from "../../context/UserContext";
 
-const ChatPage = ({token, socket}) => {
+/**
+ * ChatPage component represents the main chat page of the application.
+ * It displays the left sidebar, active chat container, and right sidebar.
+ */
+const ChatPage = () => {
     const [activeChat, setActiveChat] = useState(null);
-    const [conversations, setConversations] = useState([]);
+    const { token, socket, conversations, setConversations } = useContext(UserContext);
 
-    // const { token } = useContext(UserContext);
+    /**
+     * Handles sending a message in the active chat.
+     * It adds the message to the conversation, updates the conversation list, and emits the message to the server.
+     * @param {string} textContent - The content of the message.
+     */
+    const handleSendMessage = async (textContent) => {
+        const conversation = conversations.find((c) => c._id === activeChat);
+        const match = conversation._id;
+        const sender = conversation.plan.userId;
+        const message = { match, sender, text: textContent };
 
-    // const socket = useRef();
+        await addMessage(token, message);
 
-    // useEffect(() => {
-    //     if (token) {
-    //         socket.current = io('http://localhost:5000');
-    //         socket.current.emit("add_user", token);
-    //         socket.current.on("msg_recieve", (msg) => {
-    //             console.log(msg);
-    //         });
+        conversation.messages = [
+            ...conversation.messages,
+            { createdAt: Date.now(), sender, text: textContent }
+        ];
 
-    //     }
-    // }, [token]);
+        const convsAfterRemove = conversations.filter((c) => c._id !== activeChat);
+        const updatedConvs = [conversation, ...convsAfterRemove];
+        setConversations(updatedConvs);
 
+        socket.current.emit("send_msg", message);
+    };
+
+    // Fetches matches when the component is mounted
     useEffect(() => {
         const fetchMatches = async () => {
             const matchesData = await getMatches(token);
-            setConversations(matchesData)
-            console.log(matchesData)
+            setConversations(matchesData);
         };
         fetchMatches();
-    }, [token, activeChat]);
+    }, []);
 
     return (
         <div style={{ position: "relative", height: "90vh" }}>
@@ -45,21 +55,22 @@ const ChatPage = ({token, socket}) => {
                 <LeftSidebar
                     conversations={conversations}
                     setActiveChat={setActiveChat}
-                    activeChat={activeChat} />
-                {activeChat &&
+                    activeChat={activeChat}
+                />
+                {activeChat && (
                     <ActiveChatContainer
                         conversation={conversations.find((c) => c._id === activeChat)}
-                        setConversations={setConversations}
-                        socket={socket}
-                    />}
-                {activeChat &&
+                        handleSendMessage={handleSendMessage}
+                    />
+                )}
+                {activeChat && (
                     <RightSidebar
                         conversation={conversations.find((c) => c._id === activeChat)}
-                    />}
+                    />
+                )}
             </MainContainer>
         </div>
     );
-}
+};
 
-
-export default ChatPage
+export default ChatPage;

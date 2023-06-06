@@ -111,7 +111,7 @@ function PageTemplate({ data, setData, setUser, user }) {
             case 1:
                 return <NewVacationPage setActivePage={setActivePage}/>;
             case 2:
-                return <ChatPage token={token} socket={socket} />;
+                return <ChatPage />;
             case 3:
                 return <SettingsPage data={data} setData={setData} user={user} activeSettingsPage={activeSettingsPage} setActiveSettingsPage={setActiveSettingsPage} />;
             case 4:
@@ -121,20 +121,6 @@ function PageTemplate({ data, setData, setUser, user }) {
         }
     }
 
-    const { token } = useContext(UserContext);
-    const socket = useRef();
-
-    useEffect(() => {
-        if (token) {
-            socket.current = io('http://localhost:5000');
-            socket.current.emit("add_user", token);
-            socket.current.on("msg_recieve", (msg) => {
-                console.log(msg);
-                alert('You got a new message')
-            });
-
-        }
-    }, [token]);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const opening = Boolean(anchorEl);
@@ -144,7 +130,7 @@ function PageTemplate({ data, setData, setUser, user }) {
     const handleClose = () => {
       setAnchorEl(null);
     };
-    const { userData } = useContext(UserContext);
+    const { conversations } = useContext(UserContext);
 
     return (
         <ThemeProvider theme={mdTheme}>
@@ -208,7 +194,7 @@ function PageTemplate({ data, setData, setUser, user }) {
                             vertical: 'top',
                             horizontal: 'left',
                         }}>
-                        <MenuItem onClick={handleClose}>{JSON.parse(userData).firstname}</MenuItem>
+                        <MenuItem onClick={handleClose}>{console.log(conversations[0].plan.country)}</MenuItem>
                         </Menu>
                         
                         <Button
