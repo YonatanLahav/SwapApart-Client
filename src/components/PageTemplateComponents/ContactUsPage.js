@@ -8,8 +8,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Roy from '../../Roy.jpg'
-import Yonatan from '../../Yonatan.jpg'
+import Roy from '../../Roy.jpg';
+import Yonatan from '../../Yonatan.jpg';
 import Avatar from '@mui/material/Avatar';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
@@ -17,6 +17,9 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const theme = createTheme();
 
+/**
+ * ContactUsPage component displays contact information.
+ */
 const ContactUsPage = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -26,10 +29,10 @@ const ContactUsPage = () => {
           sx={{
             bgcolor: 'background.paper',
             pt: 2,
-            
           }}
         >
           <Container>
+            {/* Page title */}
             <Typography
               component="h1"
               variant="h2"
@@ -37,81 +40,82 @@ const ContactUsPage = () => {
               color="text.primary"
               gutterBottom
             >
-              Contact Us !
+              Contact Us!
             </Typography>
+            {/* Avatars */}
             <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
-              <Avatar alt="Roy" src={Yonatan}  sx={{ width: 130, height: 130 }}/>
-              <Avatar alt="Yonatan" src={Roy}  sx={{ width: 130, height: 130 }}/>
-            </Stack>
-            <Stack
-              sx={{ pt: 4 }}
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-            >
+              <Avatar alt="Roy" src={Yonatan} sx={{ width: 130, height: 130 }} />
+              <Avatar alt="Yonatan" src={Roy} sx={{ width: 130, height: 130 }} />
             </Stack>
           </Container>
         </Box>
-        <Container sx={{ py: 8 }} maxWidth="md" >
-          {/* End hero unit */}
-          <Grid container spacing={4} sx={{ flexDirection: 'row'  }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              
-                <Card sx={{ height: 250, width: 270, flexDirection: 'column' }}>                  
-                  <CardMedia sx={{pt: '10%'}} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>   
-                    <PhoneIcon fontSize="large" sx={{ fontSize: '5rem' }}/>
-                  </CardMedia>
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      By Phone
-                    </Typography>
-                    <Typography style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      +972507278282                   
-                    </Typography>
-                    <Typography style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      +972576548802                   
-                    </Typography>
-                  </CardContent>
-                </Card>
+        <Container sx={{ py: 8 }} maxWidth="md">
+          {/* Contact information */}
+          <Grid container spacing={4} justifyContent="center">
+            {/* Phone contact */}
+            <Grid item xs={12} sm={6} md={4}>
+              <Card sx={{ height: 250, width: 270, flexDirection: 'column' }}>
+                <CardMedia sx={{ pt: '10%' }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <PhoneIcon fontSize="large" sx={{ fontSize: '5rem' }} />
+                </CardMedia>
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography gutterBottom variant="h5" component="h2" align="center">
+                    By Phone
+                  </Typography>
+                  <Typography align="center">
+                    +972507278282
+                  </Typography>
+                  <Typography align="center">
+                    +972526732353
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
 
-                <Card sx={{ height: 250, width: 270, flexDirection: 'column' }}>                 
-                  <CardMedia sx={{pt: '10%'}} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>   
-                    <LinkedInIcon fontSize="large" sx={{ fontSize: '5rem' }}/>
-                  </CardMedia>
-                  <CardContent sx={{ flexGrow: 1 }} >
-                    <Typography gutterBottom variant="h5" component="h2" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      By LinkedIn
-                    </Typography>
-                    <Typography  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <a href='https://www.linkedin.com/in/roy-maman-68b924238/' onClick={()=>window.open('https://www.linkedin.com/in/roy-maman-68b924238/')}>Roy's Profile </a>                  
-                    </Typography >                    
-                    <a style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} href='https://www.linkedin.com/in/yonatan-lahav/' onClick={()=>window.open('https://www.linkedin.com/in/yonatan-lahav/')}>Yonatan's Profile </a>
-                  </CardContent>
-                </Card>
+            {/* LinkedIn contact */}
+            <Grid item xs={12} sm={6} md={4}>
+              <Card sx={{ height: 250, width: 270, flexDirection: 'column' }}>
+                <CardMedia sx={{ pt: '10%' }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <LinkedInIcon fontSize="large" sx={{ fontSize: '5rem' }} />
+                </CardMedia>
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography gutterBottom variant="h5" component="h2" align="center">
+                    By LinkedIn
+                  </Typography>
+                  <Typography align="center">
+                    <a href='https://www.linkedin.com/in/roy-maman-68b924238/' onClick={() => window.open('https://www.linkedin.com/in/roy-maman-68b924238/')}>Roy's Profile</a>
+                  </Typography>
+                  <Typography align="center">
+                    <a href='https://www.linkedin.com/in/yonatan-lahav/' onClick={() => window.open('https://www.linkedin.com/in/yonatan-lahav/')}>Yonatan's Profile</a>
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
 
-                <Card sx={{ height: 250, width: 270, flexDirection: 'column' }}>                 
-                  <CardMedia sx={{pt: '10%'}} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>   
-                    <EmailIcon fontSize="large" sx={{ fontSize: '5rem' }}/>
-                  </CardMedia>
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      By Email
-                    </Typography>
-                    <Typography style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>                       
-                      <a href="mailto:roey.maman@gmail.com">roey.maman@gmail.com</a>                  
-                    </Typography>
-                    <Typography style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      <a href="mailto:yonatanLahav@gmail.com">yonatanLahav@gmail.com</a>                   
-                    </Typography>
-                  </CardContent>
-                </Card> 
+            {/* Email contact */}
+            <Grid item xs={12} sm={6} md={4}>
+              <Card sx={{ height: 250, width: 270, flexDirection: 'column' }}>
+                <CardMedia sx={{ pt: '10%' }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <EmailIcon fontSize="large" sx={{ fontSize: '5rem' }} />
+                </CardMedia>
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography gutterBottom variant="h5" component="h2" align="center">
+                    By Email
+                  </Typography>
+                  <Typography align="center">
+                    <a href="mailto:roey.maman@gmail.com">Roey.Maman@gmail.com</a>
+                  </Typography>
+                  <Typography align="center">
+                    <a href="mailto:yonatanLahav@gmail.com">Jonatan.Lahav@gmail.com</a>
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
           </Grid>
         </Container>
       </main>
     </ThemeProvider>
   );
-}
+};
 
-export default ContactUsPage
-
-
-
+export default ContactUsPage;
