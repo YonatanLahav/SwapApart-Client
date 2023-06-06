@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext, useRef } from 'react';
 import { login, register, fetchData, updateData } from '../utils/auth';
 import io from 'socket.io-client';
-import { getMatches, getPlans } from "../utils/api";
+import { getMatches, getPlans, getNotifications } from "../utils/api";
 
 // Create a new context for user-related data
 const UserContext = createContext();
@@ -13,11 +13,14 @@ const UserContext = createContext();
  * @returns {JSX.Element} UserProvider component.
  */
 export const UserProvider = ({ children }) => {
+    const [notifications, setNotifications] = useState([]);
     const [token, setToken] = useState(null); // Stores the user's authentication token
     const [plans, setPlans] = useState(null);
     const [userData, setUserData] = useState(null); // Stores the user's data
     const [conversations, setConversations] = useState([]); // Stores the user's conversations
     const socket = useRef(); // Reference to the socket instance
+
+
 
     // useEffect hook to run on component mount
     useEffect(() => {
@@ -27,6 +30,16 @@ export const UserProvider = ({ children }) => {
             // Set token state if it exists
             setToken(storedToken);
         }
+    }, []);
+
+    // Notifications
+    useEffect(() => {
+        const fetchNotifications = async () => {
+            const notificationsData = await getNotifications(token);
+            console.log(notificationsData);
+            setNotifications(notificationsData);
+        };
+        fetchNotifications();
     }, []);
 
     useEffect(() => {

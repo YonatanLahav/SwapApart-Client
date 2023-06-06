@@ -27,6 +27,15 @@ export const getPlans = async (token) => {
     return res.data;
 };
 
+export const getNotifications = async (token) => {
+    const res = await api.get('/notifications', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return res.data;
+};
+
 export const addPlan = async (token, plan) => {
     try {
         const response = await api.post('/plans', plan, {
