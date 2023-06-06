@@ -28,11 +28,13 @@ export const getPlans = async (token) => {
 };
 
 export const getNotifications = async (token) => {
+    console.log("A")
     const res = await api.get('/notifications', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     });
+    console.log(res.data)
     return res.data;
 };
 

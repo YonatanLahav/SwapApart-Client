@@ -40,7 +40,7 @@ export const UserProvider = ({ children }) => {
             setNotifications(notificationsData);
         };
         fetchNotifications();
-    }, []);
+    }, [token]);
 
     useEffect(() => {
         const fetchPlans = async () => {
