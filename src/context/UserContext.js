@@ -37,41 +37,44 @@ export const UserProvider = ({ children }) => {
         fetchPlans();
     }, [token]);
 
-    useEffect(() => {
-        // Fetch matches and set conversations when token changes
-        const fetchMatches = async () => {
-            const matchesData = await getMatches(token);
-            setConversations(matchesData);
-        };
-        fetchMatches();
-    }, [token]);
-
+    /**
+     * useEffect hook to establish a socket connection and handle incoming messages.
+     *
+     * @param {string} token - User token for authentication.
+     * @param {Array} conversations - Array of conversations.
+     */
     useEffect(() => {
         if (token) {
             // Connect to the socket server
             socket.current = io('http://localhost:5000');
+
             // Emit an "add_user" event with the token
             socket.current.emit("add_user", token);
+
             // Listen for "msg_recieve" event to handle incoming messages
             socket.current.on("msg_recieve", (message) => {
-                const matchId = message.match;
-                const updatedConversations = conversations.map(conversation => {
-                    if (conversation._id === matchId) {
-                        // Add the new message to the conversation's messages array
-                        return {
-                            ...conversation,
-                            messages: [
-                                ...conversation.messages,
-                                { createdAt: Date.now(), sender: message.sender, text: message.text }
-                            ]
-                        };
-                    }
-                    return conversation;
-                });
-                setConversations(updatedConversations);
+                // Find the conversation
+                const conversationIndex = conversations.findIndex((c) => c._id === message.match);
+
+                if (conversationIndex !== -1) {
+                    // Update existing conversation
+                    const conversation = conversations[conversationIndex];
+                    const { match, sender, text } = message;
+
+                    conversation.messages.push({ createdAt: Date.now(), sender, text });
+
+                    // Update conversations
+                    const updatedConversations = [
+                        conversation,
+                        ...conversations.slice(0, conversationIndex),
+                        ...conversations.slice(conversationIndex + 1)
+                    ];
+                    setConversations(updatedConversations);
+                }
             });
         }
     }, [token, conversations]);
+
 
     /**
      * Handles user login.
