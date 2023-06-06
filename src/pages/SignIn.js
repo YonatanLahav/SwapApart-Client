@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,66 +13,61 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle';
-import { useContext } from 'react';
 import UserContext from '../context/UserContext';
-import myImage from '../swap-houses.jpg'
+import myImage from '../swap-houses.jpg';
 
 const theme = createTheme();
 
 /**
- * This component displays the website signin form in its entirety.
+ * Sign In component displays the website signin form in its entirety.
  * The component contains the top bar of the login screen,
- * the image on the left side of the screen and the login form on the right side.
- * After a successful login, route to the path "/home"
- * 
+ * the image on the left side of the screen, and the login form on the right side.
+ * After a successful login, it routes to the path "/home".
  */
 export default function SignIn() {
-
-    const [error, setError] = useState(''); // Set an error state for invalid input.
-    const navigate = useNavigate(); // navigator to navigate.
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
     const { handleLogin } = useContext(UserContext);
+
     /**
-     * After submission checks whether the user exists in the data.
-     * If the email and password are correct, setUser to user and route to "/home".
-     * Otherwise, show an error massage.
+     * Handles form submission.
+     * Checks whether the user exists in the data.
+     * If the email and password are correct, it navigates to "/home".
+     * Otherwise, it shows an error message.
+     * @param {Object} event - The form submission event.
      */
     const handleSubmit = async (event) => {
         event.preventDefault();
         const form = new FormData(event.currentTarget);
         const email = form.get('email');
         const password = form.get('password');
-        console.log(email, password)
-        try{
-        const res = await handleLogin(email, password);
-        if (res) {
-            navigate('/home');
-        }}
-        catch(e) { setError('Invalid email or password') }
+
+        try {
+            const res = await handleLogin(email, password);
+            if (res) {
+                navigate('/home');
+            }
+        } catch (e) {
+            setError('Invalid email or password');
+        }
     };
 
     /**
-     * navigate to "/signup"
+     * Navigates to "/signup" for user registration.
      */
-    const handleSignUp = (event) => { navigate('/signup') };
+    const handleSignUp = () => {
+        navigate('/signup');
+    };
 
     return (
         <ThemeProvider theme={theme}>
-            <Box sx={{ display: 'flex' }}> {/* Top Bar */}
+            <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
-                <Toolbar sx={{ pr: '24px', }}>
+                <Toolbar sx={{ pr: '24px' }}>
                     <SwapHorizontalCircleIcon />
-                    <Typography
-                        component="h1"
-                        variant="h6"
-                        color="inherit"
-                        noWrap
-                        sx={{ flexGrow: 1 }}
-                        padding={'5px'}
-                    >
+                    <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }} padding={'5px'}>
                         SwapApart!
                     </Typography>
                 </Toolbar>
@@ -79,7 +75,7 @@ export default function SignIn() {
 
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
-                <Grid //Left Img background.
+                <Grid
                     item
                     xs={false}
                     sm={4}
@@ -87,22 +83,13 @@ export default function SignIn() {
                     sx={{
                         backgroundImage: `url(${myImage})`,
                         backgroundRepeat: 'no-repeat',
-                        backgroundColor: (t) =>
-                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+                        backgroundColor: (t) => (t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900]),
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                     }}
                 />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square> {/* SignIn form grid item */}
-                    <Box
-                        sx={{
-                            my: 8,
-                            mx: 4,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                    <Box sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <Avatar sx={{ m: 1, bgcolor: 'gray' }}>
                             <LockOutlinedIcon />
                         </Avatar>
@@ -110,14 +97,14 @@ export default function SignIn() {
                             Sign in
                         </Typography>
 
-                        {error && ( // Show error after incorrect input.
+                        {error && (
                             <Typography color="error" sx={{ mt: 2, mb: 2 }}>
                                 {error}
                             </Typography>
                         )}
 
-                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}> {/* SignIn form inputs. */}
-                            <TextField // Email input.
+                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                            <TextField
                                 margin="normal"
                                 required
                                 fullWidth
@@ -127,7 +114,7 @@ export default function SignIn() {
                                 autoComplete="email"
                                 autoFocus
                             />
-                            <TextField // Password input.
+                            <TextField
                                 margin="normal"
                                 required
                                 fullWidth
@@ -137,11 +124,11 @@ export default function SignIn() {
                                 id="password"
                                 autoComplete="current-password"
                             />
-                            <FormControlLabel // Remember me Checkbox. // NEED TO ADD FUNCTIONALITY.
+                            <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
                             />
-                            <Button // Submit button.
+                            <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
@@ -149,9 +136,11 @@ export default function SignIn() {
                             >
                                 Sign In
                             </Button>
-                            <Grid container >
+                            <Grid container>
                                 <Grid item>
-                                    <Link underline='hover' onClick={handleSignUp}>Don't have an account? Sign Up</Link> {/* Route to "/signup" */}
+                                    <Link underline="hover" onClick={handleSignUp}>
+                                        Don't have an account? Sign Up
+                                    </Link>
                                 </Grid>
                             </Grid>
                         </Box>

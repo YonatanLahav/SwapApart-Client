@@ -4,7 +4,7 @@ import { Container, IconButton, Paper, Typography } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ApartmentDetailsCard from './ApartmentDetailsCard';
 import ApartmentImageCard from './ApartmentImageCard';
-import { addSwipe, getOptionalMatchs } from '../../../utils/api';
+import { addSwipe, getOptionalMatches } from '../../../utils/api';
 import UserContext from '../../../context/UserContext';
 import FooterApartImgsCard from './FooterApartImgsCard';
 
@@ -37,7 +37,7 @@ function VacationMatchsPage({ plan, setPlanIndex }) {
 
     useEffect(() => {
         const fetchOptionalMatchs = async () => {
-            const plans = await getOptionalMatchs(token, plan);
+            const plans = await getOptionalMatches(token, plan);
             setOptionalPlans(plans);
             console.log(plans);
         };

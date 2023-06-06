@@ -25,9 +25,11 @@ const steps = ['Personal Information', 'Apartment Details', 'Summary'];
 // Create a theme object for the app using the createTheme function.
 const theme = createTheme();
 
-
+/**
+ * Component for the sign-up form.
+ */
 export default function SignUpForm() {
-    const [error, setError] = useState('')
+    const [error, setError] = useState('');
     const navigate = useNavigate();
     const [activeStep, setActiveStep] = React.useState(0); // State for stepper status.
     const [formData, setFormData] = useState({ // State for the form fields.
@@ -46,7 +48,12 @@ export default function SignUpForm() {
 
     const { handleRegister } = useContext(UserContext);
 
-    // Define a helper function named getStepContent that receives a step number as an argument and returns a form component based on the current step number.
+    /**
+     * Helper function to get the form component based on the current step.
+     * @param {number} step - The current step number.
+     * @returns {React.ReactNode} - The form component for the current step.
+     * @throws {Error} - If the step number is unknown.
+     */
     function getStepContent(step) {
         switch (step) {
             case 0:
@@ -60,64 +67,78 @@ export default function SignUpForm() {
         }
     }
 
-    const VerifyStepZero = () => {
-        if( formData.firstName === '' ||
-                formData.lastName === '' ||
-                formData.email === '' ||
-                formData.password === '' ) {
-                    setError('All the fields are required')
-                    return false
-            }
-            else if(!isEmail(formData.email)) {
-                    setError('Not a valid Email')
-                    return false
-            }
-            else if (formData.password !== formData.verifypassword) {
-                    setError("The password you entered and the verification password do not match")
-                    return false
-            }
-            else if (formData.password.length < 6) {
-                    setError("The password must be at least 6 characters long")
-                    return false
-            }
-        return true
-    }
-
-    const VerifyStepOne = () => {
-        if( formData.country === '' ||
-                formData.region === '' ||
-                formData.city === '' ||
-                formData.rooms === '' ||
-                formData.bathrooms === '') {
-                    setError('All the fields are required')
-                    return false
-            }
-        else if (isNaN(formData.rooms) || isNaN(formData.bathrooms)) {
-            setError('Rooms and bathroom fields should contain numbers only')
-            return false
-            }
-        return true
-    }
-
-    // Handler for "next" button.
-    const handleNext = () => {
-        if (activeStep === 0 &&  VerifyStepZero()) {
-            setError('')
-            setActiveStep(activeStep + 1);            
+    /**
+     * Helper function to validate the form fields in step zero.
+     * @returns {boolean} - True if all fields are valid, false otherwise.
+     */
+    const verifyStepZero = () => {
+        if (
+            formData.firstName === '' ||
+            formData.lastName === '' ||
+            formData.email === '' ||
+            formData.password === ''
+        ) {
+            setError('All the fields are required');
+            return false;
+        } else if (!isEmail(formData.email)) {
+            setError('Not a valid Email');
+            return false;
+        } else if (formData.password !== formData.verifypassword) {
+            setError("The password you entered and the verification password do not match");
+            return false;
+        } else if (formData.password.length < 6) {
+            setError("The password must be at least 6 characters long");
+            return false;
         }
-        if (activeStep === 1 &&  VerifyStepOne()) {
-            setError('')
-            setActiveStep(activeStep + 1);            
-        }       
+        return true;
     };
 
-    // Handler for "back" button.
+    /**
+     * Helper function to validate the form fields in step one.
+     * @returns {boolean} - True if all fields are valid, false otherwise.
+     */
+    const verifyStepOne = () => {
+        if (
+            formData.country === '' ||
+            formData.region === '' ||
+            formData.city === '' ||
+            formData.rooms === '' ||
+            formData.bathrooms === ''
+        ) {
+            setError('All the fields are required');
+            return false;
+        } else if (isNaN(formData.rooms) || isNaN(formData.bathrooms)) {
+            setError('Rooms and bathroom fields should contain numbers only');
+            return false;
+        }
+        return true;
+    };
+
+    /**
+     * Handler for "next" button.
+     */
+    const handleNext = () => {
+        if (activeStep === 0 && verifyStepZero()) {
+            setError('');
+            setActiveStep(activeStep + 1);
+        }
+        if (activeStep === 1 && verifyStepOne()) {
+            setError('');
+            setActiveStep(activeStep + 1);
+        }
+    };
+
+    /**
+     * Handler for "back" button.
+     */
     const handleBack = () => {
-        setError('')
+        setError('');
         setActiveStep(activeStep - 1);
     };
 
-    // Handler for "submit" button. 
+    /**
+     * Handler for "submit" button.
+     */
     const handleSubmit = async () => {
         if (activeStep === steps.length - 1) {
             const user = {
@@ -131,18 +152,16 @@ export default function SignUpForm() {
                     city: formData.city,
                     rooms: Number(formData.rooms),
                     bathrooms: Number(formData.bathrooms),
-                    pictures: formData.apartmentImgs
-                }
+                    pictures: formData.apartmentImgs,
+                },
             };
             const res = await handleRegister(user);
             if (res) {
                 navigate('/home');
+            } else {
+                setError('This email already exists');
             }
-            else {
-                setError('This email already exist')
-            }
-        }
-        else {
+        } else {
             handleNext();
         }
     };
@@ -156,7 +175,7 @@ export default function SignUpForm() {
                     <Typography component="h1" variant="h4" align="center">
                         Sign Up
                     </Typography>
-                    
+
                     <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
                         {steps.map((label) => (
                             <Step key={label}>
@@ -165,7 +184,7 @@ export default function SignUpForm() {
                         ))}
                     </Stepper>
                     <Typography color="error" sx={{ mt: 0, mb: 2 }}>
-                                {error}
+                        {error}
                     </Typography>
                     <React.Fragment>
                         {getStepContent(activeStep)}
@@ -185,8 +204,10 @@ export default function SignUpForm() {
                         </Box>
                     </React.Fragment>
                 </Paper>
-                <Link onClick={() => navigate("/signin")} underline='hover' >Have an account? Sign In</Link>
+                <Link onClick={() => navigate('/signin')} underline="hover">
+                    Have an account? Sign In
+                </Link>
             </Container>
-        </ThemeProvider >
+        </ThemeProvider>
     );
 }

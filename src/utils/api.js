@@ -9,24 +9,39 @@ const api = axios.create({
     },
 });
 
+/**
+ * Retrieves all users.
+ * @returns {Promise} Resolves to the user data.
+ */
 export const getAllUsers = async () => {
     const response = await api.get('/users', {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     });
-    return response.data
+    return response.data;
 };
 
+/**
+ * Retrieves plans.
+ * @param {string} token - Authorization token.
+ * @returns {Promise} Resolves to the plan data.
+ */
 export const getPlans = async (token) => {
-    const res = await api.get('/plans', {
+    const response = await api.get('/plans', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     });
-    return res.data;
+    return response.data;
 };
 
+/**
+ * Adds a plan.
+ * @param {string} token - Authorization token.
+ * @param {object} plan - Plan data.
+ * @returns {Promise} Resolves to the added plan data.
+ */
 export const addPlan = async (token, plan) => {
     try {
         const response = await api.post('/plans', plan, {
@@ -34,79 +49,101 @@ export const addPlan = async (token, plan) => {
                 'Authorization': `Bearer ${token}`,
             },
         });
-        console.log(response.data)
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error(error);
         throw error;
     }
 };
-export const getOptionalMatchs = async (token, plan) => {
-    const res = await api.get('/plans/optional/' + plan, {
+
+/**
+ * Retrieves optional matches for a plan.
+ * @param {string} token - Authorization token.
+ * @param {string} plan - Plan ID.
+ * @returns {Promise} Resolves to the optional match data.
+ */
+export const getOptionalMatches = async (token, plan) => {
+    const response = await api.get(`/plans/optional/${plan}`, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     });
-    return res.data;
+    return response.data;
 };
 
-
 /**
- * Swipes API
+ * Adds a swipe.
+ * @param {string} token - Authorization token.
+ * @param {string} swiperPlan - ID of the plan that is swiping.
+ * @param {string} swipedPlan - ID of the plan that is being swiped.
+ * @param {boolean} isLiked - Indicates whether the swipe is a like or dislike.
+ * @returns {Promise} Resolves to the added swipe data.
  */
 export const addSwipe = async (token, swiperPlan, swipedPlan, isLiked) => {
+    const response = await api.post('/swipes', {
+        swiperPlan,
+        swipedPlan,
+        isLiked
+    }, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response.data;
+};
 
-    const res = await api.post('/swipes',
-        { swiperPlan, swipedPlan, isLiked },
-        {
+/**
+ * Retrieves conversations.
+ * @param {string} token - Authorization token.
+ * @returns {Promise} Resolves to the conversation data.
+ */
+export const getConversations = async (token) => {
+    const response = await api.get('/conversations', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response.data;
+};
+
+/**
+ * Retrieves matches.
+ * @param {string} token - Authorization token.
+ * @returns {Promise} Resolves to the match data.
+ */
+export const getMatches = async (token) => {
+    const response = await api.get('/matches', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response.data;
+};
+
+/**
+ * Adds a message to a conversation.
+ * @param {string} token - Authorization token.
+ * @param {object} message - Message data.
+ * @param {string} message.match - ID of the match associated with the message.
+ * @param {string} message.sender - ID of the sender of the message.
+ * @param {string} message.text - Text content of the message.
+ * @returns {Promise} Resolves to the added message data.
+ */
+export const addMessage = async (token, { match, sender, text }) => {
+    try {
+        const response = await api.post('/messages', {
+            match,
+            sender,
+            text
+        }, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
-    return res.data;
-};
-
-/**
- * Conversations API
- */
-export const getConversations = async (token) => {
-    const res = await api.get('conversations', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
-    return res.data;
-};
-
-
-/**
- * Matches API
- */
-export const getMatches = async (token) => {
-    const res = await api.get('matches', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
-    return res.data;
-};
-
-/**
- * Messages API
- */
-export const addMessage = async (token, { match, sender, text }) => {
-    try {
-        const res = await api.post('/messages',
-            { match, sender, text },
-            {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-        return res.data;
+        return response.data;
     } catch (error) {
-        // Handle the error
         console.error('Error adding message:', error);
-        throw error; // re-throw the error so it can be caught further up the call stack
+        throw error;
     }
 };
