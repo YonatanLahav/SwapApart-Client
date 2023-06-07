@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import UserContext from '../../context/UserContext';
 import { NotificationsList } from './NotificationsList';
 
+
 /**
  * Component for rendering the notifications button and popover.
  *
@@ -17,7 +18,7 @@ import { NotificationsList } from './NotificationsList';
  */
 export default function NotificationsButton({ setActivePage, setActiveChat }) {
     const [anchorEl, setAnchorEl] = useState(null);
-    const { notifications, setNotifications } = useContext(UserContext);
+    const { notifications, setNotifications, handleDeleteNotifications } = useContext(UserContext);
 
     /**
      * Event handler for the button click event.
@@ -37,6 +38,7 @@ export default function NotificationsButton({ setActivePage, setActiveChat }) {
         setAnchorEl(null);
         if (notifications.length !== 0) {
             setNotifications([]);
+            handleDeleteNotifications();
         }
     };
 

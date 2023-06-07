@@ -12,7 +12,6 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import SwapHorizontalCircleIcon from "@mui/icons-material/SwapHorizontalCircle";
-import Button from "@mui/material/Button";
 import MeetingRoomOutlinedIcon from "@mui/icons-material/MeetingRoomOutlined";
 import HomePage from "../components/PageTemplateComponents/HomePage";
 import ChatPage from "../components/PageTemplateComponents/ChatPage";
@@ -21,10 +20,8 @@ import MenuList from "../components/PageTemplateComponents/MenuList";
 import SettingsPage from "../components/PageTemplateComponents/SettingsPage";
 import ContactUsPage from "../components/PageTemplateComponents/ContactUsPage";
 import UserContext from "../context/UserContext";
-import Badge from "@mui/material/Badge";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import Popover from "@mui/material/Popover";
 import NotificationsButton from "../components/PageTemplateComponents/NotificationsButton";
+
 const drawerWidth = 240;
 
 /**

@@ -1,7 +1,12 @@
-import React, { useState, useEffect, createContext, useRef } from 'react';
-import { login, register, fetchData, updateData } from '../utils/auth';
-import io from 'socket.io-client';
-import { getMatches, getPlans, getNotifications } from "../utils/api";
+import React, { useState, useEffect, createContext, useRef } from "react";
+import { login, register, fetchData, updateData } from "../utils/auth";
+import io from "socket.io-client";
+import {
+    getMatches,
+    getPlans,
+    getNotifications,
+    deleteNotifications,
+} from "../utils/api";
 
 // Create a new context for user-related data
 const UserContext = createContext();
@@ -20,12 +25,10 @@ export const UserProvider = ({ children }) => {
     const [conversations, setConversations] = useState([]); // Stores the user's conversations
     const socket = useRef(); // Reference to the socket instance
 
-
-
     // useEffect hook to run on component mount
     useEffect(() => {
         // Retrieve token from local storage
-        const storedToken = localStorage.getItem('token');
+        const storedToken = localStorage.getItem("token");
         if (storedToken) {
             // Set token state if it exists
             setToken(storedToken);
@@ -62,26 +65,34 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         if (token) {
             // Connect to the socket server
-            socket.current = io('http://localhost:5000');
+            socket.current = io("http://localhost:5000");
             // Emit an "add_user" event with the token
             socket.current.emit("add_user", token);
             // Listen for "msg_recieve" event to handle incoming messages
             socket.current.on("msg_recieve", (message) => {
                 const matchId = message.match;
-                const updatedConversations = conversations.map(conversation => {
+                const updatedConversations = conversations.map((conversation) => {
                     if (conversation._id === matchId) {
                         // Add the new message to the conversation's messages array
                         return {
                             ...conversation,
                             messages: [
                                 ...conversation.messages,
-                                { createdAt: Date.now(), sender: message.sender, text: message.text }
-                            ]
+                                {
+                                    createdAt: Date.now(),
+                                    sender: message.sender,
+                                    text: message.text,
+                                },
+                            ],
                         };
                     }
                     return conversation;
                 });
                 setConversations(updatedConversations);
+            });
+            socket.current.on("new_match_recieve", (newMatchId) => {
+                console.log(newMatchId);
+                setNotifications((prev) => [...prev, newMatchId]);
             });
         }
     }, [token, conversations]);
@@ -126,7 +137,7 @@ export const UserProvider = ({ children }) => {
      */
     const handleLogout = () => {
         // Remove token from local storage
-        localStorage.removeItem('token');
+        localStorage.removeItem("token");
         // Set token state to null
         setToken(null);
     };
@@ -145,6 +156,18 @@ export const UserProvider = ({ children }) => {
         setUserData(res);
     };
 
+    /**
+     * Handles the deletion of all notifications for the user.
+     */
+    const handleDeleteNotifications = async () => {
+        try {
+            deleteNotifications(token);
+        } catch (error) {
+            // Handle error
+            throw new Error(error.message);
+        }
+    };
+
     // Render the UserContext.Provider component with the provided values
     return (
         <UserContext.Provider
@@ -161,7 +184,8 @@ export const UserProvider = ({ children }) => {
                 plans,
                 setPlans,
                 notifications,
-                setNotifications
+                setNotifications,
+                handleDeleteNotifications,
             }}
         >
             {children}
