@@ -11,7 +11,7 @@ import UserContext from "../../context/UserContext";
  * ChatPage component represents the main chat page of the application.
  * It displays the left sidebar, active chat container, and right sidebar.
  */
-const ChatPage = ({activeChat, setActiveChat}) => {
+const ChatPage = ({ activeChat, setActiveChat }) => {
     const { token, socket, conversations, setConversations } = useContext(UserContext);
 
     /**
@@ -39,14 +39,14 @@ const ChatPage = ({activeChat, setActiveChat}) => {
         socket.current.emit("send_msg", message);
     };
 
-    // Fetches matches when the component is mounted
-    useEffect(() => {
-        const fetchMatches = async () => {
-            const matchesData = await getMatches(token);
-            setConversations(matchesData);
-        };
-        fetchMatches();
-    }, []);
+    // // Fetches matches when the component is mounted
+    // useEffect(() => {
+    //     const fetchMatches = async () => {
+    //         const matchesData = await getMatches(token);
+    //         setConversations(matchesData);
+    //     };
+    //     fetchMatches();
+    // }, []);
 
     return (
         <div style={{ position: "relative", height: "90vh" }}>
