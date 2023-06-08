@@ -88,11 +88,15 @@ export const UserProvider = ({ children }) => {
                     }
                     return conversation;
                 });
-                setConversations(updatedConversations);
+                const afterRemoveConvesation = updatedConversations.filter((c) => c._id !== matchId);
+                const newConversation = updatedConversations.find((c) => c._id === matchId);
+                setConversations([newConversation, ...afterRemoveConvesation]);
             });
-            socket.current.on("new_match_recieve", (newMatchId) => {
-                console.log(newMatchId);
-                setNotifications((prev) => [...prev, newMatchId]);
+            socket.current.on("new_match_recieve", ({ matchId, plainMatch }) => {
+                console.log("matchId: " + matchId);
+                console.log("matchedPlan: ", plainMatch);
+                setConversations((prev) => [plainMatch, ...prev]);
+                setNotifications((prev) => [...prev, matchId]);
             });
         }
     }, [token, conversations]);
