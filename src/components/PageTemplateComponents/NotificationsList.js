@@ -39,7 +39,7 @@ export const NotificationsList = ({ setActivePage, setActiveChat }) => {
         >
             <Divider />
             {notifications.map((notification) => {
-                const conversation = conversations.find((c) => c._id === notification);
+                const conversation = conversations.find((c) => c._id == notification);
                 const country = conversation.matchedUser.apartment.country;
                 const region = conversation.matchedUser.apartment.region;
                 const primaryText = `New Match Found in ${region}, ${country}!`;
