@@ -42,7 +42,9 @@ export const UserProvider = ({ children }) => {
             console.log(notificationsData);
             setNotifications(notificationsData);
         };
-        fetchNotifications();
+        if (token) {
+            fetchNotifications();
+        }
     }, [token]);
 
     useEffect(() => {
@@ -50,7 +52,9 @@ export const UserProvider = ({ children }) => {
             const plansData = await getPlans(token);
             setPlans(plansData);
         };
-        fetchPlans();
+        if (token) {
+            fetchPlans();
+        }
     }, [token]);
 
     useEffect(() => {
@@ -59,7 +63,9 @@ export const UserProvider = ({ children }) => {
             const matchesData = await getMatches(token);
             setConversations(matchesData);
         };
-        fetchMatches();
+        if (token) {
+            fetchMatches();
+        }
     }, [token]);
 
     useEffect(() => {
@@ -93,8 +99,6 @@ export const UserProvider = ({ children }) => {
                 setConversations([newConversation, ...afterRemoveConvesation]);
             });
             socket.current.on("new_match_recieve", ({ matchId, plainMatch }) => {
-                console.log("matchId: " + matchId);
-                console.log("matchedPlan: ", plainMatch);
                 setConversations((prev) => [plainMatch, ...prev]);
                 setNotifications((prev) => [...prev, matchId]);
             });
