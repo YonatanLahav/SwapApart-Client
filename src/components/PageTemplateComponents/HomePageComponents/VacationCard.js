@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import UserContext from "../../../context/UserContext";
 import { Conversation } from "@chatscope/chat-ui-kit-react";
+import { flexbox } from "@mui/system";
 
 const listItemTextStyle = {
     marginTop: 0,
@@ -175,6 +176,9 @@ function VacationCard({ plan, onClick, setPlanIndex, index, setActivePage, setAc
             key={MatchedPlan}
             onClick={() => handleClickUser(MatchedPlan)}
             style={{ cursor: 'pointer', marginBottom: '6px' }}
+            sx={{padding: '6px 6px',
+            borderRadius: '50px',
+            '&:hover': {backgroundColor: 'dodgerblue ', color: 'white'}}}
           >
             {MatchedPlan.matchedUser.firstName} {MatchedPlan.matchedUser.lastName}
           </Typography>

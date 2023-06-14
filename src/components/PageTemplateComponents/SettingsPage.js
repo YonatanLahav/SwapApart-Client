@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid, Container, Paper, Typography } from '@mui/material';
 import ApartDetails from './SettingsComponents/ApartDetails'
 import MainSettings from './SettingsComponents/MainSettings'
-import Info from './SettingsComponents/Info'
+// import Info from './SettingsComponents/Info'
 
 
 function SettingsPage({activeSettingsPage, setActiveSettingsPage }) {
@@ -13,8 +13,8 @@ function SettingsPage({activeSettingsPage, setActiveSettingsPage }) {
                 return <MainSettings setActiveSettingsPage={setActiveSettingsPage} />;
             case 1:
                 return <ApartDetails setActiveSettingsPage={setActiveSettingsPage} />;
-            case 2:
-                return <Info setActiveSettingsPage={setActiveSettingsPage} />;
+            // case 2:
+                // return <Info setActiveSettingsPage={setActiveSettingsPage} />;
             default:
                 throw new Error('Unknown step');
         }
@@ -26,9 +26,9 @@ function SettingsPage({activeSettingsPage, setActiveSettingsPage }) {
                 <Grid item xs={12}>
                     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                         {/* Header */}
-                        <Typography component="h1" variant="h4" align="center">
-                            Settings
-                        </Typography>
+                        {/* <Typography component="h1" variant="h4" align="center">
+                            Your Personal Details
+                        </Typography> */}
 
                         {getPageContent(activeSettingsPage)}
                     </Paper>
