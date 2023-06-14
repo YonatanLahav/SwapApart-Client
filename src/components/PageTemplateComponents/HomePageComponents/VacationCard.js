@@ -1,4 +1,4 @@
-import { React, useState, useContext, useEffect } from 'react';
+import { React, useState, useContext, useEffect } from "react";
 import {
   Card,
   CardMedia,
@@ -11,15 +11,18 @@ import {
   List,
   ListItem,
   ListItemText,
-  Dialog, DialogTitle, DialogContent, styled
-} from '@mui/material';
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  styled,
+} from "@mui/material";
 import UserContext from "../../../context/UserContext";
-import { Conversation } from '@chatscope/chat-ui-kit-react';
+import { Conversation } from "@chatscope/chat-ui-kit-react";
 
 const listItemTextStyle = {
   marginTop: 0,
   marginBottom: 0,
-  textAlign: 'center',
+  textAlign: "center",
 };
 
 /**
@@ -30,7 +33,14 @@ const listItemTextStyle = {
  * @param {Function} props.onClick - The function to handle the click event.
  * @returns {JSX.Element} The rendered VacationCard component.
  */
-function VacationCard({ plan, onClick, setPlanIndex, index, setActivePage, setActiveChat }) {
+function VacationCard({
+  plan,
+  onClick,
+  setPlanIndex,
+  index,
+  setActivePage,
+  setActiveChat,
+}) {
   /**
    * Retrieves the formatted start date of the vacation.
    *
@@ -38,7 +48,11 @@ function VacationCard({ plan, onClick, setPlanIndex, index, setActivePage, setAc
    */
   const getStartDate = () => {
     const startDate = new Date(plan.startDate);
-    return startDate.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    return startDate.toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
   };
 
   /**
@@ -48,7 +62,11 @@ function VacationCard({ plan, onClick, setPlanIndex, index, setActivePage, setAc
    */
   const getEndDate = () => {
     const endDate = new Date(plan.endDate);
-    return endDate.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    return endDate.toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
   };
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -64,34 +82,36 @@ function VacationCard({ plan, onClick, setPlanIndex, index, setActivePage, setAc
   const open = Boolean(anchorEl);
   const { conversations } = useContext(UserContext);
 
-  const [matchedUsers, setmatchedUsers] = useState([])
+  const [matchedUsers, setmatchedUsers] = useState([]);
   const findmatchedUsers = () => {
-    const arr = []
+    const arr = [];
     // console.log(conversations)
     conversations.map((conv) => {
       if (conv.plan._id.includes(plan._id)) {
-        arr.push(conv)
+        arr.push(conv);
       }
-    })
-    return arr
-  }
+    });
+    return arr;
+  };
 
   const handleClickUser = (conv) => {
-    setActiveChat(conv._id)
-    setActivePage(2)
+    setActiveChat(conv._id);
+    setActivePage(2);
   };
-  useEffect(() => { setmatchedUsers(findmatchedUsers) }, [conversations])
+  useEffect(() => {
+    setmatchedUsers(findmatchedUsers);
+  }, [conversations]);
 
   const StyledDialog = styled(Dialog)({
-    '& .MuiPaper-root': {
+    "& .MuiPaper-root": {
       minWidth: 300,
-      borderRadius: '8px',
+      borderRadius: "8px",
     },
   });
   const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
-    textAlign: 'center',
+    textAlign: "center",
     padding: theme.spacing(2),
   }));
 
@@ -99,70 +119,123 @@ function VacationCard({ plan, onClick, setPlanIndex, index, setActivePage, setAc
     padding: theme.spacing(2),
   }));
 
-
-
   return (
     <Card sx={{ maxWidth: 345, p: 0 }} onClick={onClick}>
-      <CardMedia component="img" height="140" src={`https://picsum.photos/400/300?${Math.random()}`} />
+      <CardMedia
+        component="img"
+        height="140"
+        src={`https://picsum.photos/400/300?${Math.random()}`}
+      />
       <CardContent sx={{ pb: 0 }}>
-        <Typography gutterBottom variant="h5" component="div" textAlign={'center'}>
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          textAlign={"center"}
+        >
           Vacation Details
         </Typography>
         <List dense sx={{ p: 0 }}>
           <Grid container>
             <Grid item xs={6}>
               <ListItem>
-                <ListItemText primary="Start Date:" secondary={getStartDate()} style={listItemTextStyle} />
+                <ListItemText
+                  primary="Start Date:"
+                  secondary={getStartDate()}
+                  style={listItemTextStyle}
+                />
               </ListItem>
             </Grid>
             <Grid item xs={6}>
               <ListItem>
-                <ListItemText primary="End Date:" secondary={getEndDate()} style={listItemTextStyle} />
+                <ListItemText
+                  primary="End Date:"
+                  secondary={getEndDate()}
+                  style={listItemTextStyle}
+                />
               </ListItem>
             </Grid>
             <Grid item xs={6}>
               <ListItem>
-                <ListItemText primary="Country" secondary={plan.country} style={listItemTextStyle} />
+                <ListItemText
+                  primary="Country"
+                  secondary={plan.country}
+                  style={listItemTextStyle}
+                />
               </ListItem>
             </Grid>
             <Grid item xs={6}>
               <ListItem>
-                <ListItemText primary="Region" secondary={plan.region} style={listItemTextStyle} />
+                <ListItemText
+                  primary="Region"
+                  secondary={plan.region}
+                  style={listItemTextStyle}
+                />
               </ListItem>
             </Grid>
             <Grid item xs={6}>
               <ListItem>
-                <ListItemText primary="City" secondary={plan.city} style={listItemTextStyle} />
+                <ListItemText
+                  primary="City"
+                  secondary={plan.city}
+                  style={listItemTextStyle}
+                />
               </ListItem>
             </Grid>
             <Grid item xs={6}>
               <ListItem>
-                <ListItemText primary="Rooms" secondary={plan.minRoomsNum} style={listItemTextStyle} />
+                <ListItemText
+                  primary="Rooms"
+                  secondary={plan.minRoomsNum}
+                  style={listItemTextStyle}
+                />
               </ListItem>
             </Grid>
             <Grid item xs={6}>
               <ListItem>
-                <ListItemText primary="Bathrooms" secondary={plan.minBathroomsNum} style={listItemTextStyle} />
+                <ListItemText
+                  primary="Bathrooms"
+                  secondary={plan.minBathroomsNum}
+                  style={listItemTextStyle}
+                />
               </ListItem>
             </Grid>
           </Grid>
         </List>
       </CardContent>
       <Divider />
-      <CardActions sx={{ justifyContent: 'space-between' }}>
-        <Button size="small" sx={{ '&:hover': { backgroundColor: 'blue', color: 'white', } }} onClick={handleClick}> {matchedUsers.length} Matchs </Button>
-        <Button size="small" sx={{ '&:hover': { backgroundColor: 'blue', color: 'white', } }} onClick={() => setPlanIndex(index)} >Find A Match</Button>
+      <CardActions sx={{ justifyContent: "space-between" }}>
+        <Button
+          size="small"
+          sx={{ "&:hover": { backgroundColor: "blue", color: "white" } }}
+          onClick={handleClick}
+        >
+
+          {matchedUsers.length} Matches
+        </Button>
+        <Button
+          size="small"
+          sx={{ "&:hover": { backgroundColor: "blue", color: "white" } }}
+          onClick={() => setPlanIndex(index)}
+        >
+          Find A Match
+        </Button>
       </CardActions>
-      <StyledDialog open={open} onClose={handleClose} >
-        <StyledDialogTitle id="match-dialog-title" sx={{ marginBottom: '8px' }}>{matchedUsers.length != 0 ? 'Matches with:' : 'No Matchs for this plan'}</StyledDialogTitle>
+      <StyledDialog open={open} onClose={handleClose}>
+        <StyledDialogTitle id="match-dialog-title" sx={{ marginBottom: "8px" }}>
+          {matchedUsers.length != 0
+            ? "Matches with:"
+            : "No Matchs for this plan"}
+        </StyledDialogTitle>
         <StyledDialogContent>
           {matchedUsers.map((MatchedPlan) => (
             <Typography
               key={MatchedPlan}
               onClick={() => handleClickUser(MatchedPlan)}
-              style={{ cursor: 'pointer', marginBottom: '6px' }}
+              style={{ cursor: "pointer", marginBottom: "6px" }}
             >
-              {MatchedPlan.matchedUser.firstName} {MatchedPlan.matchedUser.lastName}
+              {MatchedPlan.matchedUser.firstName}{" "}
+              {MatchedPlan.matchedUser.lastName}
             </Typography>
           ))}
         </StyledDialogContent>
