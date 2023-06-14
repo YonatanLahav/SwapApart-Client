@@ -4,8 +4,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers-pro';
 import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import Grid from '@mui/material/Grid';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 
 /**
  * A React functional component for rendering a form to pick relevant dates for a new vacation.
@@ -45,13 +43,6 @@ function PickDatesForm({ newVacation, setNewVacation }) {
                         />
                     </DemoContainer>
                 </LocalizationProvider>
-            </Grid>
-            <Grid item xs={3} display="flex" justifyContent="center">
-                <FormControlLabel
-                    control={<Switch defaultChecked />}
-                    label="Flexible Dates"
-                    labelPlacement="top"
-                />
             </Grid>
         </Grid>
     );
