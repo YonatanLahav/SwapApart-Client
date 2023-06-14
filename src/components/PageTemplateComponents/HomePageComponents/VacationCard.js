@@ -1,4 +1,4 @@
-import {React, useState, useContext, useEffect} from 'react';
+import {React, useState, useContext, useEffect} from "react";
 import {
     Card,
     CardMedia,
@@ -14,7 +14,7 @@ import {
     Dialog, DialogTitle, DialogContent, styled 
 } from '@mui/material';
 import UserContext from "../../../context/UserContext";
-import { Conversation } from '@chatscope/chat-ui-kit-react';
+import { Conversation } from "@chatscope/chat-ui-kit-react";
 
 const listItemTextStyle = {
     marginTop: 0,
@@ -75,21 +75,21 @@ function VacationCard({ plan, onClick, setPlanIndex, index, setActivePage, setAc
   }
 
   const handleClickUser = (conv) => {
-    setActiveChat(conv._id)
-    setActivePage(2)
+    setActiveChat(conv._id);
+    setActivePage(2);
   };
   useEffect(()=>{setmatchedUsers(findmatchedUsers)}, [conversations])
 
   const StyledDialog = styled(Dialog)({
-    '& .MuiPaper-root': {
+    "& .MuiPaper-root": {
       minWidth: 300,
-      borderRadius: '8px',
+      borderRadius: "8px",
     },
   });
   const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
-    textAlign: 'center',
+    textAlign: "center",
     padding: theme.spacing(2),
   }));
   
