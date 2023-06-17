@@ -136,6 +136,10 @@ export const UserProvider = ({ children }) => {
         const res = await register(user);
         // Set token state with the result of the register function
         setToken(res);
+        // Fetch user data using the obtained token
+        const respo = await fetchData(res);
+        // Set user data state with the result of the fetch function
+        setUserData(respo);
         // Return the registration result
         return res;
     };
