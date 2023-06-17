@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle';
-import myImage from '../swap-houses.jpg'
+import myImage from '../swap-houses.png'
 
 const theme = createTheme();
 

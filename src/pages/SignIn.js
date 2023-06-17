@@ -16,7 +16,7 @@ import Toolbar from '@mui/material/Toolbar';
 import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle';
 import { useContext } from 'react';
 import UserContext from '../context/UserContext';
-import myImage from '../swap-houses.jpg'
+import myImage from '../swap-houses.png'
 
 const theme = createTheme();
 
@@ -43,12 +43,13 @@ export default function SignIn() {
         const email = form.get('email');
         const password = form.get('password');
         console.log(email, password)
-        try{
-        const res = await handleLogin(email, password);
-        if (res) {
-            navigate('/home');
-        }}
-        catch(e) { setError('Invalid email or password') }
+        try {
+            const res = await handleLogin(email, password);
+            if (res) {
+                navigate('/home');
+            }
+        }
+        catch (e) { setError('Invalid email or password') }
     };
 
     /**
